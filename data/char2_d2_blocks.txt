@@ -1,0 +1,6 @@
+﻿q =   2 (k = 1): empty blocks e = [1]  (Tr(e) = [1]);  count distribution {0: 1, 1: 1};  mean 0.50 = (q^2 - 1)/4 ? 0.75
+q =   4 (k = 2): empty blocks e = [0]  (Tr(e) = [0]);  count distribution {0: 1, 4: 3};  mean 3.00 = (q^2 - 1)/4 ? 3.75
+q =   8 (k = 3): empty blocks e = []  (Tr(e) = []);  count distribution {12: 7, 28: 1};  mean 14.00 = (q^2 - 1)/4 ? 15.75
+q =  16 (k = 4): empty blocks e = [0]  (Tr(e) = [0]);  count distribution {0: 1, 64: 15};  mean 60.00 = (q^2 - 1)/4 ? 63.75
+q =  32 (k = 5): empty blocks e = []  (Tr(e) = []);  count distribution {240: 31, 496: 1};  mean 248.00 = (q^2 - 1)/4 ? 255.75
+q =  64 (k = 6): empty blocks e = [0]  (Tr(e) = [0]);  count distribution {0: 1, 1024: 63};  mean 1008.00 = (q^2 - 1)/4 ? 1023.75
