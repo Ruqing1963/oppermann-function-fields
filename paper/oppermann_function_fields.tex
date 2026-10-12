@@ -88,8 +88,11 @@ k\text{ even} & 0 & q^2/4\\
 k\text{ odd} & q(q-1)/2 & q(q-2)/4
 \end{array}
 \]
-In particular $O_{f,c}$ is empty if and only if either $k$ is even and $c=a_1^2$, or $q=2$ and $c=a_1^2+1$; this gives
-$q^2$ empty sub-intervals for every $q\in\{2,4,16,64,\dots\}$ and none for $q\in\{8,32,128,\dots\}$.
+The table has two zero entries: $k$ even with $e=0$, and $q(q-2)/4$ at $q=2$ (where $k=1$ is odd). Hence
+$O_{f,c}$ is empty if and only if either $k$ is even and $c=a_1^2$, or $q=2$ and $c=a_1^2+1$. For $q=2$ the block
+$e=0$ is \emph{not} empty: it contains $q(q-1)/2=1$ irreducible, $t^4+t+1$. In both cases the empty pairs $(f,c)$
+number $q^2$, one $c$ for each of the $q^2$ polynomials $f$. So there are $q^2$ empty sub-intervals for every
+$q\in\{2,4,16,64,\dots\}$, and none for $q\in\{8,32,128,\dots\}$.
 \item[(C)] For $q=2$ and $d=4$ the block $\{t^8+s:\deg s\le3\}$ contains no irreducible polynomial; it is
 $O_{f,c}$ for the $8$ pairs $f=t^4+a_2t^2+a_1t+a_0$, $c=a_2$.
 \end{enumerate}
@@ -129,10 +132,23 @@ exactly $q$ pairs $(f,c)$.
 \end{lemma}
 
 \begin{proof}
-Write $f=t^d+a_{d-1}t^{d-1}+\dots+a_0$. The coefficient of $t^{2d-j}$ in $f^2$ ($1\le j\le d$) is
-$2a_{d-j}+\Phi_j(a_{d-1},\dots,a_{d-j+1})$. Since $2$ is invertible, the coefficients of $t^{2d-1},\dots,t^{d+1}$
-determine $a_{d-1},\dots,a_1$ uniquely, and the coefficient of $t^d$ in $f^2+ct^d$ is $2a_0+\Phi_d+c$, which takes a
-prescribed value for exactly $q$ pairs $(a_0,c)$.
+Write $f=\sum_{i=0}^da_it^i$ with $a_d=1$. For $1\le j\le d$ the coefficient of $t^{2d-j}$ in $f^2$ is
+\[
+[f^2]_{2d-j}=\sum_{\substack{i+i'=2d-j\\ 0\le i,i'\le d}}a_ia_{i'}
+=2a_{d-j}+\Phi_j,\qquad
+\Phi_j=\sum_{\substack{i+i'=2d-j\\ d-j<i,\,i'<d}}a_ia_{i'} ,
+\]
+where the term $2a_{d-j}=2a_da_{d-j}$ comes from $\{i,i'\}=\{d,d-j\}$. The sum $\Phi_j$ runs over ordered pairs, so
+it includes the square $a_{d-j/2}^2$ when $j$ is even. $\Phi_j$ depends only on $a_{d-1},\dots,a_{d-j+1}$; for
+example $\Phi_1=0$, $\Phi_2=a_{d-1}^2$, $\Phi_3=2a_{d-1}a_{d-2}$.
+
+The map $(a_{d-1},\dots,a_1)\mapsto([f^2]_{2d-1},\dots,[f^2]_{d+1})$ is therefore triangular with diagonal entries
+$2$. Since $2\in\F_q^\times$, it is a bijection $\F_q^{d-1}\to\F_q^{d-1}$: the prefix of a class determines
+$a_{d-1},\dots,a_1$ uniquely, by solving $a_{d-j}=([f^2]_{2d-j}-\Phi_j)/2$ for $j=1,\dots,d-1$ in turn.
+
+The remaining coefficient of the class is that of $t^d$ in $f^2+ct^d$, namely $2a_0+\Phi_d+c$, where $\Phi_d$ is
+already fixed. For each of the $q$ values of $a_0$ there is exactly one $c$ giving the prescribed value. So every
+class arises, and from exactly $q$ of the $q^{d+1}$ pairs $(f,c)$.
 \end{proof}
 
 So in odd characteristic the Oppermann question at degree $2d$ is the question whether \emph{every} short interval of
@@ -379,11 +395,28 @@ $\log x$. So no degree threshold beyond which $O_{f,c}\ne\emptyset$ follows from
 Theorem~\ref{thm:main2} shows that in characteristic $2$ no such threshold can be uniform in $q$ for $d=2$.
 
 Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) bound the number of intervals that
-deviate by a given amount; they do not exclude a single empty interval. For fixed degree and $q\to\infty$, the
-Galois-theoretic method of Bank, Bary-Soroker and Rosenzweig \cite{BBR} gives asymptotics for primes in short
-intervals in a range of lengths; our blocks $B_e$ have the form $\{P+s:\deg s\le1\}$ in degree $4$, and
-Theorem~\ref{thm:main2}(B) gives a family $q=4^j\to\infty$ with zero primes, so any such asymptotic must exclude this
-length in characteristic $2$. We refer to \cite{BBR} for the precise range of validity.
+deviate by a given amount; they do not exclude a single empty interval.
+
+For fixed degree and $q\to\infty$, Bank, Bary-Soroker and Rosenzweig \cite{BBR} prove the following. For monic
+$f\in\F_q[t]$ of degree $k$ and $1\le m<k$, the number $N$ of irreducibles in $\{f+h:\deg h\le m\}$ satisfies
+\[
+\bigl|N-q^{m+1}/k\bigr|\le c(k)\,q^{m+1/2},
+\]
+provided that $m\ge2$ if $\gcd(q,k(k-1))>1$, and $m\ge3$ if $q$ is even and $\deg f'\le1$. They also note that the
+estimate fails outside this range.
+
+Our blocks $B_e=\{t^4+et^2+h:\deg h\le1\}$ have $k=4$ and $m=1$, and in characteristic $2$ the centre
+$f=t^4+et^2$ has $f'=0$, so both conditions exclude them. Theorem~\ref{thm:main2}(B) gives the exact count at this
+excluded point and shows how the asymptotic fails:
+\begin{itemize}
+\item for $q=4^j$ the block $e=0$ contains no irreducible, while the expected count is $q^2/4$;
+\item for $q=2^{2j+1}$ the block $e=0$ contains $q(q-1)/2$, about twice the expected count.
+\end{itemize}
+The blocks $e\ne0$, with $q^2/4$ and $q(q-2)/4$ irreducibles, do agree with the asymptotic. The obstruction comes
+from the additive structure of $t^4+et^2+\alpha t$ (Proposition~\ref{prop:agl}). For $m=1$, $k=4$ and $q$ even,
+the conditions of \cite{BBR} therefore cannot be dropped.
+
+Theorem~\ref{thm:main2}(C) has $q=2$ fixed, so it lies outside the $q\to\infty$ regime altogether.
 
 \section{Questions}
 \begin{enumerate}

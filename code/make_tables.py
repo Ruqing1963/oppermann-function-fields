@@ -31,7 +31,9 @@ def table(rows, qs, last, label, caption):
         for i, d in enumerate(show):
             r = rows[q][d]
             qcol = f"{q}" if i == 0 else ""
-            out.append(f"{qcol} & {d} & {r['ncl']:,} & {r['mn']:,} & {r['mean']:,.1f} & {r['ratio']:.4f}\\\\"
+            mn = r"\textbf{0}" if r["mn"] == 0 else f"{r['mn']:,}"
+            ratio = r"\textbf{0}" if r["mn"] == 0 else f"{r['ratio']:.4f}"
+            out.append(f"{qcol} & {d} & {r['ncl']:,} & {mn} & {r['mean']:,.1f} & {ratio}\\\\"
                        .replace(",", "\\,"))
         if q != qs[-1]:
             out.append(r"\addlinespace")
