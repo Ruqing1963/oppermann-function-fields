@@ -2,3 +2,8 @@
 *.pyc
 ai_studio_code*.txt
 实战指令集.txt
+
+paper/*.aux
+paper/*.log
+paper/*.out
+__pycache__/

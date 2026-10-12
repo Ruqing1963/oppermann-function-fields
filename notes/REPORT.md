@@ -1,5 +1,12 @@
 # Oppermann intervals in F_q[t]: what is true, what is proved, what is out of reach
 
+> **Update (second round).** The results below are superseded and extended by `paper/oppermann_function_fields.tex`:
+> - Proposition B is now an exact count for every d = 2 block in characteristic 2, via AGL₂(F₂).
+> - The q = 2, d = 4 block is explained by the Stickelberger–Swan sign.
+> - The census is extended with the Hayes FFT, for example q = 3 to d = 16 and q = 2 to d = 26.
+>
+> This file records the first round.
+
 Independent project, 2026-10-12. Parts I–IV are not modified. Scripts in `code/`, outputs in `data/`.
 
 ## 1. The statement

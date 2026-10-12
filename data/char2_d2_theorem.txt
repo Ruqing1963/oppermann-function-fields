@@ -1,0 +1,6 @@
+﻿q =    2: violations of (i) 0, (ii) 0, (iii) 0
+q =    4: violations of (i) 0, (ii) 0, (iii) 0
+q =    8: violations of (i) 0, (ii) 0, (iii) 0
+q =   16: violations of (i) 0, (ii) 0, (iii) 0
+q =   32: violations of (i) 0, (ii) 0, (iii) 0
+q =   64: violations of (i) 0, (ii) 0, (iii) 0

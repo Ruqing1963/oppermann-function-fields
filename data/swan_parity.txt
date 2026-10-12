@@ -1,0 +1,40 @@
+﻿d =  1  n =  2  |Z_d| =     2  squarefree     0  disc = 5 mod 8:     0  irreducible     0  Stickelberger violations 0
+    t**2                                     factors (deg,mult) [(1, 2)]  disc mod 8 = None
+    t**2 + 1                                 factors (deg,mult) [(1, 2)]  disc mod 8 = None
+d =  2  n =  4  |Z_d| =     4  squarefree     2  disc = 5 mod 8:     2  irreducible     1  Stickelberger violations 0
+    t**4                                     factors (deg,mult) [(1, 4)]  disc mod 8 = None
+    t**4 + 1                                 factors (deg,mult) [(1, 4)]  disc mod 8 = None
+    t**4 + t                                 factors (deg,mult) [(2, 1), (1, 1), (1, 1)]  disc mod 8 = 5
+    t**4 + t + 1                             factors (deg,mult) [(4, 1)]  disc mod 8 = 5
+d =  3  n =  6  |Z_d| =     8  squarefree     4  disc = 5 mod 8:     3  irreducible     1  Stickelberger violations 0
+    t**6                                     factors (deg,mult) [(1, 6)]  disc mod 8 = None
+    t**6 + 1                                 factors (deg,mult) [(2, 2), (1, 2)]  disc mod 8 = None
+    t**6 + t                                 factors (deg,mult) [(4, 1), (1, 1), (1, 1)]  disc mod 8 = 5
+    t**6 + t + 1                             factors (deg,mult) [(6, 1)]  disc mod 8 = 5
+    t**6 + t**2                              factors (deg,mult) [(1, 4), (1, 2)]  disc mod 8 = None
+    t**6 + t**2 + 1                          factors (deg,mult) [(3, 2)]  disc mod 8 = None
+    t**6 + t**2 + t                          factors (deg,mult) [(3, 1), (2, 1), (1, 1)]  disc mod 8 = 5
+    t**6 + t**2 + t + 1                      factors (deg,mult) [(5, 1), (1, 1)]  disc mod 8 = 1
+d =  4  n =  8  |Z_d| =    16  squarefree     8  disc = 5 mod 8:     2  irreducible     0  Stickelberger violations 0
+    t**8                                     factors (deg,mult) [(1, 8)]  disc mod 8 = None
+    t**8 + 1                                 factors (deg,mult) [(1, 8)]  disc mod 8 = None
+    t**8 + t                                 factors (deg,mult) [(3, 1), (3, 1), (1, 1), (1, 1)]  disc mod 8 = 1
+    t**8 + t + 1                             factors (deg,mult) [(6, 1), (2, 1)]  disc mod 8 = 1
+    t**8 + t**2                              factors (deg,mult) [(2, 2), (1, 2), (1, 2)]  disc mod 8 = None
+    t**8 + t**2 + 1                          factors (deg,mult) [(4, 2)]  disc mod 8 = None
+    t**8 + t**2 + t                          factors (deg,mult) [(7, 1), (1, 1)]  disc mod 8 = 1
+    t**8 + t**2 + t + 1                      factors (deg,mult) [(7, 1), (1, 1)]  disc mod 8 = 1
+    t**8 + t**3                              factors (deg,mult) [(4, 1), (1, 3), (1, 1)]  disc mod 8 = None
+    t**8 + t**3 + 1                          factors (deg,mult) [(5, 1), (3, 1)]  disc mod 8 = 1
+    t**8 + t**3 + t                          factors (deg,mult) [(5, 1), (2, 1), (1, 1)]  disc mod 8 = 5
+    t**8 + t**3 + t + 1                      factors (deg,mult) [(6, 1), (1, 2)]  disc mod 8 = None
+    t**8 + t**3 + t**2                       factors (deg,mult) [(6, 1), (1, 2)]  disc mod 8 = None
+    t**8 + t**3 + t**2 + 1                   factors (deg,mult) [(5, 1), (2, 1), (1, 1)]  disc mod 8 = 5
+    t**8 + t**3 + t**2 + t                   factors (deg,mult) [(4, 1), (1, 3), (1, 1)]  disc mod 8 = None
+    t**8 + t**3 + t**2 + t + 1               factors (deg,mult) [(5, 1), (3, 1)]  disc mod 8 = 1
+d =  5  n = 10  |Z_d| =    32  squarefree    16  disc = 5 mod 8:    10  irreducible     4  Stickelberger violations 0
+d =  6  n = 12  |Z_d| =    64  squarefree    32  disc = 5 mod 8:    20  irreducible     6  Stickelberger violations 0
+d =  7  n = 14  |Z_d| =   128  squarefree    64  disc = 5 mod 8:    42  irreducible     9  Stickelberger violations 0
+d =  8  n = 16  |Z_d| =   256  squarefree   128  disc = 5 mod 8:    64  irreducible    10  Stickelberger violations 0
+d =  9  n = 18  |Z_d| =   512  squarefree   256  disc = 5 mod 8:   130  irreducible    28  Stickelberger violations 0
+d = 10  n = 20  |Z_d| =  1024  squarefree   512  disc = 5 mod 8:   280  irreducible    49  Stickelberger violations 0

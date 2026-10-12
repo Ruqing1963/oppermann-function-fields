@@ -2,29 +2,56 @@
 
 Independent of the Legendre-interval repositories, Parts I–IV.
 
-The question: does every Oppermann sub-interval O_{f,c} = {f² + c·f + s : deg s < d} contain an irreducible polynomial? Here f is monic of degree d over F_q, c ∈ F_q, and for q = 2 the two values of c give the two Oppermann halves.
+For monic f of degree d, the Legendre interval {f² + s : deg s ≤ d} splits into q **Oppermann sub-intervals**
 
-## Findings so far
+  O_{f,c} = {f² + c·f + s : deg s < d},  c ∈ F_q,
 
-The answer is **no in characteristic 2**:
-- d = 1, every even q: the c = 0 piece consists of squares.
-- d = 2, q = 4^j: there are q² empty sub-intervals, by a resolvent-cubic argument.
-- q = 2, d = 4: one sporadic empty block.
+each of size q^d. For q = 2 these are the two halves, the analogue of (n², n²+n) and (n²+n, (n+1)²). Does every O_{f,c} contain an irreducible polynomial?
 
-The answer is **yes in every other computed case**: all q^{2d} ≤ 2²⁶, including q = 3, 5, 7, 9, 11, 13 for every degree in range.
+The preprint draft is `paper/oppermann_function_fields.tex`.
 
-The Weil/explicit-formula bound is exactly at the square-root barrier, |Ψ − q^d| ≤ (d − 1)q^d, so it cannot prove the statement for any d ≥ 2. See `notes/REPORT.md`.
+## Results
+
+**Characteristic 2: no, and the failures are explained completely (proved).**
+- **(A) d = 1:** the c = 0 piece consists of squares.
+- **(B) d = 2:** O_{f,c} = {t⁴ + e t² + αt + β}, with e = a₁² + c. Its exact number of irreducibles is:
+
+  | | e = 0 | e ≠ 0 |
+  |---|---|---|
+  | k even | 0 | q²/4 |
+  | k odd | q(q−1)/2 | q(q−2)/4 |
+
+  The proof lets Frobenius act on the roots of the additive polynomial t⁴ + e t² + αt through AGL₂(F₂) ≅ S₄. The criterion is Tr(e³/α²) ≠ Tr(1). Consequently there are empty sub-intervals exactly for q = 2 and q = 4^j.
+- **(C) q = 2, d = 4:** the block {t⁸ + s : deg s ≤ 3} contains no irreducible. This follows from the Stickelberger–Swan sign of Frobenius: when 8 | deg, the sign is decided by the tail alone.
+
+**Odd characteristic: yes, in the whole computed range (computer-assisted).**
+- Every Hayes class of level d is an Oppermann sub-interval.
+- Exact counts come from the Hayes explicit formula, using the FFT algorithm of Part I at level l = d.
+- Every sub-interval contains irreducibles for q = 3, d ≤ 16; q = 5, d ≤ 10; q = 7, d ≤ 9; q = 9, d ≤ 8; q = 11, d ≤ 7; q = 13, d ≤ 6.
+
+**Characteristic 2, computed range:** there are no empty Oppermann sub-intervals beyond (A)–(C) for q = 2, d ≤ 26; q = 4, d ≤ 13; q = 8, d ≤ 7; q = 16, d ≤ 5.
+
+**Limits of the method:** the Weil bound gives only |Ψ − q^d| ≤ (d − 1)q^d. This is the square-root barrier, so it proves nothing pointwise for d ≥ 2.
 
 ## Files
 
-- `code/verify_pointwise_oppermann.py` → `data/oppermann_census.txt`: an exhaustive census of irreducibles in every sub-interval, with numba and a Ben-Or irreducibility test.
-- `code/char2_d2_blocks.py`: the d = 2 blocks {t⁴ + e t² + αt + β} in characteristic 2.
-- `code/fqlib.py`, `code/small_q_gf.py`: finite-field tables, copied from Part I.
+| file | purpose |
+|---|---|
+| `code/hayes_oppermann.py` | exact counts in all Oppermann sub-intervals (Hayes explicit formula + FFT) → `data/hayes_oppermann_census.txt` |
+| `code/verify_pointwise_oppermann.py` | brute-force Ben-Or census, q^{2d} ≤ 2²⁶ → `data/oppermann_census.txt` (cross-check) |
+| `code/char2_d2_blocks.py`, `code/char2_d2_theorem.py` | d = 2 in characteristic 2: block counts and the exact formula, q ≤ 64 |
+| `code/swan_parity.py` | zero blocks {t^{2d} + s} over F₂: factorisation, disc mod 8, Stickelberger check → `data/swan_parity.txt` |
+| `code/make_figure.py` | `figures/oppermann_min_ratio.pdf` |
+| `code/hayes_fft_fq.py`, `code/fqlib.py`, `code/small_q_gf.py` | finite-field and Hayes-group routines copied from Part I (unchanged) |
+| `notes/REPORT.md` | working notes |
 
 Run with:
 
 ```
 cd code
-python verify_pointwise_oppermann.py 26 > ../data/oppermann_census.txt
-python char2_d2_blocks.py 6
+python hayes_oppermann.py 3 1 16 <tmpdir>      # q d_min d_max [memmap dir]
+python char2_d2_theorem.py 6
+python swan_parity.py 10
+python make_figure.py
+cd ../paper && pdflatex oppermann_function_fields.tex
 ```
