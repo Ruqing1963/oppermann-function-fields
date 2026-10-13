@@ -38,7 +38,7 @@ def main():
     dmax = int(sys.argv[1]) if len(sys.argv) > 1 else 8
     for d in range(1, dmax + 1):
         n = 2 * d
-        n_sqfree = n_sign_ok = n_irr = 0
+        n_sqfree = n_sign_ok = n_irr = n_sign_noroot = 0
         bad = 0
         lines = []
         for coeffs, P in members(d):
@@ -53,12 +53,14 @@ def main():
                 if (D == 1) != (r % 2 == n % 2):
                     bad += 1
                 n_sign_ok += (D == 5)
+                noroot = coeffs[0] == 1 and (1 + sum(coeffs)) % 2 == 1      # P(0) = P(1) = 1
+                n_sign_noroot += (D == 5 and noroot)
             else:
                 D = None
             if d <= 4:
                 lines.append(f"    {str(P):40s} factors (deg,mult) {pat}  disc mod 8 = {D}")
         print(f"d = {d:2d}  n = {n:2d}  |Z_d| = {1 << d:5d}  squarefree {n_sqfree:5d}  "
-              f"disc = 5 mod 8: {n_sign_ok:5d}  irreducible {n_irr:5d}  Stickelberger violations {bad}")
+              f"disc = 5 mod 8: {n_sign_ok:5d}  (no root in F_2: {n_sign_noroot:5d})  irreducible {n_irr:5d}  Stickelberger violations {bad}")
         for ln in lines:
             print(ln)
         sys.stdout.flush()

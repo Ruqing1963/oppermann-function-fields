@@ -34,6 +34,9 @@ counterexamples in characteristic~$2$ and a computer-assisted theorem in odd cha
 \email{ruqing@hotmail.com}
 \thanks{Draft, October 2026. Code and data in the accompanying repository (directories \texttt{code/}, \texttt{data/}).}
 \date{\today}
+\subjclass[2020]{Primary 11T55; Secondary 11T06, 11N05, 11Y16}
+\keywords{Oppermann's conjecture, function fields, irreducible polynomials, short intervals, Hayes characters,
+Stickelberger--Swan theorem, explicit formula}
 
 \begin{document}
 
@@ -51,7 +54,9 @@ characteristic every class of the Hayes group of level $d$ is an Oppermann sub-i
 with the Hayes explicit formula shows that all of them contain irreducibles for $q=3$, $d\le16$; $q=5$, $d\le10$;
 $q=7$, $d\le9$; $q=9$, $d\le8$; $q=11$, $d\le7$; $q=13$, $d\le6$. In characteristic~$2$ the same computation, for
 $q\in\{2,4,8,16\}$ up to $q^d\le2^{26}$, finds no empty Oppermann sub-interval beyond (A)--(C). The Weil bound sits
-exactly at the square-root barrier for these intervals and cannot prove nonemptiness for any $d\ge2$.
+at the square-root barrier for these intervals. For $d=2$ it gives $\Psi\ge q$, and in the empty classes of (B)
+this is attained exactly, by fourth powers of linear polynomials. For fixed $d$ and large $q$, the theorem of Bank,
+Bary-Soroker and Rosenzweig gives nonemptiness in most cases; we determine which.
 \end{abstract}
 
 \maketitle
@@ -78,7 +83,8 @@ halves. We call $O_{f,c}$ the \emph{Oppermann sub-intervals} and ask:
 \begin{theorem}[characteristic $2$]\label{thm:main2}
 Let $q=2^k$.
 \begin{enumerate}
-\item[(A)] For $d=1$ the $q$ sub-intervals $O_{f,0}$ consist of squares.
+\item[(A)] For $d=1$ the sub-interval $O_{f,0}=\{t^2+s_0:s_0\in\F_q\}$, which is the same set for all $q$
+polynomials $f$, consists of squares. Every $O_{f,c}$ with $c\ne0$ contains exactly $q/2$ irreducibles.
 \item[(B)] For $d=2$ and $f=t^2+a_1t+a_0$, the number of irreducibles in $O_{f,c}$ depends only on $e=a_1^2+c$ and
 equals
 \[
@@ -90,11 +96,12 @@ k\text{ odd} & q(q-1)/2 & q(q-2)/4
 \]
 The table has two zero entries: $k$ even with $e=0$, and $q(q-2)/4$ at $q=2$ (where $k=1$ is odd). Hence
 $O_{f,c}$ is empty if and only if either $k$ is even and $c=a_1^2$, or $q=2$ and $c=a_1^2+1$. For $q=2$ the block
-$e=0$ is \emph{not} empty: it contains $q(q-1)/2=1$ irreducible, $t^4+t+1$. In both cases the empty pairs $(f,c)$
-number $q^2$, one $c$ for each of the $q^2$ polynomials $f$. So there are $q^2$ empty sub-intervals for every
-$q\in\{2,4,16,64,\dots\}$, and none for $q\in\{8,32,128,\dots\}$.
-\item[(C)] For $q=2$ and $d=4$ the block $\{t^8+s:\deg s\le3\}$ contains no irreducible polynomial; it is
-$O_{f,c}$ for the $8$ pairs $f=t^4+a_2t^2+a_1t+a_0$, $c=a_2$.
+$e=0$ is \emph{not} empty: it contains $q(q-1)/2=1$ irreducible, $t^4+t+1$. For every
+$q\in\{2,4,16,64,\dots\}$ there is thus exactly one empty sub-interval as a set: $B_0$, or $B_1$ when $q=2$. It is
+represented by $q^2$ pairs $(f,c)$, one $c$ for each of the $q^2$ polynomials $f$. For $q\in\{8,32,128,\dots\}$
+there is none.
+\item[(C)] For $q=2$ and $d=4$ the block $Z_4=\{t^8+s:\deg s\le3\}$ contains no irreducible polynomial. It equals
+$O_{f,c}$ for the $8$ pairs $f=t^4+a_2t^2+a_1t+a_0$ (that is, $a_3=0$), $c=a_2$.
 \end{enumerate}
 \end{theorem}
 
@@ -112,6 +119,13 @@ For $q=2$, $d\le26$; $q=4$, $d\le13$; $q=8$, $d\le7$; $q=16$, $d\le5$, the only 
 those of Theorem~\ref{thm:main2}.
 \end{theorem}
 
+For fixed $d$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig \cite{BBR} settles the question in most
+cases (Corollary~\ref{cor:BBR}). The tables above therefore matter mainly for small $q$, where that theorem gives
+nothing.
+
+Throughout, a \emph{sub-interval} means the set $O_{f,c}$. Distinct pairs $(f,c)$ can give the same set; counts of
+sub-intervals are counts of sets, that is, of Hayes classes.
+
 Section~\ref{sec:classes} identifies the Oppermann sub-intervals with Hayes classes and explains why
 characteristic~$2$ is special: the Oppermann classes are concentrated on prefixes close to squares.
 Section~\ref{sec:char2} proves Theorem~\ref{thm:main2}. Section~\ref{sec:comp} describes the exact computation behind
@@ -121,9 +135,16 @@ go further.
 \section{Oppermann sub-intervals as Hayes classes}\label{sec:classes}
 
 For $P$ monic of degree $n$ write $P=t^n+p_{n-1}t^{n-1}+\dots+p_0$. Two monic polynomials of degree $n$ lie in the
-same \emph{Hayes class of level $l$} if they agree in $p_{n-1},\dots,p_{n-l}$; the classes are the cosets of a group
-$G_l$ of order $q^l$ (the series $1+p_{n-1}u+\dots+p_{n-l}u^l\bmod u^{l+1}$ under multiplication), and their
-characters are the short-interval characters of Hayes \cite{Hayes} and Keating--Rudnick \cite{KR}. By
+same \emph{Hayes class of level $l$} if they agree in $p_{n-1},\dots,p_{n-l}$. Each class is a coset
+$P+\{s:\deg s<n-l\}$, and the map
+\[
+P\mapsto u^nP(1/u)\bmod u^{l+1}=1+p_{n-1}u+\dots+p_{n-l}u^l
+\]
+identifies the classes with the elements of the multiplicative group $G_l=(1+u\F_q[u])/(1+u^{l+1}\F_q[u])$ of order
+$q^l$. This map is multiplicative: $\mathrm{class}(PQ)=\mathrm{class}(P)\,\mathrm{class}(Q)$ in $G_l$. The characters
+of $G_l$ are the short-interval characters of Hayes \cite{Hayes} and Keating--Rudnick \cite{KR}. A character has
+\emph{exact level} $j$ if it factors through $G_j$ but not through $G_{j-1}$. There are $q^j-q^{j-1}$ characters of
+exact level $j$, for $1\le j\le l$. By
 \eqref{eq:Ofc}, $O_{f,c}$ is the Hayes class of level $d$ and degree $n=2d$ containing $f^2+ct^d$.
 
 \begin{lemma}[odd $q$]\label{lem:odd}
@@ -155,15 +176,23 @@ So in odd characteristic the Oppermann question at degree $2d$ is the question w
 length $q^d=q^{n/2}$ contains a prime: no class is singled out.
 
 \begin{lemma}[$q$ even]\label{lem:even}
-If $q$ is even, $O_{f,c}$ is the class whose prefix has coefficient $0$ at every odd $j$ with $d<j<2d$ and arbitrary
-coefficients at $j=d$ and at the even $j$ with $d<j<2d$. There are $q^{\lceil d/2\rceil}$ such classes among the $q^d$
-classes of level $d$.
+Let $q$ be even. The Oppermann sub-intervals are exactly the Hayes classes of level $d$ (in degree $2d$) in which the
+coefficient of $t^j$ is $0$ for every odd $j$ with $d<j<2d$. The coefficients of $t^d$ and of $t^j$ for even $j$ with
+$d<j<2d$ are arbitrary. There are $q^{\lceil d/2\rceil}$ such classes among the $q^d$ classes of level $d$, and each
+of them equals $O_{f,c}$ for exactly $q^{\lfloor d/2\rfloor+1}$ pairs $(f,c)$.
 \end{lemma}
 
 \begin{proof}
-In characteristic $2$, $f^2=\sum a_i^2t^{2i}$ has no odd terms, and $a\mapsto a^2$ is bijective on $\F_q$; the
-coefficient at $t^d$ is shifted by $c$.
+In characteristic $2$, $f^2=\sum a_i^2t^{2i}$ has no odd terms, $a\mapsto a^2$ is bijective on $\F_q$, and the
+coefficient of $t^d$ is shifted by $c$. This identifies the classes that occur.
+
+For the count, note that $a\mapsto a^2$ is additive. So the map $(f,c)\mapsto\mathrm{prefix}(f^2+ct^d)$ is a
+surjective homomorphism of additive groups from $\F_q^{d+1}$, the coefficients $(a_0,\dots,a_{d-1},c)$, onto
+$\F_q^{\lceil d/2\rceil}$. Its fibres therefore all have size $q^{d+1-\lceil d/2\rceil}=q^{\lfloor d/2\rfloor+1}$.
 \end{proof}
+
+For example, the empty classes of Theorem~\ref{thm:main2} at $d=1$, $2$ and $4$ are represented by $q$, $q^2$ and
+$2^3=8$ pairs $(f,c)$ respectively.
 
 Thus in characteristic $2$ the Oppermann sub-intervals are the short intervals around the $q^{\lceil d/2\rceil}$
 ``near-squares'' $f^2+ct^d$, a set of measure $q^{-\lfloor d/2\rfloor}$ among all short intervals. Squares and
@@ -174,7 +203,13 @@ near-squares carry Galois-theoretic structure, and that structure produces the c
 Throughout this section $q=2^k$ and $\Tr=\Tr_{\F_q/\F_2}$.
 
 \subsection{\texorpdfstring{(A) $d=1$}{(A) d=1}}
-$O_{f,0}=\{f^2+s_0:s_0\in\F_q\}=\{(f+\sqrt{s_0})^2\}$ consists of squares.
+Here $f=t+a_0$ and $O_{f,c}=\{t^2+ct+s_0:s_0\in\F_q\}$.
+
+For $c=0$ the members $t^2+s_0=(t+\sqrt{s_0})^2$ are squares.
+
+For $c\ne0$, substitute $t=cy$: $t^2+ct+s_0=c^2(y^2+y+s_0/c^2)$. This is irreducible if and only if
+$y^2+y+s_0/c^2$ has no root in $\F_q$, that is, if and only if $\Tr(s_0/c^2)=1$. Exactly $q/2$ values of $s_0$
+satisfy this.
 
 \subsection{\texorpdfstring{(B) $d=2$: an additive polynomial and $\AGL_2(\F_2)$}{(B) d=2: an additive polynomial and AGL(2,2)}}
 For $f=t^2+a_1t+a_0$ we have $f^2=t^4+a_1^2t^2+a_0^2$, so
@@ -186,7 +221,7 @@ By Lemma~\ref{lem:even} the blocks $B_e$, $e\in\F_q$, are precisely the Opperman
 \begin{proposition}\label{prop:agl}
 Let $\alpha\ne0$. Put $L(t)=t^4+et^2+\alpha t$ and $R(y)=y^3+ey+\alpha$.
 \begin{enumerate}
-\item $t^4+et^2+\alpha t+\beta$ is irreducible for some $\beta$ only if $R$ has exactly one root in $\F_q$.
+\item $t^4+et^2+\alpha t+\beta$ is irreducible for some $\beta$ if and only if $R$ has exactly one root in $\F_q$.
 \item If $R$ has exactly one root in $\F_q$, then $t^4+et^2+\alpha t+\beta$ is irreducible for exactly $q/2$ values of
 $\beta\in\F_q$.
 \end{enumerate}
@@ -209,7 +244,8 @@ $V\cong\F_2^2$, an element of $\AGL_2(\F_2)\cong S_4$. $P_\beta$ is irreducible 
 \item If $F$ is a transvection, $T^2(w)=w+(F+1)v$, so $T$ is a $4$-cycle if and only if $(F+1)v\ne0$, i.e.
 $v\notin V^F$.
 \end{itemize}
-This proves (1). For (2), let $F$ be a transvection, so $(F+1)V=V^F$ is a line. Replacing $r$ by $r+w$ replaces $v$ by
+This proves the ``only if'' part of (1); the ``if'' part follows from (2), since $q/2\ge1$. For (2), let $F$ be a
+transvection, so $(F+1)V=V^F$ is a line. Replacing $r$ by $r+w$ replaces $v$ by
 $v+(F+1)w$, so the class $[v]\in V/V^F\cong\F_2$ depends only on $\beta$, and $\beta\mapsto[v]$ is additive. Its
 kernel consists of the $\beta$ for which some root $r'=r+w$ is fixed by $\varphi$, i.e.\ $\beta\in L(\F_q)$. The map
 $L:\F_q\to\F_q$ is $\F_2$-linear with kernel $V^F=V\cap\F_q$ of order $2$, so $|L(\F_q)|=q/2$ and exactly $q/2$ values
@@ -268,7 +304,8 @@ For $x=y=0$ the class is the \emph{zero block}
 \[
 Z_4=\{t^8+a_3t^3+a_2t^2+a_1t+a_0\}\subset\F_2[t],
 \]
-equal to $O_{f,c}$ for $f=t^4+a_2t^2+a_1t+a_0$ and $c=a_2$.
+equal to $O_{f,c}$ for $f=t^4+a_2t^2+a_1t+a_0$ and $c=a_2$. Here $a_3=0$ is forced, because the coefficient of
+$t^6$ in $f^2$ is $a_3^2$; this is why there are $2^3=8$ pairs rather than $16$.
 
 We use the theorem of Stickelberger \cite{Stickelberger} in the form of Swan \cite[Cor.~1]{Swan}: \emph{if
 $\tilde P\in\Z[t]$ is monic of degree $n$ and its reduction $P\in\F_2[t]$ is squarefree with $r$ irreducible
@@ -294,9 +331,12 @@ $t^8+t^2+1=(t^4+t+1)^2$ is a square. For the other three choose integer lifts an
 \item $t^8+t+1$: $\tilde g'=1$, $\disc\equiv1$;
 \item $t^8+t^3+1$: $\tilde g'=3t^2$, $\Res(\tilde P,3t^2)=3^8\big(\prod\rho\big)^2=3^8\equiv1$;
 \item $t^8+t^3+t^2+t+1$, lifted as $t^8+(t+1)^3$: $\tilde g'=3(t+1)^2$, and
-$\Res(\tilde P,3(t+1)^2)=3^8\tilde P(-1)^2=3^8\equiv1$.
+$\Res(\tilde P,3(t+1)^2)=3^8\prod(\rho+1)^2=3^8\tilde P(-1)^2$, with $\tilde P(-1)=(-1)^8+0^3=1$, so
+$\disc\equiv3^8\equiv1$.
 \end{itemize}
-In each case $\disc\equiv1\pmod8$, so the number of irreducible factors is even.
+Suppose one of these three were irreducible over $\F_2$. Then it would be squarefree with $r=1$, and
+Stickelberger--Swan would require $\disc(\tilde P)\equiv5\pmod8$. That contradicts $\disc(\tilde P)\equiv1$, so none of
+them is irreducible. The argument does not need squarefreeness to be checked beforehand.
 \end{proof}
 
 \begin{remark}
@@ -310,22 +350,24 @@ quotient $S_4\to S_3$ (the resolvent cubic), in (C) the quotient $S_8\to\{\pm1\}
 
 \begin{table}[htbp]
 \centering
-\caption{The zero blocks $Z_d=\{t^{2d}+s:\deg s<d\}\subset\F_2[t]$: squarefree members, members with
-$\disc\equiv5\pmod8$ (Frobenius odd; integer lift with coefficients $0,1$), and irreducibles. Stickelberger--Swan
-holds on every squarefree member (script \texttt{swan\_parity.py}).}\label{tab:zero}
-\begin{tabular}{rrrrr}
+\caption{The zero blocks $Z_d=\{t^{2d}+s:\deg s<d\}\subset\F_2[t]$. Columns: the squarefree members; those with
+$\disc\equiv5\pmod8$, i.e.\ Frobenius odd (integer lift with coefficients $0,1$); those among them with no root in
+$\F_2$; and the irreducibles. For $d=4$ the two members with $\disc\equiv5$ are $t^8+t^3+t$ and $t^8+t^3+t^2+1$,
+which have the roots $0$ and $1$. Stickelberger--Swan holds on every squarefree member (script
+\texttt{swan\_parity.py}).}\label{tab:zero}
+\begin{tabular}{rrrrrr}
 \toprule
-$d$ & $|Z_d|$ & squarefree & $\disc\equiv5$ & irreducible\\
+$d$ & $|Z_d|$ & squarefree & $\disc\equiv5$ & $\disc\equiv5$, no root & irreducible\\
 \midrule
-2 & 4 & 2 & 2 & 1\\
-3 & 8 & 4 & 3 & 1\\
-4 & 16 & 8 & 2 & \textbf{0}\\
-5 & 32 & 16 & 10 & 4\\
-6 & 64 & 32 & 20 & 6\\
-7 & 128 & 64 & 42 & 9\\
-8 & 256 & 128 & 64 & 10\\
-9 & 512 & 256 & 130 & 28\\
-10 & 1024 & 512 & 280 & 49\\
+2 & 4 & 2 & 2 & 1 & 1\\
+3 & 8 & 4 & 3 & 1 & 1\\
+4 & 16 & 8 & 2 & \textbf{0} & \textbf{0}\\
+5 & 32 & 16 & 10 & 4 & 4\\
+6 & 64 & 32 & 20 & 8 & 6\\
+7 & 128 & 64 & 42 & 17 & 9\\
+8 & 256 & 128 & 64 & 24 & 10\\
+9 & 512 & 256 & 130 & 61 & 28\\
+10 & 1024 & 512 & 280 & 120 & 49\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -333,7 +375,9 @@ $d$ & $|Z_d|$ & squarefree & $\disc\equiv5$ & irreducible\\
 \section{The exact computation}\label{sec:comp}
 
 \subsection{Method}
-For a class $x$ of level $l$ and degree $n$, let $\Psi(x)=\sum_{F\in x}\Lambda(F)$. The explicit formula
+Here $\Lambda$ is the von Mangoldt function: $\Lambda(F)=\deg\varpi$ if $F=\varpi^k$ for a monic irreducible
+$\varpi$ and some $k\ge1$, and $\Lambda(F)=0$ otherwise. For a class $x$ of level $l$ and degree $n$, let
+$\Psi(x)=\sum_{F\in x}\Lambda(F)$. The explicit formula
 \cite{Hayes,KR} reads
 \begin{equation}\label{eq:explicit}
 \Psi(x)=q^{n-l}+q^{-l}\sum_{\chi\ne1}\overline{\chi}(x)\,\psi_n(\chi),\qquad
@@ -345,10 +389,11 @@ $\psi_n(\chi)$ follows by the Newton recursion, and one inverse FFT on $G_l$ ret
 at once. This is the algorithm of \cite{ChenI}, run here at level $l=d$ and degree $n=2d$. The number of irreducibles
 in $x$ is
 \[
-\pi(x)=\frac1n\Big(\Psi(x)-\sum_{k\ge2,\ k\mid n}\ \sum_{\deg\varpi=n/k,\ \varpi^k\in x}\frac nk\Big),
+\pi(x)=\frac1n\bigl(\Psi(x)-E(x)\bigr),\qquad
+E(x)=\sum_{k\ge2,\ k\mid n}\ \sum_{\deg\varpi=n/k,\ \varpi^k\in x}\frac nk .
 \]
-where the proper prime powers are enumerated directly (Ben-Or test in degree $\le d$) and placed by the
-homomorphism $\mathrm{class}(\varpi^k)=k\cdot\mathrm{class}(\varpi)$ in $G_l$. Each run checks that every $\pi(x)$ is
+The proper prime powers in $E(x)$ are enumerated directly (Ben-Or test in degree $\le d$) and placed by the rule
+$\mathrm{class}(\varpi^k)=\mathrm{class}(\varpi)^k$ in $G_l$. Each run checks that every $\pi(x)$ is
 an integer and that $\sum_x(n\pi(x)+E(x))=q^n$, and reports the largest distance of the floating-point $\Psi(x)$ from
 an integer (below $10^{-7}$ in all runs). As an independent check, a brute-force census that tests every polynomial
 of degree $2d$ for irreducibility (\texttt{verify\_pointwise\_oppermann.py}) agrees with the FFT counts class by
@@ -383,16 +428,34 @@ only slightly below average, far from the Weil bound discussed next.
 
 \section{The square-root barrier}\label{sec:barrier}
 
-In \eqref{eq:explicit} with $n=2d$, $l=d$, the main term is $q^d$. By Weil, every inverse zero $\gamma$ of $L(u,\chi)$,
-$\chi\ne1$, has $|\gamma|\in\{1,\sqrt q\}$, so $|\psi_{2d}(\chi)|\le(d-1)q^d$, and averaging the $q^d-1$ nontrivial
-characters gives only
+In \eqref{eq:explicit} with $n=2d$ and $l=d$ the main term is $q^d$.
+
+Let $\chi$ have exact level $j$. The monic polynomials of degree $\ge j$ are equidistributed over $G_j$, so
+$\deg L(u,\chi)\le j-1$. By Weil, every inverse zero $\gamma$ of $L(u,\chi)$ has $|\gamma|\in\{1,\sqrt q\}$, hence
+$|\psi_{2d}(\chi)|\le(j-1)q^d$. Characters of level $1$ have $L=1$ and contribute nothing. Summing over the
+$q^j-q^{j-1}$ characters of each exact level $j$ gives
+\begin{equation}\label{eq:weil}
+|\Psi(x)-q^d|\le\sum_{j=2}^{d}(j-1)(q^j-q^{j-1})=(d-1)q^d-\sum_{j=1}^{d-1}q^j .
+\end{equation}
+
+\emph{For $d\ge3$} the right-hand side exceeds $q^d$ for every $q$, so \eqref{eq:weil} does not even give
+$\Psi(x)>0$. This is the exact analogue of the situation over $\Z$: Oppermann's intervals have length $\sqrt x$, and
+the Riemann hypothesis falls short by a factor $\log x$. No degree threshold beyond which $O_{f,c}\ne\emptyset$
+follows from Weil's theorem.
+
+\emph{For $d=2$}, \eqref{eq:weil} reads $|\Psi(x)-q^2|\le q^2-q$, so $\Psi(x)\ge q>0$ for every class. This still
+does not produce an irreducible, because $\Psi$ also counts prime powers. Theorem~\ref{thm:main2}(B) shows the
+lower bound is sharp. Take $q=4^j$ and the empty class $B_0=\{t^4+\alpha t+\beta\}$. Its proper prime powers are
+the $q$ fourth powers $(t+c_0)^4=t^4+c_0^4$, each with $\Lambda=1$; the squares $(t^2+b)^2$ do not count, since
+$t^2+b$ is itself a square. Hence
 \[
-|\Psi(x)-q^d|\le(d-1)q^d .
+\Psi(B_0)=4\pi(B_0)+E(B_0)=0+q=q .
 \]
-For $d\ge2$ the error term is at least the main term, for every $q$. This is the exact analogue of the situation
-over $\Z$, where Oppermann's intervals have length $\sqrt x$ and the Riemann hypothesis falls short by
-$\log x$. So no degree threshold beyond which $O_{f,c}\ne\emptyset$ follows from Weil's theorem, and
-Theorem~\ref{thm:main2} shows that in characteristic $2$ no such threshold can be uniform in $q$ for $d=2$.
+So equality holds in \eqref{eq:weil}, which forces $\overline\chi(B_0)\psi_4(\chi)=-q^2$ for all $q^2-q$ characters
+of exact level $2$. The whole of the Weil lower bound is taken up by the fourth powers.
+
+The same happens for $q=2$ on $B_1$, where $\Psi(B_1)=E(B_1)=2$ comes from $(t^2+t+1)^2$. The values
+$\Psi(B_0)=q$ for $q=4,16$ and $\Psi(B_1)=2$ for $q=2$ were confirmed with the FFT code.
 
 Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) bound the number of intervals that
 deviate by a given amount; they do not exclude a single empty interval.
@@ -418,13 +481,49 @@ the conditions of \cite{BBR} therefore cannot be dropped.
 
 Theorem~\ref{thm:main2}(C) has $q=2$ fixed, so it lies outside the $q\to\infty$ regime altogether.
 
+In the other direction, \cite{BBR} gives nonemptiness for large $q$ in most cases. An Oppermann sub-interval
+$O_{f,c}=\{f^2+ct^d+h:\deg h\le d-1\}$ has $k=2d$ and $m=d-1$. Since $N\ge q^d/2d-c(2d)q^{d-1/2}$, the
+sub-interval is nonempty as soon as $q>(2d\,c(2d))^2$, provided the conditions of \cite{BBR} hold. We do not make the
+constant $c(2d)$ explicit.
+
+\begin{corollary}[of \cite{BBR}]\label{cor:BBR}
+For each $d$ there is $q_0(d)$ such that every Oppermann sub-interval of degree $2d$ over $\F_q$, with $q\ge q_0(d)$,
+contains an irreducible polynomial in each of the following cases:
+\begin{enumerate}
+\item $q$ odd and $d\ge3$;
+\item $q$ odd, $d=2$ and $\gcd(q,6)=1$;
+\item $q$ even and $d\ge4$;
+\item $q$ even, $d=3$, and the class has $p_3\ne0$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+We check the conditions of \cite{BBR} with $k=2d$ and $m=d-1$; recall that $1\le m<k$ is required.
+\begin{itemize}
+\item \emph{$q$ odd.} The only condition is $m\ge2$ when $p\mid 2d(2d-1)$. It holds for $d\ge3$. For $d=2$,
+$k(k-1)=12$, so it holds when $\gcd(q,6)=1$.
+\item \emph{$q$ even, $d\ge4$.} Here $m\ge3$, so both conditions hold.
+\item \emph{$q$ even, $d=3$.} By Lemma~\ref{lem:even} every member $P$ of an Oppermann class has $p_5=0$. In
+characteristic $2$ this gives $P'=p_3t^2+p_1$, so $\deg P'=2$ when $p_3\ne0$, and the condition ``$m\ge3$ if
+$\deg f'\le1$'' does not apply.
+\end{itemize}
+\end{proof}
+
+The cases left open by the corollary are the following. For $d=1$ the interval is too short for \cite{BBR}, but
+Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $q$ odd
+with $d=2$ and $3\mid q$ there is no general result. For $q$ even with $d=2$, Theorem~\ref{thm:main2}(B) is complete.
+For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(0,x,0)$) remain open. In every case, $q<q_0(d)$ is
+covered only by computation.
+
 \section{Questions}
 \begin{enumerate}
-\item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? For $d=3$,
-Lemma~\ref{lem:even} leaves $q^2$ classes; for $d=4$, $q^2$ classes, among them the zero block $Z_4$, which is
-nonempty for $q=4,8,16$.
-\item In odd characteristic, is every Oppermann sub-interval nonempty for all $q$ and $d$? Lemma~\ref{lem:odd}
-turns this into a statement about all short intervals of length $q^{n/2}$.
+\item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? By
+Corollary~\ref{cor:BBR}, for each $d\ge4$ only finitely many $q$ can carry further empty sub-intervals. For $d=3$, the
+classes with $p_3=0$ are not covered by \cite{BBR}, but they are nonempty in the computed range $q\le16$.
+\item In odd characteristic, is every Oppermann sub-interval nonempty for all $q$ and $d$? Lemma~\ref{lem:odd} turns
+this into a statement about all short intervals of length $q^{n/2}$. By Corollary~\ref{cor:BBR}, for each $d\ge3$ it
+fails for at most finitely many $q$. An explicit $q_0(d)$ combined with Theorem~\ref{thm:odd} would settle small $d$
+completely.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with
 $\min_x\pi(x)\ge c\,q^d/2d$ for all large $d$?
 \end{enumerate}
