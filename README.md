@@ -24,6 +24,12 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
   The proof lets Frobenius act on the roots of the additive polynomial t⁴ + e t² + αt through AGL₂(F₂) ≅ S₄. The criterion is Tr(e³/α²) ≠ Tr(1). Consequently there are empty sub-intervals exactly for q = 2 and q = 4^j.
 - **(C) q = 2, d = 4:** the block {t⁸ + s : deg s ≤ 3} contains no irreducible. This follows from the Stickelberger–Swan sign of Frobenius: when 8 | deg, the sign is decided by the tail alone.
 
+**Odd characteristic, d = 2: proved for every q.** π(O_{f,c}) = (q² − 1 − (q − η(−1))·η(2e))/4 > 0. The proof uses the ternary trace form Tr(x²) on ker Tr ⊂ F_{q⁴}.
+
+**Characteristic 2, d = 3, p₃ = 0 (the classes BBR does not cover): proved for every q.** All q classes are equivalent under translation. Each contains q(q²−1)/6 irreducibles (k odd) or q(q−1)²/6 (k even), by a trace computation in F_q ⊂ F_{q³} ⊂ F_{q⁶}.
+
+**Large q:** for every d ≥ 3, all Oppermann sub-intervals are nonempty once q ≥ q₀(d). This follows from Bank–Bary-Soroker–Rosenzweig together with the d = 3, p₃ = 0 theorem; q₀(d) is not explicit.
+
 **Odd characteristic: yes, in the whole computed range (computer-assisted).**
 - Every Hayes class of level d is an Oppermann sub-interval.
 - Exact counts come from the Hayes explicit formula, using the FFT algorithm of Part I at level l = d.

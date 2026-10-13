@@ -61,7 +61,10 @@ $q=7$, $d\le9$; $q=9$, $d\le8$; $q=11$, $d\le7$; $q=13$, $d\le6$. In characteris
 $q\in\{2,4,8,16\}$ up to $q^d\le2^{26}$, finds no empty Oppermann sub-interval beyond (A)--(C). The Weil bound sits
 at the square-root barrier for these intervals. For $d=2$ it gives $\Psi\ge q$, and in the empty classes of (B)
 this is attained exactly, by fourth powers of linear polynomials. For fixed $d$ and large $q$, the theorem of Bank,
-Bary-Soroker and Rosenzweig gives nonemptiness in most cases; we determine which.
+Bary-Soroker and Rosenzweig gives nonemptiness in most cases. The one family it misses for $d\ge3$ is the classes
+with $d=3$, $q=2^k$ and vanishing $t^3$-coefficient; for these we prove the exact count $q(q^2-1)/6$ ($k$ odd) or
+$q(q-1)^2/6$ ($k$ even), using the tower $\F_q\subset\F_{q^3}\subset\F_{q^6}$. Hence for every $d\ge3$ all Oppermann
+sub-intervals are nonempty once $q$ is large.
 \end{abstract}
 
 \maketitle
@@ -135,9 +138,25 @@ $q\equiv1\pmod4$, and at least $(q+1)(q-2)/4$ if $q\equiv3\pmod4$. Together with
 settles $d=2$ for every $q$.
 \end{theorem}
 
-For fixed $d$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig \cite{BBR} settles the question in most
-cases (Corollary~\ref{cor:BBR}). The tables above therefore matter mainly for small $q$, where that theorem gives
-nothing.
+For fixed $d$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig \cite{BBR} covers most classes
+(Corollary~\ref{cor:BBR}). The one family it misses for $d\ge3$ has an exact count.
+
+\begin{theorem}[characteristic $2$, $d=3$, $p_3=0$]\label{thm:intro_p3zero}
+Let $q=2^k$. Every Oppermann sub-interval with $d=3$ whose coefficient of $t^3$ vanishes contains exactly
+$q(q^2-1)/6$ irreducibles if $k$ is odd, and $q(q-1)^2/6$ if $k$ is even.
+\end{theorem}
+
+\begin{corollary}\label{cor:largeq}
+For $d\in\{1,2\}$, the answer is known exactly for every $q$ (Theorems~\ref{thm:main2}(A),(B) and~\ref{thm:odd2}).
+For every $d\ge3$ there is $q_0(d)$ such that every Oppermann sub-interval of degree $2d$ over $\F_q$ with
+$q\ge q_0(d)$ contains an irreducible polynomial.
+\end{corollary}
+
+For $d\ge3$, Corollary~\ref{cor:BBR} covers every class except those with $q$ even, $d=3$ and $p_3=0$, and
+Theorem~\ref{thm:intro_p3zero} (proved as Theorem~\ref{thm:p3zero}) covers those. In characteristic $2$ and $d=2$, the
+empty sub-intervals for $q=2,4,16,64,\dots$ show that no such $q_0(2)$ exists there.
+
+The tables above therefore matter mainly for $q<q_0(d)$; $q_0(d)$ is not explicit.
 
 Throughout, a \emph{sub-interval} means the set $O_{f,c}$. Distinct pairs $(f,c)$ can give the same set; counts of
 sub-intervals are counts of sets, that is, of Hayes classes.
@@ -613,8 +632,9 @@ The cases left open by the corollary are the following. For $d=1$ the interval i
 Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $d=2$ the
 corollary is superseded: Theorems~\ref{thm:main2}(B) and~\ref{thm:odd2} give exact counts for every $q$, including
 $3\mid q$, with no threshold.
-For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) are treated in
-\S\ref{subsec:p3zero}. In every case, $q<q_0(d)$ is covered only by computation.
+For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) are settled for every $q$
+by Theorem~\ref{thm:p3zero} in \S\ref{subsec:p3zero}. What remains is $q<q_0(d)$ for $d\ge3$, which is covered only by
+computation.
 
 \subsection{\texorpdfstring{The classes $p_3=0$ for $d=3$ in characteristic $2$}{The classes p3=0 for d=3 in characteristic 2}}\label{subsec:p3zero}
 Let $q=2^k$ and
@@ -647,22 +667,83 @@ equidistributed over the values of $a_2$, and $(q^2-1)/3$ of them have $a_2=0$. 
 Hence $E(C_0)=1+(q^2-1)=q^2$.
 \end{proof}
 
-\begin{conjecture}\label{conj:p3zero}
+\begin{theorem}\label{thm:p3zero}
 For $q=2^k$ and every $e\in\F_q$,
 \[
 \pi(C_e)=\begin{cases}q(q^2-1)/6, & k\text{ odd},\\ q(q-1)^2/6, & k\text{ even};\end{cases}
 \qquad\text{equivalently}\qquad \Psi(C_e)=q^3-(-1)^k(q^2-q).
 \]
 In particular, $\pi(C_e)>0$ for every $q$.
-\end{conjecture}
+\end{theorem}
+
+\begin{proof}
+Let $K=\F_q\subset E=\F_{q^3}\subset L=\F_{q^6}$. By Proposition~\ref{prop:p3zero}(1), $6q\,\pi(C_e)$ is the number of
+$x\in L$ of degree $6$ over $K$ whose characteristic polynomial $t^6+e_1t^5+e_2t^4+e_3t^3+\dots$ has $e_1=e_3=0$.
+
+\emph{Step 1 (conditions on $x$).} With $S_m=\Tr_{L/K}(x^m)$, Newton's identity in characteristic $2$ reads
+$S_3=e_1S_2+e_2S_1+e_3$. So for $e_1=S_1=0$ we get $e_3=S_3$. The conditions are therefore
+$\Tr_{L/K}(x)=0$ and $\Tr_{L/K}(x^3)=0$.
+
+\emph{Step 2 (the relative trace $u$).} Put $u=\Tr_{L/E}(x)=x+x^{q^3}\in E$; then $\Tr_{L/K}(x)=\Tr_{E/K}(u)$. Assume
+$\Tr_{E/K}(u)=0$. We claim that $x$ has degree $6$ if and only if $u\ne0$.
+\begin{itemize}
+\item If $u=0$, then $x^{q^3}=x$, so $x\in E$.
+\item If $x\in\F_{q^2}$, then $x^{q^3}=x^q$, so $u=x+x^q\in K$, and $0=\Tr_{E/K}(u)=3u=u$.
+\end{itemize}
+Since the proper subfields of $L$ are contained in $E$ or in $\F_{q^2}$, this proves the claim.
+
+\emph{Step 3 (the fibre over $u$).} Fix $u\in E^\times$ with $\Tr_{E/K}(u)=0$. The $q^3$ elements $x$ with
+$\Tr_{L/E}(x)=u$ are $x=u\xi$ with $\xi+\xi^{q^3}=1$. For these,
+\[
+\Tr_{L/E}(\xi^3)=\xi^3+(\xi+1)^3=\xi^2+\xi+1 .
+\]
+Put $\alpha=\xi^2+\xi$; then $\alpha^{q^3}=\alpha$, so $\alpha\in E$. As $\xi$ runs over the fibre, $\alpha$ runs
+$2$-to-$1$ over $\{\alpha\in E:\Tr_{E/\F_2}(\alpha)=1\}$: the equation $\xi^2+\xi=\alpha$ has its roots outside $E$
+exactly when $\Tr_{E/\F_2}(\alpha)=1$, and then the two roots are $\xi$ and $\xi+1=\xi^{q^3}$. Finally,
+\[
+\Tr_{L/K}(x^3)=\Tr_{E/K}\bigl(u^3(\alpha+1)\bigr).
+\]
+
+\emph{Step 4 (counting in the fibre).} The condition $\Tr_{L/K}(x^3)=0$ says that $\alpha$ lies in the affine
+$K$-hyperplane
+\[
+H_u=\{\alpha\in E:\Tr_{E/K}(u^3\alpha)=\Tr_{E/K}(u^3)\},\qquad |H_u|=q^2 .
+\]
+The $\F_2$-linear functionals on $E$ that vanish on the direction space of $H_u$ are
+$\alpha\mapsto\Tr_{E/\F_2}(cu^3\alpha)$ with $c\in K$. Hence $\Tr_{E/\F_2}$ is constant on $H_u$ if and only if
+$u^3\in K^\times$.
+\begin{itemize}
+\item If $u^3\notin K^\times$, then $\Tr_{E/\F_2}(\alpha)=1$ on exactly $q^2/2$ points of $H_u$, giving $q^2$
+elements $x$.
+\item If $u^3=\nu\in K^\times$, then on $H_u$ we have $\nu\Tr_{E/K}(\alpha)=\nu\Tr_{E/K}(1)=\nu$, so
+$\Tr_{E/\F_2}(\alpha)=\Tr_{K/\F_2}(1)=k\bmod2$ throughout $H_u$.
+\end{itemize}
+
+\emph{Step 5 (summing over $u$).} There are $q^2-1$ admissible $u$.
+\begin{itemize}
+\item \emph{$k$ odd.} Here $3\nmid q^3-1$, so cubing is bijective on $E^\times$ and on $K^\times$, and $u^3\in K^\times$
+forces $u\in K^\times$. But every $u\in K^\times$ has $\Tr_{E/K}(u)=3u=u\ne0$, so it is not admissible. All $q^2-1$
+admissible $u$ therefore contribute $q^2$, and $6q\,\pi=(q^2-1)q^2$.
+\item \emph{$k$ even.} Here $3\mid q-1$ and $3\mid q^2+q+1$, so $K^\times\subset(E^\times)^3$, and
+$\{u\in E^\times:u^3\in K^\times\}$ has $3(q-1)$ elements.
+\begin{itemize}
+\item The $q-1$ elements of $K^\times$ among them are not admissible.
+\item Each of the other $2(q-1)$ has minimal polynomial $X^3-\nu$ over $K$, so its trace is $0$ and it is
+admissible. It contributes nothing, since $\Tr_{E/\F_2}\equiv0$ on $H_u$.
+\item The remaining $(q^2-1)-2(q-1)=(q-1)^2$ admissible $u$ contribute $q^2$ each.
+\end{itemize}
+So $6q\,\pi=(q-1)^2q^2$.
+\end{itemize}
+The formula for $\Psi$ follows from Proposition~\ref{prop:p3zero}(2).
+\end{proof}
 
 \begin{table}[H]
 \centering
-\caption{The classes $C_e$ ($d=3$, $p_3=0$) in characteristic $2$: exhaustive irreducible counts. For $q\le16$ all $e$
-were counted; for larger $q$, $e=0$ and, up to $q=64$, $e=1$.}\label{tab:p3zero}
+\caption{The classes $C_e$ ($d=3$, $p_3=0$) in characteristic $2$: exhaustive irreducible counts, in agreement with
+Theorem~\ref{thm:p3zero}. For $q\le16$ all $e$ were counted; for larger $q$, $e=0$ and, up to $q=64$, $e=1$.}\label{tab:p3zero}
 \begin{tabular}{rrrr}
 \toprule
-$q$ & $\pi(C_e)$ & conjectured value & $q^3/6$\\
+$q$ & $\pi(C_e)$ & Theorem~\ref{thm:p3zero} & $q^3/6$\\
 \midrule
 2 & 1 & $q(q^2-1)/6=1$ & 1.3\\
 4 & 6 & $q(q-1)^2/6=6$ & 10.7\\
@@ -676,28 +757,23 @@ $q$ & $\pi(C_e)$ & conjectured value & $q^3/6$\\
 \end{tabular}
 \end{table}
 
-The conjectured formula holds for all $q\le256$; the counts are exhaustive (Table~\ref{tab:p3zero}, script
-\texttt{char2\_d3\_p3zero.py}). Two pieces of evidence point towards a proof.
+\begin{remark}
+The error term $\pi(C_e)-q^3/6$ is $-q/6$ for $k$ odd and $-q^2/3+q/6$ for $k$ even. This is far smaller than the
+$O(q^{5/2})$ a monodromy argument would give.
 
-\begin{itemize}
-\item For $q\le16$, every character $\chi$ of exact level $2$ or $3$ of $G_3$ has $L(u,\chi)$ with all inverse zeros
-satisfying $\gamma^6\in q^3\{\pm1,\pm i\}$; these $L$-functions are supersingular.
-\item By the Artin--Hasse factorisation $1+xu\equiv E(xu)E(x^2u^2)(1+x^3u^3)\pmod{u^4}$, the sums
-$\psi_6(\chi)=\sum_{x\in\F_{q^6}}\chi(N(1+xu))$ become Gauss sums of $\Z/4$-valued quadratic forms on $\F_{q^6}$. Their
-radicals are cut out by cubics $\gamma^2z^3+z+\gamma$ with $\gamma\in\F_q$, which split in $\F_{q^6}$.
-\end{itemize}
-
-A proof along these lines would need the Brown invariant of each of these forms; we do not carry this out here. Note the error term: it is $O(q)$ for $k$ odd and $-q^2/3+O(q)$ for
-$k$ even, well inside the $O(q^{5/2})$ that a monodromy argument would give.
-
-
+It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
+of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. The proof above avoids
+these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
+$\Tr_{L/K}(x)=\Tr_{L/K}(x^3)=0$, which the tower $K\subset E\subset L$ makes linear.
+\end{remark}
 
 \section{Questions}
 \begin{enumerate}
 \item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? By
 Corollary~\ref{cor:BBR}, for each $d\ge4$ only finitely many $q$ can carry further empty sub-intervals. For $d=3$, the
 classes with $p_3=0$ are not covered by \cite{BBR}. They all have the same count (Proposition~\ref{prop:p3zero}),
-which is positive for $q\le256$; Conjecture~\ref{conj:p3zero} would settle them for all $q$.
+and Theorem~\ref{thm:p3zero} shows that it is positive for every $q$. So in characteristic $2$ the only possible
+further empty sub-intervals have $d=3$ with $q<q_0(3)$, or $d\ge4$ with $q<q_0(d)$.
 \item For odd $q$, is every Oppermann sub-interval nonempty, for all $q$ and $d$? Lemma~\ref{lem:odd} turns
 this into a statement about all short intervals of length $q^{n/2}$. By Corollary~\ref{cor:BBR}, for each $d\ge3$ it
 fails for at most finitely many $q$. For $d=2$ it holds for every odd $q$ (Theorem~\ref{thm:odd2}). An explicit $q_0(d)$
