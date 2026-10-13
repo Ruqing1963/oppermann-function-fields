@@ -7,7 +7,8 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{placeins}
-\usepackage[margin=2.6cm]{geometry}
+\usepackage{float}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \graphicspath{{../figures/}}
 
@@ -15,6 +16,7 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
@@ -455,8 +457,8 @@ $q\equiv3\pmod4$. Both are positive for every odd $q$.
 
 \begin{remark}
 The values agree with a brute-force count of all $q^2$ members of every block $B_e$ for
-$q\in\{3,5,7,9,11,13,25,27,49,81\}$, and for $q\le13$ also of every class $C_{p_3,p_2}$ (script
-\texttt{odd\_d2\_formula.py}). They also agree with the minima of Table~\ref{tab:odd}. Characteristic $3$ needs no
+$q=3,5,7,9,11,13,25,27,49,81$, and, for $q\le13$, of every class $C_{p_3,p_2}$; the script is
+\texttt{odd\_d2\_formula.py}. They also agree with the minima of Table~\ref{tab:odd}. Characteristic $3$ needs no
 special treatment.
 
 The contrast with characteristic $2$ is instructive. There the translation $t\mapsto t+a$ cannot remove $p_3$,
@@ -573,7 +575,9 @@ excluded point and shows how the asymptotic fails:
 \end{itemize}
 The blocks $e\ne0$, with $q^2/4$ and $q(q-2)/4$ irreducibles, do agree with the asymptotic. The obstruction comes
 from the additive structure of $t^4+et^2+\alpha t$ (Proposition~\ref{prop:agl}). For $m=1$, $k=4$ and $q$ even,
-the conditions of \cite{BBR} therefore cannot be dropped.
+the conditions of \cite{BBR} therefore cannot be dropped. By contrast, when $3\mid q$, a case that is also excluded by
+$\gcd(q,k(k-1))>1$ at $k=4$, $m=1$, Theorem~\ref{thm:odd2} shows that the asymptotic $q^2/4+O(q)$ continues to hold
+without exception.
 
 Theorem~\ref{thm:main2}(C) has $q=2$ fixed, so it lies outside the $q\to\infty$ regime altogether.
 
@@ -609,20 +613,97 @@ The cases left open by the corollary are the following. For $d=1$ the interval i
 Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $d=2$ the
 corollary is superseded: Theorems~\ref{thm:main2}(B) and~\ref{thm:odd2} give exact counts for every $q$, including
 $3\mid q$, with no threshold.
-For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) remain open. In every case, $q<q_0(d)$ is
-covered only by computation.
+For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) are treated in
+\S\ref{subsec:p3zero}. In every case, $q<q_0(d)$ is covered only by computation.
+
+\subsection{\texorpdfstring{The classes $p_3=0$ for $d=3$ in characteristic $2$}{The classes p3=0 for d=3 in characteristic 2}}\label{subsec:p3zero}
+Let $q=2^k$ and
+\[
+C_e=\{t^6+et^4+s_2t^2+s_1t+s_0:\ s_2,s_1,s_0\in\F_q\},\qquad e\in\F_q .
+\]
+Every member has $P'=s_1$, so \cite{BBR} does not apply.
+
+\begin{proposition}\label{prop:p3zero}
+\begin{enumerate}
+\item The number $\pi(C_e)$ does not depend on $e$.
+\item $E(C_e)=q^2$; hence $\Psi(C_e)=6\pi(C_e)+q^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) In characteristic $2$, $(t+a)^6=(t^4+a^4)(t^2+a^2)=t^6+a^2t^4+a^4t^2+a^6$, and $(t+a)^4=t^4+a^4$. So
+$t\mapsto t+a$ maps $C_e$ bijectively onto $C_{e+a^2}$ and preserves irreducibility. Since $a\mapsto a^2$ is
+bijective, all $C_e$ are equivalent.
+
+(2) We count the proper prime powers of degree $6$ in $C_0$.
+\begin{itemize}
+\item \emph{Sixth powers.} $(t+a)^6\in C_0$ only for $a=0$; this is $t^6$, with $\Lambda=1$.
+\item \emph{Cubes.} For a quadratic $\varpi=t^2+bt+c$, the coefficient of $t^5$ in $\varpi^3$ is $b$. So $\varpi^3\in C_0$
+forces $b=0$, but then $\varpi=(t+\sqrt c)^2$ is not irreducible.
+\item \emph{Squares.} For a cubic $\varpi=t^3+a_2t^2+a_1t+a_0$ we have $\varpi^2=t^6+a_2^2t^4+a_1^2t^2+a_0^2$, which lies
+in $C_0$ exactly when $a_2=0$. Translation changes $a_2$ by $3c=c$, so the $(q^3-q)/3$ irreducible cubics are
+equidistributed over the values of $a_2$, and $(q^2-1)/3$ of them have $a_2=0$. Each contributes $\Lambda=3$.
+\end{itemize}
+Hence $E(C_0)=1+(q^2-1)=q^2$.
+\end{proof}
+
+\begin{conjecture}\label{conj:p3zero}
+For $q=2^k$ and every $e\in\F_q$,
+\[
+\pi(C_e)=\begin{cases}q(q^2-1)/6, & k\text{ odd},\\ q(q-1)^2/6, & k\text{ even};\end{cases}
+\qquad\text{equivalently}\qquad \Psi(C_e)=q^3-(-1)^k(q^2-q).
+\]
+In particular, $\pi(C_e)>0$ for every $q$.
+\end{conjecture}
+
+\begin{table}[H]
+\centering
+\caption{The classes $C_e$ ($d=3$, $p_3=0$) in characteristic $2$: exhaustive irreducible counts. For $q\le16$ all $e$
+were counted; for larger $q$, $e=0$ and, up to $q=64$, $e=1$.}\label{tab:p3zero}
+\begin{tabular}{rrrr}
+\toprule
+$q$ & $\pi(C_e)$ & conjectured value & $q^3/6$\\
+\midrule
+2 & 1 & $q(q^2-1)/6=1$ & 1.3\\
+4 & 6 & $q(q-1)^2/6=6$ & 10.7\\
+8 & 84 & 84 & 85.3\\
+16 & 600 & 600 & 682.7\\
+32 & 5\,456 & 5\,456 & 5\,461.3\\
+64 & 42\,336 & 42\,336 & 43\,690.7\\
+128 & 349\,504 & 349\,504 & 349\,525.3\\
+256 & 2\,774\,400 & 2\,774\,400 & 2\,796\,202.7\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The conjectured formula holds for all $q\le256$; the counts are exhaustive (Table~\ref{tab:p3zero}, script
+\texttt{char2\_d3\_p3zero.py}). Two pieces of evidence point towards a proof.
+
+\begin{itemize}
+\item For $q\le16$, every character $\chi$ of exact level $2$ or $3$ of $G_3$ has $L(u,\chi)$ with all inverse zeros
+satisfying $\gamma^6\in q^3\{\pm1,\pm i\}$; these $L$-functions are supersingular.
+\item By the Artin--Hasse factorisation $1+xu\equiv E(xu)E(x^2u^2)(1+x^3u^3)\pmod{u^4}$, the sums
+$\psi_6(\chi)=\sum_{x\in\F_{q^6}}\chi(N(1+xu))$ become Gauss sums of $\Z/4$-valued quadratic forms on $\F_{q^6}$. Their
+radicals are cut out by cubics $\gamma^2z^3+z+\gamma$ with $\gamma\in\F_q$, which split in $\F_{q^6}$.
+\end{itemize}
+
+A proof along these lines would need the Brown invariant of each of these forms; we do not carry this out here. Note the error term: it is $O(q)$ for $k$ odd and $-q^2/3+O(q)$ for
+$k$ even, well inside the $O(q^{5/2})$ that a monodromy argument would give.
+
+
 
 \section{Questions}
 \begin{enumerate}
 \item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? By
 Corollary~\ref{cor:BBR}, for each $d\ge4$ only finitely many $q$ can carry further empty sub-intervals. For $d=3$, the
-classes with $p_3=0$ are not covered by \cite{BBR}, but they are nonempty in the computed range $q\le16$.
-\item In odd characteristic, is every Oppermann sub-interval nonempty for all $q$ and $d$? Lemma~\ref{lem:odd} turns
+classes with $p_3=0$ are not covered by \cite{BBR}. They all have the same count (Proposition~\ref{prop:p3zero}),
+which is positive for $q\le256$; Conjecture~\ref{conj:p3zero} would settle them for all $q$.
+\item For odd $q$, is every Oppermann sub-interval nonempty, for all $q$ and $d$? Lemma~\ref{lem:odd} turns
 this into a statement about all short intervals of length $q^{n/2}$. By Corollary~\ref{cor:BBR}, for each $d\ge3$ it
 fails for at most finitely many $q$. For $d=2$ it holds for every odd $q$ (Theorem~\ref{thm:odd2}). An explicit $q_0(d)$
 combined with Theorem~\ref{thm:odd} would settle further small $d$ completely. The trace-form method of
-Section~\ref{sec:odd2} would need the joint distribution of $\Tr(x^2)$ and $\Tr(x^3)$ on $\ker\Tr\subset\F_{q^6}$ for
-$d=3$; it does not reduce to a quadratic form.
+Section~\ref{sec:odd2} would need, for $d=3$, the joint distribution of $\Tr(x^2)$ and $\Tr(x^3)$ on the subspace
+$\ker\Tr\subset\F_{q^6}$; it does not reduce to a quadratic form.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with
 $\min_x\pi(x)\ge c\,q^d/2d$ for all large $d$?
 \end{enumerate}
@@ -637,6 +718,7 @@ Figure~\ref{fig:ratio}.
 \item \texttt{char2\_d2\_blocks.py}, \texttt{char2\_d2\_theorem.py}: Theorem~\ref{thm:main2}(B).
 \item \texttt{swan\_parity.py}: Theorem~\ref{thm:main2}(C) and Table~\ref{tab:zero}.
 \item \texttt{odd\_d2\_formula.py}: brute-force check of Theorem~\ref{thm:odd2}.
+\item \texttt{char2\_d3\_p3zero.py}: Table~\ref{tab:p3zero}.
 \item \texttt{hayes\_fft\_fq.py}, \texttt{fqlib.py}, \texttt{small\_q\_gf.py}: taken unchanged from \cite{ChenI}.
 \end{itemize}
 All scripts are in \texttt{code/}; their outputs are in \texttt{data/}.
