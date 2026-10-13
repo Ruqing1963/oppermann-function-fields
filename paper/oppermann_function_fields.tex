@@ -16,7 +16,6 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
@@ -561,18 +560,61 @@ the Riemann hypothesis falls short by a factor $\log x$. No degree threshold bey
 follows from Weil's theorem.
 
 \emph{For $d=2$}, \eqref{eq:weil} reads $|\Psi(x)-q^2|\le q^2-q$, so $\Psi(x)\ge q>0$ for every class. This still
-does not produce an irreducible, because $\Psi$ also counts prime powers. Theorem~\ref{thm:main2}(B) shows the
-lower bound is sharp. Take $q=4^j$ and the empty class $B_0=\{t^4+\alpha t+\beta\}$. Its proper prime powers are
-the $q$ fourth powers $(t+c_0)^4=t^4+c_0^4$, each with $\Lambda=1$; the squares $(t^2+b)^2$ do not count, since
-$t^2+b$ is itself a square. Hence
-\[
-\Psi(B_0)=4\pi(B_0)+E(B_0)=0+q=q .
-\]
-So equality holds in \eqref{eq:weil}, which forces $\overline\chi(B_0)\psi_4(\chi)=-q^2$ for all $q^2-q$ characters
-of exact level $2$. The whole of the Weil lower bound is taken up by the fourth powers.
+does not produce an irreducible, because $\Psi$ also counts prime powers. In characteristic $2$ the bound is attained,
+and this pins down every level-$2$ $L$-function.
 
-The same happens for $q=2$ on $B_1$, where $\Psi(B_1)=E(B_1)=2$ comes from $(t^2+t+1)^2$. The values
-$\Psi(B_0)=q$ for $q=4,16$ and $\Psi(B_1)=2$ for $q=2$ were confirmed with the FFT code.
+\begin{proposition}[characteristic $2$, $d=2$]\label{prop:rigid}
+Let $q=2^k$, and let $B_e=\{t^4+et^2+\alpha t+\beta\}$ as in \S\ref{sec:char2}.
+\begin{enumerate}
+\item $E(B_e)=q$ for every $e\in\F_q$.
+\item $\Psi(B_0)=q^2-(-1)^k(q^2-q)$, and $\Psi(B_e)=q^2+(-1)^kq$ for $e\ne0$. In particular, $B_0$ attains the lower
+Weil bound $q$ when $k$ is even and the upper bound $2q^2-q$ when $k$ is odd.
+\item Every character $\chi$ of exact level $2$ has $L(u,\chi)=1-\gamma_\chi u$ with $\gamma_\chi^4=(-1)^kq^2$.
+\item For every level-$2$ class $x$ in degree $4$,
+\[
+\Psi(x)=q^2-(-1)^k\bigl(q^2[x=1]-q\,[p_3(x)=0]\bigr).
+\]
+In particular, every class with $p_3\ne0$ contains exactly $q^2/4$ irreducibles.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) The proper prime powers of degree $4$ are $\varpi^4$ with $\deg\varpi=1$ and $\varpi^2$ with $\deg\varpi=2$.
+\begin{itemize}
+\item $(t+c)^4=t^4+c^4$ lies in $B_e$ only for $e=0$, and then for all $q$ values of $c$, each with $\Lambda=1$.
+\item $(t^2+b_1t+b_0)^2=t^4+b_1^2t^2+b_0^2$ lies in $B_e$ exactly when $b_1^2=e$. For $e=0$ this forces $b_1=0$, and
+$t^2+b_0$ is a square, not irreducible. For $e\ne0$ we have $b_1=\sqrt e\ne0$, and by Theorem~\ref{thm:main2}(A) the polynomial
+$t^2+b_1t+b_0$ is irreducible for exactly $q/2$ values of $b_0$, each contributing $\Lambda=2$.
+\end{itemize}
+In both cases $E(B_e)=q$.
+
+(2) We have $\Psi(B_e)=4\pi(B_e)+q$. Insert the counts of Theorem~\ref{thm:main2}(B).
+
+(3) $B_0$ is the identity of $G_2$, so $\chi(B_0)=1$ for every $\chi$. Characters of exact level $1$ have $L=1$ and
+$\psi_4=0$. By \eqref{eq:explicit} and (2),
+\[
+\sum_{\chi\ \text{exact level }2}\psi_4(\chi)=q^2\bigl(\Psi(B_0)-q^2\bigr)=-(-1)^k(q^2-q)\,q^2 .
+\]
+There are $q^2-q$ such characters, and each has $|\psi_4(\chi)|\le q^2$. Equality in the triangle inequality
+therefore forces $\psi_4(\chi)=-(-1)^kq^2$ for each of them. Then $L(u,\chi)$ cannot be constant, so
+$L(u,\chi)=1-\gamma_\chi u$ and $\psi_4(\chi)=-\gamma_\chi^4$.
+
+(4) By (3) and \eqref{eq:explicit},
+\[
+\Psi(x)=q^2-(-1)^k\sum_{\chi\ \text{exact level }2}\overline\chi(x).
+\]
+The inner sum is a sum over all characters of $G_2$ minus a sum over the characters of $G_1$, which equals
+$q^2[x=1]-q[x\in\ker(G_2\to G_1)]$. The kernel consists of the classes with $p_3=0$.
+
+If $p_3(x)\ne0$, then $x$ contains no proper prime power: $\varpi^4$ and $\varpi^2$ have no odd-degree terms. So
+$\pi(x)=\Psi(x)/4=q^2/4$.
+\end{proof}
+
+All four statements were confirmed for $q=2,4,8,16$ by the script \texttt{char2\_d2\_rigidity.py}. In
+characteristic $2$ the explicit formula thus degenerates completely at $d=2$. The $q^2-q$ characters of exact level
+$2$ all have the same $\psi_4$, so $\Psi$ takes only three values: on the identity class, on the other classes with
+$p_3=0$, and on the classes with $p_3\ne0$. The Oppermann classes are exactly the classes with $p_3=0$
+(Lemma~\ref{lem:even}), and the identity class $B_0$ is where the fourth powers absorb the entire Weil lower bound.
 
 Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) bound the number of intervals that
 deviate by a given amount; they do not exclude a single empty interval.
@@ -737,7 +779,7 @@ So $6q\,\pi=(q-1)^2q^2$.
 The formula for $\Psi$ follows from Proposition~\ref{prop:p3zero}(2).
 \end{proof}
 
-\begin{table}[H]
+\begin{table}[tbp]
 \centering
 \caption{The classes $C_e$ ($d=3$, $p_3=0$) in characteristic $2$: exhaustive irreducible counts, in agreement with
 Theorem~\ref{thm:p3zero}. For $q\le16$ all $e$ were counted; for larger $q$, $e=0$ and, up to $q=64$, $e=1$.}\label{tab:p3zero}
@@ -762,7 +804,9 @@ The error term $\pi(C_e)-q^3/6$ is $-q/6$ for $k$ odd and $-q^2/3+q/6$ for $k$ e
 $O(q^{5/2})$ a monodromy argument would give.
 
 It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
-of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. The proof above avoids
+of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. At level $2$ this is a
+theorem: Proposition~\ref{prop:rigid}(3) gives $\gamma_\chi^4=(-1)^kq^2$ for every character of exact level $2$,
+which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it remains an observation. The proof above avoids
 these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
 $\Tr_{L/K}(x)=\Tr_{L/K}(x^3)=0$, which the tower $K\subset E\subset L$ makes linear.
 \end{remark}
@@ -795,6 +839,7 @@ Figure~\ref{fig:ratio}.
 \item \texttt{swan\_parity.py}: Theorem~\ref{thm:main2}(C) and Table~\ref{tab:zero}.
 \item \texttt{odd\_d2\_formula.py}: brute-force check of Theorem~\ref{thm:odd2}.
 \item \texttt{char2\_d3\_p3zero.py}: Table~\ref{tab:p3zero}.
+\item \texttt{char2\_d2\_rigidity.py}: Proposition~\ref{prop:rigid}.
 \item \texttt{hayes\_fft\_fq.py}, \texttt{fqlib.py}, \texttt{small\_q\_gf.py}: taken unchanged from \cite{ChenI}.
 \end{itemize}
 All scripts are in \texttt{code/}; their outputs are in \texttt{data/}.

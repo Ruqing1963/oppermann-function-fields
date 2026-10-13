@@ -1,0 +1,4 @@
+﻿q =  2: E(B_e)=q violations 0; characters with deg L = 1: 2 (expected q^2-q = 2); gamma^4 != (-1)^k q^2: 0; Psi formula violations 0; p3!=0 classes with pi != q^2/4: 0
+q =  4: E(B_e)=q violations 0; characters with deg L = 1: 12 (expected q^2-q = 12); gamma^4 != (-1)^k q^2: 0; Psi formula violations 0; p3!=0 classes with pi != q^2/4: 0
+q =  8: E(B_e)=q violations 0; characters with deg L = 1: 56 (expected q^2-q = 56); gamma^4 != (-1)^k q^2: 0; Psi formula violations 0; p3!=0 classes with pi != q^2/4: 0
+q = 16: E(B_e)=q violations 0; characters with deg L = 1: 240 (expected q^2-q = 240); gamma^4 != (-1)^k q^2: 0; Psi formula violations 0; p3!=0 classes with pi != q^2/4: 0
