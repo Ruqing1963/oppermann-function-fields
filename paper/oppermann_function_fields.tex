@@ -51,7 +51,9 @@ number of irreducibles in every Oppermann sub-interval, $q^2/4$, $0$, $q(q-2)/4$
 on the roots of an additive polynomial through $\AGL_2(\F_2)\cong S_4$; it vanishes exactly when $q=4^j$, $a_1^2+c=0$, or
 $q=2$, $a_1^2+c=1$; (C)~for $q=2$, $d=4$ the block $\{t^8+s:\deg s\le3\}$ contains no irreducible, by the
 Stickelberger--Swan sign of Frobenius, because $8\mid\deg$ makes the sign depend only on the tail. In odd
-characteristic every class of the Hayes group of level $d$ is an Oppermann sub-interval, and an exact computation
+characteristic every class of the Hayes group of level $d$ is an Oppermann sub-interval. For $d=2$ we prove the exact
+count $\pi=(q^2-1-(q-\eta(-1))\eta(2e))/4>0$ for every odd $q$, via a ternary trace form on $\F_{q^4}$; with (B),
+this settles $d=2$ for all $q$. An exact computation
 with the Hayes explicit formula shows that all of them contain irreducibles for $q=3$, $d\le16$; $q=5$, $d\le10$;
 $q=7$, $d\le9$; $q=9$, $d\le8$; $q=11$, $d\le7$; $q=13$, $d\le6$. In characteristic~$2$ the same computation, for
 $q\in\{2,4,8,16\}$ up to $q^d\le2^{26}$, finds no empty Oppermann sub-interval beyond (A)--(C). The Weil bound sits
@@ -120,6 +122,17 @@ For $q=2$, $d\le26$; $q=4$, $d\le13$; $q=8$, $d\le7$; $q=16$, $d\le5$, the only 
 those of Theorem~\ref{thm:main2}.
 \end{theorem}
 
+\begin{theorem}[odd characteristic, $d=2$]\label{thm:odd2}
+Let $q$ be odd and let $\eta$ be the quadratic character of $\F_q$, with $\eta(0)=0$. For $f=t^2+a_1t+a_0$ and
+$c\in\F_q$, put $e=2a_0+c-a_1^2/2$. Then
+\[
+\pi(O_{f,c})=\frac{q^2-1-\bigl(q-\eta(-1)\bigr)\,\eta(2e)}{4}.
+\]
+In particular, every Oppermann sub-interval with $d=2$ contains at least $q(q-1)/4$ irreducibles if
+$q\equiv1\pmod4$, and at least $(q+1)(q-2)/4$ if $q\equiv3\pmod4$. Together with Theorem~\ref{thm:main2}(B), this
+settles $d=2$ for every $q$.
+\end{theorem}
+
 For fixed $d$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig \cite{BBR} settles the question in most
 cases (Corollary~\ref{cor:BBR}). The tables above therefore matter mainly for small $q$, where that theorem gives
 nothing.
@@ -129,7 +142,8 @@ sub-intervals are counts of sets, that is, of Hayes classes.
 
 Section~\ref{sec:classes} identifies the Oppermann sub-intervals with Hayes classes and explains why
 characteristic~$2$ is special: the Oppermann classes are concentrated on prefixes close to squares.
-Section~\ref{sec:char2} proves Theorem~\ref{thm:main2}. Section~\ref{sec:comp} describes the exact computation behind
+Section~\ref{sec:char2} proves Theorem~\ref{thm:main2}, and Section~\ref{sec:odd2} proves Theorem~\ref{thm:odd2}.
+Section~\ref{sec:comp} describes the exact computation behind
 Theorems~\ref{thm:odd} and~\ref{thm:even}. Section~\ref{sec:barrier} explains why the explicit formula alone cannot
 go further.
 
@@ -373,6 +387,84 @@ $d$ & $|Z_d|$ & squarefree & $\disc\equiv5$ & $\disc\equiv5$, no root & irreduci
 \end{tabular}
 \end{table}
 
+\section{\texorpdfstring{Odd characteristic, $d=2$: a ternary trace form}{Odd characteristic, d=2: a ternary trace form}}\label{sec:odd2}
+
+Throughout this section $q$ is odd and $\eta$ is the quadratic character of $\F_q$, with $\eta(0)=0$.
+
+\subsection{Reduction to one-parameter blocks}
+The level-$2$ classes in degree $4$ are $C_{p_3,p_2}=\{t^4+p_3t^3+p_2t^2+\alpha t+\beta:\alpha,\beta\in\F_q\}$. The
+translation $t\mapsto t-p_3/4$ is defined because $4$ is invertible (in characteristic $3$ it is $t\mapsto t-p_3$).
+It preserves irreducibility and maps $C_{p_3,p_2}$ bijectively onto
+\[
+B_e=\{t^4+et^2+\alpha t+\beta:\alpha,\beta\in\F_q\},\qquad e=p_2-\tfrac38p_3^2 .
+\]
+For $O_{f,c}$ with $f=t^2+a_1t+a_0$ we have $p_3=2a_1$ and $p_2=a_1^2+2a_0+c$, so $e=2a_0+c-a_1^2/2$.
+
+\subsection{The count}
+\begin{proposition}\label{prop:odd2}
+For every $e\in\F_q$, the number of irreducibles in $B_e$ is
+\[
+\pi(B_e)=\frac{q^2-1-\bigl(q-\eta(-1)\bigr)\eta(2e)}{4}.
+\]
+\end{proposition}
+
+\begin{proof}
+A monic irreducible quartic $P\in B_e$ is the minimal polynomial of exactly four elements $x\in\F_{q^4}$ of degree
+$4$, namely its roots. Write $\Tr=\Tr_{\F_{q^4}/\F_q}$. The coefficient conditions on $P$ translate into conditions on
+$x$: $p_3=-\Tr(x)$, and when $\Tr x=0$,
+\[
+p_2=e_2(x,x^q,x^{q^2},x^{q^3})=\tfrac12\bigl((\Tr x)^2-\Tr(x^2)\bigr)=-\tfrac12\Tr(x^2).
+\]
+Hence $4\pi(B_e)=N-M$, where
+\[
+N=\#\{x\in W:Q(x)=-2e\},\qquad W=\ker\Tr,\quad Q(x)=\Tr(x^2),
+\]
+and $M$ counts the elements of $W$ with $Q(x)=-2e$ that have degree $<4$ over $\F_q$, i.e.\ that lie in
+$\F_{q^2}$.
+
+\emph{The form $Q$.} The bilinear form $(x,y)\mapsto\Tr(xy)$ on $\F_{q^4}$ is nondegenerate. Its Gram determinant on
+a basis $\omega_1,\dots,\omega_4$ is $D=\det(\omega_i^{q^{j}})^2$. Frobenius permutes the columns of the matrix
+$(\omega_i^{q^j})$ by a $4$-cycle, an odd permutation, so $\det(\omega_i^{q^j})$ is not fixed by Frobenius. It
+therefore lies outside $\F_q$ while its square $D$ lies in $\F_q$, so $D$ is a nonsquare in $\F_q$.
+
+Since $\Tr(1\cdot x)=\Tr x$, the line $\F_q$ is orthogonal to $W$, and $\F_{q^4}=\F_q\perp W$. The Gram determinant
+of $\F_q$ is $\Tr(1)=4$, a square. So $Q|_W$ is a nondegenerate ternary form whose determinant $\Delta$ is a
+nonsquare.
+
+\emph{Counting $N$.} For a nondegenerate quadratic form in $3$ variables over $\F_q$ with determinant $\Delta$, the
+number of solutions of $Q(x)=b$ is $q^2+q\,\eta(-b\Delta)$ \cite[Thm.~6.27]{LN}; for $b=0$ this is $q^2$. With
+$b=-2e$ and $\eta(\Delta)=-1$ we get $N=q^2-q\,\eta(2e)$, also for $e=0$.
+
+\emph{Counting $M$.} An element of $\F_{q^2}$ has $\Tr x=2\Tr_{\F_{q^2}/\F_q}(x)$, so it lies in $W$ if and only if
+$x^q=-x$. Such $x$ form the line $\delta\F_q$, where $\delta^2=\nu$ is a nonsquare of $\F_q$. For these $x$,
+$x^2\in\F_q$ and $Q(x)=2(x^2+x^{2q})=4x^2$, so the condition is $x^2=-e/2$. The squares of elements $s\delta$ are
+$0$ and the nonsquares of $\F_q$, each nonsquare attained twice. Hence $M=1$ if $e=0$, and $M=1-\eta(-e/2)$ if
+$e\ne0$; in both cases $M=1-\eta(-2e)$.
+
+Therefore
+\[
+4\pi(B_e)=q^2-q\,\eta(2e)-1+\eta(-2e)=q^2-1-\bigl(q-\eta(-1)\bigr)\eta(2e). \qedhere
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:odd2}]
+Combine the reduction with Proposition~\ref{prop:odd2}. The minimum over $e$ is attained at $\eta(2e)=1$. It equals
+$(q^2-1-(q-1))/4=q(q-1)/4$ when $\eta(-1)=1$, i.e.\ $q\equiv1\pmod4$, and $(q^2-1-(q+1))/4=(q+1)(q-2)/4$ when
+$q\equiv3\pmod4$. Both are positive for every odd $q$.
+\end{proof}
+
+\begin{remark}
+The values agree with a brute-force count of all $q^2$ members of every block $B_e$ for
+$q\in\{3,5,7,9,11,13,25,27,49,81\}$, and for $q\le13$ also of every class $C_{p_3,p_2}$ (script
+\texttt{odd\_d2\_formula.py}). They also agree with the minima of Table~\ref{tab:odd}. Characteristic $3$ needs no
+special treatment.
+
+The contrast with characteristic $2$ is instructive. There the translation $t\mapsto t+a$ cannot remove $p_3$,
+since $4=0$. The Oppermann blocks are exactly the classes with $p_3=0$, on which $t^4+et^2+\alpha t$ is
+\emph{additive}, and this additivity produces the obstruction of Proposition~\ref{prop:agl}. In odd characteristic
+the trace form $\Tr(x^2)$ has the same shape for every $e$, and the count never drops below about $q^2/4-q/4$.
+\end{remark}
+
 \section{The exact computation}\label{sec:comp}
 
 \subsection{Method}
@@ -514,8 +606,9 @@ $\deg P'\le1$'' does not apply.
 \end{proof}
 
 The cases left open by the corollary are the following. For $d=1$ the interval is too short for \cite{BBR}, but
-Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $q$ odd
-with $d=2$ and $3\mid q$ there is no general result. For $q$ even with $d=2$, Theorem~\ref{thm:main2}(B) is complete.
+Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $d=2$ the
+corollary is superseded: Theorems~\ref{thm:main2}(B) and~\ref{thm:odd2} give exact counts for every $q$, including
+$3\mid q$, with no threshold.
 For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) remain open. In every case, $q<q_0(d)$ is
 covered only by computation.
 
@@ -526,8 +619,10 @@ Corollary~\ref{cor:BBR}, for each $d\ge4$ only finitely many $q$ can carry furth
 classes with $p_3=0$ are not covered by \cite{BBR}, but they are nonempty in the computed range $q\le16$.
 \item In odd characteristic, is every Oppermann sub-interval nonempty for all $q$ and $d$? Lemma~\ref{lem:odd} turns
 this into a statement about all short intervals of length $q^{n/2}$. By Corollary~\ref{cor:BBR}, for each $d\ge3$ it
-fails for at most finitely many $q$. An explicit $q_0(d)$ combined with Theorem~\ref{thm:odd} would settle small $d$
-completely.
+fails for at most finitely many $q$. For $d=2$ it holds for every odd $q$ (Theorem~\ref{thm:odd2}). An explicit $q_0(d)$
+combined with Theorem~\ref{thm:odd} would settle further small $d$ completely. The trace-form method of
+Section~\ref{sec:odd2} would need the joint distribution of $\Tr(x^2)$ and $\Tr(x^3)$ on $\ker\Tr\subset\F_{q^6}$ for
+$d=3$; it does not reduce to a quadratic form.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with
 $\min_x\pi(x)\ge c\,q^d/2d$ for all large $d$?
 \end{enumerate}
@@ -541,6 +636,7 @@ $\min_x\pi(x)\ge c\,q^d/2d$ for all large $d$?
 Figure~\ref{fig:ratio}.
 \item \texttt{char2\_d2\_blocks.py}, \texttt{char2\_d2\_theorem.py}: Theorem~\ref{thm:main2}(B).
 \item \texttt{swan\_parity.py}: Theorem~\ref{thm:main2}(C) and Table~\ref{tab:zero}.
+\item \texttt{odd\_d2\_formula.py}: brute-force check of Theorem~\ref{thm:odd2}.
 \item \texttt{hayes\_fft\_fq.py}, \texttt{fqlib.py}, \texttt{small\_q\_gf.py}: taken unchanged from \cite{ChenI}.
 \end{itemize}
 All scripts are in \texttt{code/}; their outputs are in \texttt{data/}.
@@ -555,6 +651,8 @@ verification for $d\le10$, and an anomaly in characteristic~2}, preprint (2026),
 \textbf{117} (1965), 101--127.
 \bibitem{KR} J.~P. Keating, Z.~Rudnick, \emph{The variance of the number of prime polynomials in short intervals and
 in residue classes}, Int. Math. Res. Not. IMRN \textbf{2014}, no.~1, 259--288.
+\bibitem{LN} R.~Lidl, H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Encyclopedia of Mathematics and its
+Applications \textbf{20}, Cambridge University Press, 1997.
 \bibitem{Oppermann} L.~Oppermann, \emph{Om vor Kundskab om Primtallenes M\ae ngde mellem givne Gr\ae ndser},
 Oversigt over det Kongelige Danske Videnskabernes Selskabs Forhandlinger (1882), 169--179.
 \bibitem{Stickelberger} L.~Stickelberger, \emph{\"Uber eine neue Eigenschaft der Diskriminanten algebraischer

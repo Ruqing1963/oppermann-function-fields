@@ -1,0 +1,10 @@
+﻿q =   3: blocks B_e checked 3, formula violations 0, values [1, 2, 3], min 1, reduction violations 0
+q =   5: blocks B_e checked 5, formula violations 0, values [5, 6, 7], min 5, reduction violations 0
+q =   7: blocks B_e checked 7, formula violations 0, values [10, 12, 14], min 10, reduction violations 0
+q =   9: blocks B_e checked 9, formula violations 0, values [18, 20, 22], min 18, reduction violations 0
+q =  11: blocks B_e checked 11, formula violations 0, values [27, 30, 33], min 27, reduction violations 0
+q =  13: blocks B_e checked 13, formula violations 0, values [39, 42, 45], min 39, reduction violations 0
+q =  25: blocks B_e checked 25, formula violations 0, values [150, 156, 162], min 150
+q =  27: blocks B_e checked 27, formula violations 0, values [175, 182, 189], min 175
+q =  49: blocks B_e checked 49, formula violations 0, values [588, 600, 612], min 588
+q =  81: blocks B_e checked 81, formula violations 0, values [1620, 1640, 1660], min 1620
