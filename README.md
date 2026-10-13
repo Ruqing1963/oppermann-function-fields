@@ -37,7 +37,9 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
 
 **Characteristic 2, computed range:** there are no empty Oppermann sub-intervals beyond (A)–(C) for q = 2, d ≤ 26; q = 4, d ≤ 13; q = 8, d ≤ 7; q = 16, d ≤ 5.
 
-**Limits of the method:** the Weil bound gives only |Ψ − q^d| ≤ (d − 1)q^d. This is the square-root barrier, so it proves nothing pointwise for d ≥ 2.
+**Limits of the method:** counted by exact level, the Weil bound gives |Ψ − q^d| ≤ (d − 1)q^d − Σ_{j<d} q^j.
+- For d ≥ 3 this is the square-root barrier, so it proves nothing pointwise.
+- For d = 2 it gives Ψ ≥ q. In the empty classes of (B) this is attained exactly, by fourth powers.
 
 ## Files
 
