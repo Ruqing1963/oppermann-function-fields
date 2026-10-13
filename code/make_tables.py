@@ -1,4 +1,4 @@
-"""
+﻿"""
 make_tables.py -- LaTeX tables for the paper from ../data/hayes_oppermann_census.txt -> ../paper/census_tables.tex
 (the last few degrees for each q; all degrees are in the data file).
 """
@@ -21,7 +21,7 @@ def load():
 
 
 def table(rows, qs, last, label, caption):
-    out = [r"\begin{table}[htbp]", r"\centering", rf"\caption{{{caption}}}\label{{{label}}}",
+    out = [r"\begin{table}[!htbp]", r"\centering", rf"\caption{{{caption}}}\label{{{label}}}",
            r"\begin{tabular}{rrrrrr}", r"\toprule",
            r"$q$ & $d$ & classes & $\min\pi$ & mean $\pi$ & $\min\pi/(q^d/2d)$\\", r"\midrule"]
     for q in qs:

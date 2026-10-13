@@ -6,6 +6,7 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{placeins}
 \usepackage[margin=2.6cm]{geometry}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \graphicspath{{../figures/}}
@@ -348,7 +349,7 @@ $-1$, and the block contains $10$ irreducibles. The parallel with (B) is exact: 
 quotient $S_4\to S_3$ (the resolvent cubic), in (C) the quotient $S_8\to\{\pm1\}$ (the sign).
 \end{remark}
 
-\begin{table}[htbp]
+\begin{table}[!htbp]
 \centering
 \caption{The zero blocks $Z_d=\{t^{2d}+s:\deg s<d\}\subset\F_2[t]$. Columns: the squarefree members; those with
 $\disc\equiv5\pmod8$, i.e.\ Frobenius odd (integer lift with coefficients $0,1$); those among them with no root in
@@ -405,15 +406,6 @@ Table~\ref{tab:odd} lists, for odd $q$, the minimum of $\pi(x)$ over all classes
 sub-intervals by Lemma~\ref{lem:odd}) and its ratio to the expected value $q^d/2d$. Table~\ref{tab:even} gives the same for
 the Oppermann classes in characteristic $2$. The full output, all degrees, is in the file\\ \texttt{data/hayes\_oppermann\_census.txt}.
 
-\input{census_tables}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{oppermann_min_ratio.pdf}
-\caption{Normalised minimum $\min_{f,c}\pi(O_{f,c})/(q^d/2d)$ against $d$. Left: odd $q$. Right: even $q$; the
-points at $0$ are the empty sub-intervals of Theorem~\ref{thm:main2}.}\label{fig:ratio}
-\end{figure}
-
 \begin{proof}[Proof of Theorems~\ref{thm:odd} and~\ref{thm:even}]
 Exact computation as described above; the minima are in Tables~\ref{tab:odd} and~\ref{tab:even}, and the empty
 classes in characteristic $2$ occur exactly at
@@ -426,14 +418,26 @@ one class each, which are the classes of Theorem~\ref{thm:main2}.
 The normalised minimum $\min_x\pi(x)/(q^d/2d)$ tends to $1$ in every column: the worst Oppermann sub-interval is
 only slightly below average, far from the Weil bound discussed next.
 
+\input{census_tables}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{oppermann_min_ratio.pdf}
+\caption{Normalised minimum $\min_{f,c}\pi(O_{f,c})/(q^d/2d)$ against $d$. Left: odd $q$. Right: even $q$; the
+points at $0$ are the empty sub-intervals of Theorem~\ref{thm:main2}.}\label{fig:ratio}
+\end{figure}
+
+\FloatBarrier
+
 \section{The square-root barrier}\label{sec:barrier}
 
 In \eqref{eq:explicit} with $n=2d$ and $l=d$ the main term is $q^d$.
 
 Let $\chi$ have exact level $j$. The monic polynomials of degree $\ge j$ are equidistributed over $G_j$, so
 $\deg L(u,\chi)\le j-1$. By Weil, every inverse zero $\gamma$ of $L(u,\chi)$ has $|\gamma|\in\{1,\sqrt q\}$, hence
-$|\psi_{2d}(\chi)|\le(j-1)q^d$. Characters of level $1$ have $L=1$ and contribute nothing. Summing over the
-$q^j-q^{j-1}$ characters of each exact level $j$ gives
+$|\psi_{2d}(\chi)|\le(j-1)q^d$. Characters of level $1$ have $L=1$ and contribute nothing. Multiplying by the factor
+$q^{-d}$ in \eqref{eq:explicit}, which cancels the $q^d$, and summing over the $q^j-q^{j-1}$ characters of each
+exact level $j$ gives
 \begin{equation}\label{eq:weil}
 |\Psi(x)-q^d|\le\sum_{j=2}^{d}(j-1)(q^j-q^{j-1})=(d-1)q^d-\sum_{j=1}^{d-1}q^j .
 \end{equation}
@@ -461,15 +465,15 @@ Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) 
 deviate by a given amount; they do not exclude a single empty interval.
 
 For fixed degree and $q\to\infty$, Bank, Bary-Soroker and Rosenzweig \cite{BBR} prove the following. For monic
-$f\in\F_q[t]$ of degree $k$ and $1\le m<k$, the number $N$ of irreducibles in $\{f+h:\deg h\le m\}$ satisfies
+$P\in\F_q[t]$ of degree $k$ and $1\le m<k$, the number $N$ of irreducibles in $\{P+h:\deg h\le m\}$ satisfies
 \[
 \bigl|N-q^{m+1}/k\bigr|\le c(k)\,q^{m+1/2},
 \]
-provided that $m\ge2$ if $\gcd(q,k(k-1))>1$, and $m\ge3$ if $q$ is even and $\deg f'\le1$. They also note that the
+provided that $m\ge2$ if $\gcd(q,k(k-1))>1$, and $m\ge3$ if $q$ is even and $\deg P'\le1$. They also note that the
 estimate fails outside this range.
 
 Our blocks $B_e=\{t^4+et^2+h:\deg h\le1\}$ have $k=4$ and $m=1$, and in characteristic $2$ the centre
-$f=t^4+et^2$ has $f'=0$, so both conditions exclude them. Theorem~\ref{thm:main2}(B) gives the exact count at this
+$P=t^4+et^2$ has $P'=0$, so both conditions exclude them. Theorem~\ref{thm:main2}(B) gives the exact count at this
 excluded point and shows how the asymptotic fails:
 \begin{itemize}
 \item for $q=4^j$ the block $e=0$ contains no irreducible, while the expected count is $q^2/4$;
@@ -505,14 +509,14 @@ $k(k-1)=12$, so it holds when $\gcd(q,6)=1$.
 \item \emph{$q$ even, $d\ge4$.} Here $m\ge3$, so both conditions hold.
 \item \emph{$q$ even, $d=3$.} By Lemma~\ref{lem:even} every member $P$ of an Oppermann class has $p_5=0$. In
 characteristic $2$ this gives $P'=p_3t^2+p_1$, so $\deg P'=2$ when $p_3\ne0$, and the condition ``$m\ge3$ if
-$\deg f'\le1$'' does not apply.
+$\deg P'\le1$'' does not apply.
 \end{itemize}
 \end{proof}
 
 The cases left open by the corollary are the following. For $d=1$ the interval is too short for \cite{BBR}, but
 Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $q$ odd
 with $d=2$ and $3\mid q$ there is no general result. For $q$ even with $d=2$, Theorem~\ref{thm:main2}(B) is complete.
-For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(0,x,0)$) remain open. In every case, $q<q_0(d)$ is
+For $q$ even with $d=3$, the $q$ classes with $p_3=0$ (prefixes $(p_5,p_4,p_3)=(0,x,0)$) remain open. In every case, $q<q_0(d)$ is
 covered only by computation.
 
 \section{Questions}
