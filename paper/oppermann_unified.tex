@@ -1,0 +1,1361 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\graphicspath{{../figures/}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\disc}{\operatorname{disc}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\AGL}{\mathrm{AGL}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+
+
+\title[{Oppermann intervals in $\F_q[t]$}]{Oppermann intervals in $\F_q[t]$:\\
+Galois obstructions, exact counts for small degree,\\ and the Oppermann subgroup in characteristic~$2$}
+\author{Ruqing Chen}
+\address{GUT Geoservice Inc., Montreal, Canada}
+\email{ruqing@hotmail.com}
+\thanks{Unified version of DOI 10.5281/zenodo.23353949 and DOI 10.5281/zenodo.23354447.}
+\thanks{Code and data: \url{https://github.com/Ruqing1963/oppermann-function-fields} and
+\url{https://github.com/Ruqing1963/oppermann-char2-subgroup}}
+\date{\today}
+\subjclass[2020]{Primary 11T55; Secondary 11T06, 11T24, 11N05, 11Y16}
+\keywords{Oppermann's conjecture, function fields, irreducible polynomials, short intervals, Hayes characters,
+Stickelberger--Swan theorem, Gauss sums, Artin--Schreier sums, explicit formula}
+
+\begin{document}
+
+\begin{abstract}
+For a monic $f\in\F_q[t]$ of degree $d$, the Legendre interval $\{f^2+s:\deg s\le d\}$ splits into the $q$
+\emph{Oppermann sub-intervals} $O_{f,c}=\{f^2+cf+s:\deg s<d\}$, each of size $q^d$. We ask whether every $O_{f,c}$
+contains an irreducible polynomial.
+
+In characteristic $2$ the answer is no, and the failures have three Galois-theoretic causes:
+(A)~for $d=1$ the piece $c=0$ consists of squares; (B)~for $d=2$, Frobenius acts on the roots of an additive
+polynomial through $\AGL_2(\F_2)\cong S_4$, and the resulting exact counts vanish exactly for $q=2$ and $q=4^j$;
+(C)~for $q=2$, $d=4$, the Stickelberger--Swan sign of Frobenius obstructs. The additive mechanism of (B) disappears
+for $d=2^{r-1}\ge4$, because $\AGL_r(\F_2)$ contains no $2^r$-cycle when $r\ge3$.
+
+For odd $q$ and $d=2$, a ternary trace form on $\F_{q^4}$ gives $\pi=(q^2-1-(q-\eta(-1))\eta(2e))/4>0$. In
+characteristic $2$ and $d=3$, a count in the tower $\F_q\subset\F_{q^3}\subset\F_{q^6}$ together with a cubic Gauss sum
+gives every class exactly. There are $q(q^2-1)/6$ irreducibles for $k$ odd. For $k$ even there are
+$q(q-1)^2/6$, $q(q^2+1-2\varepsilon\sqrt q)/6$ or $q(q^2+1+\varepsilon\sqrt q)/6$, according as the $t^3$-coefficient
+is $0$, a cube or a non-cube, where $\varepsilon=(-1)^{k/2}$. So $d\le2$ is settled for every $q$, and $d=3$ for
+every even $q$.
+
+For fixed $d\ge3$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig, together with the $d=3$ count,
+gives nonemptiness. Exact counts from the Hayes explicit formula, evaluated by FFT, give nonemptiness in odd
+characteristic for $q=3$, $d\le16$; $q=5$, $d\le10$; $q=7$, $d\le9$; $q=9$, $d\le8$; $q=11$, $d\le7$; $q=13$, $d\le6$.
+In characteristic $2$ they find no further empty sub-intervals for $q=2$, $d\le26$; $q=4$, $d\le13$; $q=8$, $d\le7$;
+$q=16$, $d\le5$.
+
+Finally, in characteristic $2$ the Oppermann classes form a subgroup $H_d$ of the Hayes group: the kernel of the odd
+power sums, with $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$. Its annihilator yields Artin--Schreier sums. The mean of
+$\Psi$ over $H_d$ drifts by $-2q^2+2q$ at $d=4$ with $k$ odd and by $q^2-q$ at $d=5$. The variance is a coherent sum
+over annihilator cosets, maximal at $d=2$, where $\Var_{H_2}(\Psi)/q^2=q-1$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Oppermann's conjecture \cite{Oppermann} asserts that for every $n\ge2$ both $(n^2,n^2+n)$ and $(n^2+n,(n+1)^2)$
+contain a prime. It implies Legendre's conjecture and lies beyond the Riemann hypothesis, which gives primes only
+in intervals $[x,x+C\sqrt x\log x]$. Over $\F_q[t]$, Legendre intervals $I_f=\{f^2+s:\deg s\le d\}$ ($f$ monic of
+degree $d$) were studied in \cite{ChenI}. Since $f^2+cf$ and $f^2+ct^d$ differ by a polynomial of degree $<d$, the
+interval $I_f$ is the disjoint union of the $q$ sub-intervals
+\begin{equation}\label{eq:Ofc}
+O_{f,c}=\{f^2+cf+s:\deg s<d\}=\{f^2+ct^d+s:\deg s<d\},\qquad c\in\F_q,
+\end{equation}
+each of cardinality $q^d=|f|$, the norm of $f$, exactly as $(n^2,n^2+n)$ has length $n$. For $q=2$ there are two
+halves. We call $O_{f,c}$ the \emph{Oppermann sub-intervals} and ask:
+
+\begin{quote}
+\emph{Does every $O_{f,c}$ contain an irreducible polynomial?}
+\end{quote}
+
+\noindent The answer depends on the characteristic.
+
+\begin{theorem}[characteristic $2$]\label{thm:main2}
+Let $q=2^k$.
+\begin{enumerate}
+\item[(A)] For $d=1$ the sub-interval $O_{f,0}=\{t^2+s_0:s_0\in\F_q\}$, which is the same set for all $q$
+polynomials $f$, consists of squares. Every $O_{f,c}$ with $c\ne0$ contains exactly $q/2$ irreducibles.
+\item[(B)] For $d=2$ and $f=t^2+a_1t+a_0$, the number of irreducibles in $O_{f,c}$ depends only on $e=a_1^2+c$ and
+equals
+\[
+\begin{array}{c|cc}
+ & e=0 & e\ne0\\\hline
+k\text{ even} & 0 & q^2/4\\
+k\text{ odd} & q(q-1)/2 & q(q-2)/4
+\end{array}
+\]
+The table has two zero entries: $k$ even with $e=0$, and $q(q-2)/4$ at $q=2$ (where $k=1$ is odd). Hence
+$O_{f,c}$ is empty if and only if either $k$ is even and $c=a_1^2$, or $q=2$ and $c=a_1^2+1$. For $q=2$ the block
+$e=0$ is \emph{not} empty: it contains $q(q-1)/2=1$ irreducible, $t^4+t+1$. For every
+$q\in\{2,4,16,64,\dots\}$ there is thus exactly one empty sub-interval as a set: $B_0$, or $B_1$ when $q=2$. It is
+represented by $q^2$ pairs $(f,c)$, one $c$ for each of the $q^2$ polynomials $f$. For $q\in\{8,32,128,\dots\}$
+there is none.
+\item[(C)] For $q=2$ and $d=4$ the block $Z_4=\{t^8+s:\deg s\le3\}$ contains no irreducible polynomial. It equals
+$O_{f,c}$ for the $8$ pairs $f=t^4+a_2t^2+a_1t+a_0$ (that is, $a_3=0$), $c=a_2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[odd characteristic, computer-assisted]\label{thm:odd}
+Let $q$ be odd. Every Oppermann sub-interval $O_{f,c}$ contains an irreducible polynomial whenever
+\[
+\begin{gathered}q=3,\ d\le16;\qquad q=5,\ d\le10;\qquad q=7,\ d\le9;\\ q=9,\ d\le8;\qquad q=11,\ d\le7;\qquad q=13,\ d\le6.\end{gathered}
+\]
+Equivalently (Lemma~\ref{lem:odd}), every interval $\{P+s:\deg s<d\}$ with $P$ monic of degree $2d$ contains an
+irreducible polynomial in these ranges.
+\end{theorem}
+
+\begin{theorem}[characteristic $2$, computer-assisted]\label{thm:even}
+For $q=2$, $d\le26$; $q=4$, $d\le13$; $q=8$, $d\le7$; $q=16$, $d\le5$, the only empty Oppermann sub-intervals are
+those of Theorem~\ref{thm:main2}.
+\end{theorem}
+
+\begin{theorem}[odd characteristic, $d=2$]\label{thm:odd2}
+Let $q$ be odd and let $\eta$ be the quadratic character of $\F_q$, with $\eta(0)=0$. For $f=t^2+a_1t+a_0$ and
+$c\in\F_q$, put $e=2a_0+c-a_1^2/2$. Then
+\[
+\pi(O_{f,c})=\frac{q^2-1-\bigl(q-\eta(-1)\bigr)\,\eta(2e)}{4}.
+\]
+In particular, every Oppermann sub-interval with $d=2$ contains at least $q(q-1)/4$ irreducibles if
+$q\equiv1\pmod4$, and at least $(q+1)(q-2)/4$ if $q\equiv3\pmod4$. Together with Theorem~\ref{thm:main2}(B), this
+settles $d=2$ for every $q$.
+\end{theorem}
+
+The additive mechanism behind (B) does not extend: for $d=2^{r-1}\ge4$ no affine polynomial of degree $2d$ is
+irreducible (Theorem~\ref{thm:agl}, Corollary~\ref{cor:dead}).
+
+For fixed $d$ and large $q$, the theorem of Bank, Bary-Soroker and Rosenzweig \cite{BBR} covers most classes
+(Corollary~\ref{cor:BBR}). The one family it misses for $d\ge3$ lies at $d=3$ in characteristic $2$, and there every
+class can be counted exactly.
+
+\begin{theorem}[characteristic $2$, $d=3$]\label{thm:intro_p3zero}
+Let $q=2^k$, $\varepsilon=(-1)^{k/2}$ for $k$ even, and let $c$ be the coefficient of $t^3$ in an Oppermann
+sub-interval $C$ with $d=3$. Then
+\[
+\pi(C)=\begin{cases}
+q(q^2-1)/6, & k\text{ odd},\\
+q(q-1)^2/6, & k\text{ even},\ c=0,\\
+q(q^2+1-2\varepsilon\sqrt q)/6, & k\text{ even},\ c\in(\F_q^\times)^3,\\
+q(q^2+1+\varepsilon\sqrt q)/6, & k\text{ even},\ c\notin(\F_q^\times)^3.
+\end{cases}
+\]
+In particular, no Oppermann sub-interval with $d=3$ is empty in characteristic $2$.
+\end{theorem}
+
+\begin{corollary}\label{cor:largeq}
+For $d\in\{1,2\}$, the answer is known exactly for every $q$ (Theorems~\ref{thm:main2}(A),(B) and~\ref{thm:odd2}).
+In characteristic $2$ this also holds for $d=3$ (Theorem~\ref{thm:intro_p3zero}), and no sub-interval is empty there.
+For every $d\ge3$ there is $q_0(d)$ such that every Oppermann sub-interval of degree $2d$ over $\F_q$ with
+$q\ge q_0(d)$ contains an irreducible polynomial.
+\end{corollary}
+
+For $d\ge3$, Corollary~\ref{cor:BBR} covers every class except those with $q$ even, $d=3$ and $p_3=0$.
+Theorem~\ref{thm:intro_p3zero}, proved as Theorem~\ref{thm:p3zero}, covers those, and indeed every class with $q$
+even and $d=3$. In characteristic $2$ and $d=2$, the
+empty sub-intervals for $q=2,4,16,64,\dots$ show that no such $q_0(2)$ exists there.
+
+The tables above therefore matter mainly for $q<q_0(d)$; $q_0(d)$ is not explicit.
+
+In characteristic $2$ the Oppermann sub-intervals have additional structure.
+
+\begin{theorem}[the Oppermann subgroup]\label{thm:summary}
+Let $q=2^k$, and let $H_d\subset G_d$ be the set of Oppermann classes of level $d$.
+\begin{enumerate}
+\item $H_d$ is the kernel of the odd power-sum homomorphism $P\mapsto(S_1,S_3,\dots,S_{2\lfloor d/2\rfloor-1})$, so
+$G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$ (Theorem~\ref{thm:group}). The characters of $G_d/H_d$ have Artin--Schreier
+sums as explicit-formula coefficients (Theorem~\ref{thm:AS}).
+\item $\E_{H_d}[\Psi]-q^d=0$ for $d=2,3$, and for $d=4$ with $k$ even. It equals $-2q^2+2q$ for $d=4$ with $k$ odd,
+and $q^2-q$ for $d=5$ (Corollary~\ref{cor:d23}, Theorem~\ref{thm:d45}).
+\item $\Var_{H_2}(\Psi)/q^2=q-1$, whereas $\Var_{G_2}(\Psi)/q^2=1-1/q$. Further, $\Var_{H_3}(\Psi)/q^3=1-1/q$ for $k$
+odd and $3(1-1/q)$ for $k$ even (Theorem~\ref{thm:var23}).
+\end{enumerate}
+\end{theorem}
+
+Throughout, a \emph{sub-interval} means the set $O_{f,c}$. Distinct pairs $(f,c)$ can give the same set; counts of
+sub-intervals are counts of sets, that is, of Hayes classes.
+
+\emph{Outline.}
+\begin{itemize}
+\item Section~\ref{sec:classes} identifies the Oppermann sub-intervals with Hayes classes. In characteristic $2$ it
+proves the Newton--trace duality.
+\item Sections~\ref{sec:char2}--\ref{sec:d3} contain the exact algebraic results for $d\le3$: the three obstructions
+and the $\AGL_r(\F_2)$ dead zone, the ternary trace form, and the field-tower and Gauss-sum count.
+\item Section~\ref{sec:comp} describes the exact computation, the square-root barrier, the rigidity of the level-$2$
+$L$-functions, and the large-$q$ corollary.
+\item Section~\ref{sec:subgroup} studies the mean and the variance over the Oppermann subgroup.
+\end{itemize}
+
+
+\section{Oppermann sub-intervals as Hayes classes and Newton--trace duality}\label{sec:classes}
+
+For $P$ monic of degree $n$ write $P=t^n+p_{n-1}t^{n-1}+\dots+p_0$. Two monic polynomials of degree $n$ lie in the
+same \emph{Hayes class of level $l$} if they agree in $p_{n-1},\dots,p_{n-l}$. Each class is a coset
+$P+\{s:\deg s<n-l\}$, and the map
+\[
+P\mapsto u^nP(1/u)\bmod u^{l+1}=1+p_{n-1}u+\dots+p_{n-l}u^l
+\]
+identifies the classes with the elements of the multiplicative group $G_l=(1+u\F_q[u])/(1+u^{l+1}\F_q[u])$ of order
+$q^l$. This map is multiplicative: $\mathrm{class}(PQ)=\mathrm{class}(P)\,\mathrm{class}(Q)$ in $G_l$. The characters
+of $G_l$ are the short-interval characters of Hayes \cite{Hayes} and Keating--Rudnick \cite{KR}. A character has
+\emph{exact level} $j$ if it factors through $G_j$ but not through $G_{j-1}$. There are $q^j-q^{j-1}$ characters of
+exact level $j$, for $1\le j\le l$. By
+\eqref{eq:Ofc}, $O_{f,c}$ is the Hayes class of level $d$ and degree $n=2d$ containing $f^2+ct^d$.
+
+\begin{lemma}[odd $q$]\label{lem:odd}
+If $q$ is odd, every Hayes class of level $d$ in degree $2d$ is an Oppermann sub-interval, and it equals $O_{f,c}$ for
+exactly $q$ pairs $(f,c)$.
+\end{lemma}
+
+\begin{proof}
+Write $f=\sum_{i=0}^da_it^i$ with $a_d=1$. For $1\le j\le d$ the coefficient of $t^{2d-j}$ in $f^2$ is
+\[
+[f^2]_{2d-j}=\sum_{\substack{i+i'=2d-j\\ 0\le i,i'\le d}}a_ia_{i'}
+=2a_{d-j}+\Phi_j,\qquad
+\Phi_j=\sum_{\substack{i+i'=2d-j\\ d-j<i,\,i'<d}}a_ia_{i'} ,
+\]
+where the term $2a_{d-j}=2a_da_{d-j}$ comes from $\{i,i'\}=\{d,d-j\}$. The sum $\Phi_j$ runs over ordered pairs, so
+it includes the square $a_{d-j/2}^2$ when $j$ is even. $\Phi_j$ depends only on $a_{d-1},\dots,a_{d-j+1}$; for
+example $\Phi_1=0$, $\Phi_2=a_{d-1}^2$, $\Phi_3=2a_{d-1}a_{d-2}$.
+
+The map $(a_{d-1},\dots,a_1)\mapsto([f^2]_{2d-1},\dots,[f^2]_{d+1})$ is therefore triangular with diagonal entries
+$2$. Since $2\in\F_q^\times$, it is a bijection $\F_q^{d-1}\to\F_q^{d-1}$: the prefix of a class determines
+$a_{d-1},\dots,a_1$ uniquely, by solving $a_{d-j}=([f^2]_{2d-j}-\Phi_j)/2$ for $j=1,\dots,d-1$ in turn.
+
+The remaining coefficient of the class is that of $t^d$ in $f^2+ct^d$, namely $2a_0+\Phi_d+c$, where $\Phi_d$ is
+already fixed. For each of the $q$ values of $a_0$ there is exactly one $c$ giving the prescribed value. So every
+class arises, and from exactly $q$ of the $q^{d+1}$ pairs $(f,c)$.
+\end{proof}
+
+So in odd characteristic the Oppermann question at degree $2d$ is the question whether \emph{every} short interval of
+length $q^d=q^{n/2}$ contains a prime: no class is singled out.
+
+\begin{lemma}[$q$ even]\label{lem:even}
+Let $q$ be even. The Oppermann sub-intervals are exactly the Hayes classes of level $d$ (in degree $2d$) in which the
+coefficient of $t^j$ is $0$ for every odd $j$ with $d<j<2d$. The coefficients of $t^d$ and of $t^j$ for even $j$ with
+$d<j<2d$ are arbitrary. There are $q^{\lceil d/2\rceil}$ such classes among the $q^d$ classes of level $d$, and each
+of them equals $O_{f,c}$ for exactly $q^{\lfloor d/2\rfloor+1}$ pairs $(f,c)$.
+\end{lemma}
+
+\begin{proof}
+In characteristic $2$, $f^2=\sum a_i^2t^{2i}$ has no odd terms, $a\mapsto a^2$ is bijective on $\F_q$, and the
+coefficient of $t^d$ is shifted by $c$. This identifies the classes that occur.
+
+For the count, note that $a\mapsto a^2$ is additive. So the map $(f,c)\mapsto\mathrm{prefix}(f^2+ct^d)$ is a
+surjective homomorphism of additive groups from $\F_q^{d+1}$, the coefficients $(a_0,\dots,a_{d-1},c)$, onto
+$\F_q^{\lceil d/2\rceil}$. Its fibres therefore all have size $q^{d+1-\lceil d/2\rceil}=q^{\lfloor d/2\rfloor+1}$.
+\end{proof}
+
+For example, the empty classes of Theorem~\ref{thm:main2} at $d=1$, $2$ and $4$ are represented by $q$, $q^2$ and
+$2^3=8$ pairs $(f,c)$ respectively.
+
+Thus in characteristic $2$ the Oppermann sub-intervals are the short intervals around the $q^{\lceil d/2\rceil}$
+``near-squares'' $f^2+ct^d$, a set of measure $q^{-\lfloor d/2\rfloor}$ among all short intervals. Squares and
+near-squares carry Galois-theoretic structure, and that structure produces the counterexamples below.
+
+\subsection{Newton--trace duality in characteristic \texorpdfstring{$2$}{2}}\label{subsec:newton}
+Throughout this subsection $q=2^k$, $K=\F_q$ and $\Tr=\Tr_{K/\F_2}$. We write $H_d\subset G_d$ for the set of
+Oppermann classes of level $d$, described in Lemma~\ref{lem:even}.
+
+For monic $P=\prod_\alpha(t-\alpha)$ of degree $n$, put $\sigma(P)=u^nP(1/u)=\prod_\alpha(1+\alpha u)$; in
+characteristic $2$ the signs disappear. Write $\sigma(P)\equiv1+e_1u+\dots+e_du^d\pmod{u^{d+1}}$, so that $e_j$ is the
+$j$-th elementary symmetric function of the roots. The class of $P$ is $\sigma(P)$ in
+$G_d=(1+u\F_q[u])/(1+u^{d+1}\F_q[u])$, a group of order $q^d$, and $\sigma(PQ)=\sigma(P)\sigma(Q)$. Let
+$S_m(P)=\sum_\alpha\alpha^m\in\F_q$. Since
+\[
+u\frac{\sigma'(P)}{\sigma(P)}=\sum_\alpha\frac{\alpha u}{1+\alpha u}=\sum_{m\ge1}S_m(P)u^m
+\]
+in characteristic $2$, $S_m$ for $m\le d$ depends only on the class of $P$, and $S_m(PQ)=S_m(P)+S_m(Q)$. Moreover
+$S_{2m}=S_m^2$.
+
+\begin{lemma}[Newton's identities in characteristic $2$]\label{lem:newton}
+For $1\le j\le d$, $S_j=\sum_{i=1}^{j-1}e_iS_{j-i}+je_j$. In particular, for odd $j$,
+$e_j=S_j+\sum_{i=1}^{j-1}e_iS_{j-i}$.
+\end{lemma}
+
+\begin{proof}
+This is the usual identity with all signs equal to $+1$.
+\end{proof}
+
+\begin{theorem}\label{thm:group}
+Let $H_d=\{1+\sum e_ju^j\in G_d: e_j=0\text{ for all odd }j<d\}$, so $|H_d|=q^{\lceil d/2\rceil}$.
+\begin{enumerate}
+\item For every class, $e_j=0$ for all odd $j<d$ if and only if $S_j=0$ for all odd $j<d$.
+\item The map
+\[
+\Phi:G_d\to(\F_q^{\lfloor d/2\rfloor},+),\qquad P\mapsto\bigl(S_1(P),S_3(P),\dots,S_{2\lfloor d/2\rfloor-1}(P)\bigr)
+\]
+is a surjective homomorphism with kernel $H_d$. Hence $H_d$ is a subgroup and $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$, an
+elementary abelian $2$-group.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) We argue by induction over odd $j<d$. Assume both vanishing conditions hold for all odd $i<j$. In the sum
+$\sum_{i<j}e_iS_{j-i}$ of Lemma~\ref{lem:newton}, every term vanishes. If $i$ is odd then $e_i=0$. If $i$ is even then
+$j-i$ is odd and less than $j$, so $S_{j-i}=0$. Hence $e_j=S_j$, which gives the inductive step in both directions.
+
+(2) $\Phi$ is a homomorphism because each $S_m$ is additive. By (1), its kernel is $H_d$. Comparing orders,
+$|G_d/H_d|=q^{d-\lceil d/2\rceil}=q^{\lfloor d/2\rfloor}$, so $\Phi$ is surjective.
+\end{proof}
+
+The annihilator $H_d^\perp=\{\chi\in\widehat{G_d}:\chi|_{H_d}=1\}$ is the dual of $G_d/H_d$. For
+$\beta=(\beta_1,\beta_3,\dots)\in\F_q^{\lfloor d/2\rfloor}$ put
+\[
+\chi_\beta(P)=(-1)^{\Tr(\sum_{j\text{ odd}<d}\beta_jS_j(P))},\qquad
+g_\beta(x)=\sum_{j\text{ odd}<d}\beta_jx^j .
+\]
+
+\begin{theorem}\label{thm:AS}
+$H_d^\perp=\{\chi_\beta\}$, a group of $q^{\lfloor d/2\rfloor}$ real characters. For every $m\ge1$,
+\[
+\psi_m(\chi_\beta):=\sum_{\deg F=m}\Lambda(F)\chi_\beta(F)=\sum_{x\in\F_{q^m}}(-1)^{\Tr_{\F_{q^m}/\F_2}(g_\beta(x))}.
+\]
+\end{theorem}
+
+\begin{proof}
+The first statement follows from Theorem~\ref{thm:group}(2). For the second, group the monic $F$ of degree $m$ with
+$\Lambda(F)\ne0$ by their roots. Every $x\in\F_{q^m}$, of degree $s\mid m$ over $K$, determines
+$F_x=(\min_x)^{m/s}$, with $\Lambda(F_x)=s$; and each such $F$ arises from exactly $s$ elements $x$. By additivity,
+$S_j(F_x)=(m/s)\Tr_{\F_{q^s}/K}(x^j)=\Tr_{\F_{q^m}/K}(x^j)$. So
+$\chi_\beta(F_x)=(-1)^{\Tr_{\F_{q^m}/\F_2}(g_\beta(x))}$. The element $x=0$ corresponds to $F=t^m$, whose class is
+$\sigma(t^m)=1$; it has $\Lambda=1$ and contributes $+1$ on both sides. No correction term is needed.
+\end{proof}
+
+Theorem~\ref{thm:AS} was checked against the exact class values for all $\beta\in\F_2^{\lfloor d/2\rfloor}$, whenever
+$q^{2d}\le2^{16}$ (\texttt{verify\_subgroup\_mean.py}). Since $\Psi(x)=q^{-d}\sum_\chi\overline\chi(x)\psi_{2d}(\chi)$,
+the left side is $\sum_x\Psi(x)\chi_\beta(x)$.
+
+\section{\texorpdfstring{Characteristic $2$: the three obstructions and the $\AGL_r(\F_2)$ dead zone}{Characteristic 2: the three obstructions and the AGL(r,2) dead zone}}\label{sec:char2}
+
+Throughout this section $q=2^k$ and $\Tr=\Tr_{\F_q/\F_2}$.
+
+\subsection{\texorpdfstring{(A) $d=1$}{(A) d=1}}
+Here $f=t+a_0$ and $O_{f,c}=\{t^2+ct+s_0:s_0\in\F_q\}$.
+
+For $c=0$ the members $t^2+s_0=(t+\sqrt{s_0})^2$ are squares.
+
+For $c\ne0$, substitute $t=cy$: $t^2+ct+s_0=c^2(y^2+y+s_0/c^2)$. This is irreducible if and only if
+$y^2+y+s_0/c^2$ has no root in $\F_q$, that is, if and only if $\Tr(s_0/c^2)=1$. Exactly $q/2$ values of $s_0$
+satisfy this.
+
+\subsection{\texorpdfstring{(B) $d=2$: an additive polynomial and $\AGL_2(\F_2)$}{(B) d=2: an additive polynomial and AGL(2,2)}}
+For $f=t^2+a_1t+a_0$ we have $f^2=t^4+a_1^2t^2+a_0^2$, so
+\[
+O_{f,c}=B_e:=\{t^4+et^2+\alpha t+\beta:\ \alpha,\beta\in\F_q\},\qquad e=a_1^2+c .
+\]
+By Lemma~\ref{lem:even} the blocks $B_e$, $e\in\F_q$, are precisely the Oppermann classes for $d=2$.
+
+\begin{proposition}\label{prop:agl}
+Let $\alpha\ne0$. Put $L(t)=t^4+et^2+\alpha t$ and $R(y)=y^3+ey+\alpha$.
+\begin{enumerate}
+\item $t^4+et^2+\alpha t+\beta$ is irreducible for some $\beta$ if and only if $R$ has exactly one root in $\F_q$.
+\item If $R$ has exactly one root in $\F_q$, then $t^4+et^2+\alpha t+\beta$ is irreducible for exactly $q/2$ values of
+$\beta\in\F_q$.
+\end{enumerate}
+If $\alpha=0$, every member $t^4+et^2+\beta=(t^2+\sqrt e\,t+\sqrt\beta)^2$ is a square.
+\end{proposition}
+
+\begin{proof}
+$L$ is $\F_2$-linear and separable ($L'=\alpha\ne0$), so $V=\ker L\subset\overline{\F}_q$ is a $2$-dimensional
+$\F_2$-space, and $V\setminus\{0\}$ is the set of roots of $L(t)/t=R(t)$. The Frobenius $\varphi(x)=x^q$ acts on $V$ by
+some $F\in\GL(V)\cong S_3$. Exactly one of three cases holds: $F=1$ ($R$ has three roots in $\F_q$), $F$ of order $3$
+(no root), or $F$ a transvection (exactly one root).
+
+Fix $\beta$ and a root $r$ of $P_\beta=L+\beta$. The roots of $P_\beta$ form the coset $r+V$. Since
+$L(\varphi(r))=\varphi(\beta)=\beta$, we have $\varphi(r)=r+v$ with $v\in V$, and
+$\varphi(r+w)=r+(Fw+v)$. So Frobenius acts on the roots through the affine map $T(w)=Fw+v$ of
+$V\cong\F_2^2$, an element of $\AGL_2(\F_2)\cong S_4$. $P_\beta$ is irreducible if and only if $T$ is a $4$-cycle.
+\begin{itemize}
+\item If $F=1$, $T$ is a translation and $T^2=1$.
+\item If $F$ has order $3$, $F-1$ is invertible, so $T$ has a fixed point.
+\item If $F$ is a transvection, $T^2(w)=w+(F+1)v$, so $T$ is a $4$-cycle if and only if $(F+1)v\ne0$, i.e.
+$v\notin V^F$.
+\end{itemize}
+This proves the ``only if'' part of (1); the ``if'' part follows from (2), since $q/2\ge1$. For (2), let $F$ be a
+transvection, so $(F+1)V=V^F$ is a line. Replacing $r$ by $r+w$ replaces $v$ by
+$v+(F+1)w$, so the class $[v]\in V/V^F\cong\F_2$ depends only on $\beta$, and $\beta\mapsto[v]$ is additive. Its
+kernel consists of the $\beta$ for which some root $r'=r+w$ is fixed by $\varphi$, i.e.\ $\beta\in L(\F_q)$. The map
+$L:\F_q\to\F_q$ is $\F_2$-linear with kernel $V^F=V\cap\F_q$ of order $2$, so $|L(\F_q)|=q/2$ and exactly $q/2$ values
+of $\beta$ have $[v]\ne0$.
+\end{proof}
+
+\begin{lemma}\label{lem:oneroot}
+Let $\alpha\ne0$. The cubic $R(y)=y^3+ey+\alpha$ has exactly one root in $\F_q$ if and only if
+$\Tr(e^3/\alpha^2)\ne\Tr(1)$.
+\end{lemma}
+
+\begin{proof}
+The roots $y_1,y_2,y_3$ of $R$ are distinct ($R$ is separable as above), with $y_1+y_2+y_3=0$ and $y_1y_2y_3=\alpha$.
+Put $\rho=y_1/y_3+y_2/y_1+y_3/y_2$ and $\rho'=y_2/y_3+y_1/y_2+y_3/y_1$. Even permutations of the roots fix $\rho$ and
+odd ones exchange $\rho,\rho'$; using $y_i+y_j=y_k$,
+\[
+\rho+\rho'=\frac{y_1+y_2}{y_3}+\frac{y_2+y_3}{y_1}+\frac{y_3+y_1}{y_2}=1 .
+\]
+Hence $\rho,\rho'$ are the roots of $z^2+z+\delta$ with $\delta=\rho\rho'\in\F_q$, and Frobenius acts on the roots of
+$R$ by an odd permutation (a transposition: exactly one root in $\F_q$) if and only if $\rho\notin\F_q$, i.e.\
+$\Tr(\delta)=1$. Expanding,
+\[
+\delta=3+\sum_k\frac{y_iy_j}{y_k^2}+\sum_k\frac{y_k^2}{y_iy_j}
+=1+\sum_k\frac{\alpha}{y_k^3}+\frac{1}{\alpha}\sum_k y_k^3 .
+\]
+From $y_k^3=ey_k+\alpha$ we get $\sum_k y_k^3=\alpha$, so $\delta=\sum_k\alpha/w_k$ with $w_k=y_k^3=ey_k+\alpha$.
+Substituting $y=(w+\alpha)/e$ (for $e\ne0$) into $w=y^3$ shows that the $w_k$ are the roots of
+$w^3+\alpha w^2+(\alpha^2+e^3)w+\alpha^3$, so $\sum_k1/w_k=(\alpha^2+e^3)/\alpha^3$ and
+\[
+\delta=1+e^3/\alpha^2 .
+\]
+For $e=0$ this also holds directly ($w_k=\alpha$). So $\Tr(\delta)=1$ if and only if $\Tr(e^3/\alpha^2)\ne\Tr(1)$.
+\end{proof}
+
+\begin{remark}
+$\delta$ is Berlekamp's characteristic-$2$ discriminant \cite{Berlekamp76} of $R$, and $R$ is the cubic resolvent of
+the quartic; the proof above is self-contained. For $e=0$ the lemma says: $y^3=\alpha$ has exactly one root iff $k$ is
+odd, which is the familiar fact that cubing is bijective on $\F_q$ iff $3\nmid q-1$.
+\end{remark}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main2}(B)]
+By Proposition~\ref{prop:agl}, $|B_e\cap\{\text{irreducibles}\}|=\frac q2\cdot\#\{\alpha\ne0:\Tr(e^3/\alpha^2)\ne\Tr(1)\}$.
+If $e=0$ the condition reads $\Tr(1)=1$, i.e.\ $k$ odd: the count is $\frac q2(q-1)$ for $k$ odd and $0$ for $k$ even.
+If $e\ne0$, $\alpha\mapsto e^3/\alpha^2$ permutes $\F_q^\times$, and $\#\{x\ne0:\Tr(x)=1\}=q/2$,
+$\#\{x\ne0:\Tr(x)=0\}=q/2-1$; with $\Tr(1)=k\bmod2$ this gives $q^2/4$ ($k$ even) and $\frac q2(\frac q2-1)$ ($k$
+odd). The count $q(q-2)/4$ vanishes only for $q=2$.
+\end{proof}
+
+The formula was checked by brute force for $q\le64$ (script \texttt{char2\_d2\_theorem.py}): criterion of
+Lemma~\ref{lem:oneroot}, the $q/2$ count of Proposition~\ref{prop:agl}(2), and the four block totals.
+
+\subsection{\texorpdfstring{(C) $q=2$, $d=4$: the sign of Frobenius}{(C) q=2, d=4: the sign of Frobenius}}
+
+The Oppermann classes for $q=2$, $d=4$ are the four prefixes $(p_7,p_6,p_5,p_4)=(0,x,0,y)$ (Lemma~\ref{lem:even}).
+For $x=y=0$ the class is the \emph{zero block}
+\[
+Z_4=\{t^8+a_3t^3+a_2t^2+a_1t+a_0\}\subset\F_2[t],
+\]
+equal to $O_{f,c}$ for $f=t^4+a_2t^2+a_1t+a_0$ and $c=a_2$. Here $a_3=0$ is forced, because the coefficient of
+$t^6$ in $f^2$ is $a_3^2$; this is why there are $2^3=8$ pairs rather than $16$.
+
+We use the theorem of Stickelberger \cite{Stickelberger} in the form of Swan \cite[Cor.~1]{Swan}: \emph{if
+$\tilde P\in\Z[t]$ is monic of degree $n$ and its reduction $P\in\F_2[t]$ is squarefree with $r$ irreducible
+factors, then $r\equiv n\pmod2$ if and only if $\disc(\tilde P)\equiv1\pmod8$.} Equivalently, the Frobenius
+permutation of the roots of $P$ is even if and only if $\disc(\tilde P)\equiv1\pmod 8$. An irreducible $P$ of degree $8$
+has Frobenius an $8$-cycle, an odd permutation, and would need $\disc(\tilde P)\equiv5\pmod8$.
+
+\begin{lemma}\label{lem:tail}
+Let $\tilde P=t^n+\tilde g$ with $\tilde g\in\Z[t]$, $\deg\tilde g<n$, and $8\mid n$. Then
+$\disc(\tilde P)\equiv\Res(\tilde P,\tilde g')\pmod8$.
+\end{lemma}
+
+\begin{proof}
+$\disc(\tilde P)=(-1)^{n(n-1)/2}\Res(\tilde P,\tilde P')=\prod_{\tilde P(\rho)=0}(n\rho^{n-1}+\tilde g'(\rho))$, the
+sign being $+1$ for $8\mid n$. Expanding the product, every term containing a factor $n$ is $n$ times a symmetric
+polynomial with integer coefficients in the roots, hence lies in $8\Z$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main2}(C)]
+An irreducible member of $Z_4$ has no root in $\F_2$, so $a_0=1$ and $a_1+a_2+a_3=1$. This leaves four polynomials.
+$t^8+t^2+1=(t^4+t+1)^2$ is a square. For the other three choose integer lifts and apply Lemma~\ref{lem:tail}:
+\begin{itemize}
+\item $t^8+t+1$: $\tilde g'=1$, $\disc\equiv1$;
+\item $t^8+t^3+1$: $\tilde g'=3t^2$, $\Res(\tilde P,3t^2)=3^8\big(\prod\rho\big)^2=3^8\equiv1$;
+\item $t^8+t^3+t^2+t+1$, lifted as $t^8+(t+1)^3$: $\tilde g'=3(t+1)^2$, and
+$\Res(\tilde P,3(t+1)^2)=3^8\prod(\rho+1)^2=3^8\tilde P(-1)^2$, with $\tilde P(-1)=(-1)^8+0^3=1$, so
+$\disc\equiv3^8\equiv1$.
+\end{itemize}
+Suppose one of these three were irreducible over $\F_2$. Then it would be squarefree with $r=1$, and
+Stickelberger--Swan would require $\disc(\tilde P)\equiv5\pmod8$. That contradicts $\disc(\tilde P)\equiv1$, so none of
+them is irreducible. The argument does not need squarefreeness to be checked beforehand.
+\end{proof}
+
+\begin{remark}
+The mechanism is that $8\mid\deg P$ kills the leading term of $P'$ modulo $8$, so the sign of Frobenius is decided by
+the tail $g$ alone; with $\deg g\le3$ the tail is too short to produce the sign $-1$ on a polynomial with no linear
+factor. Table~\ref{tab:zero} shows the zero blocks $Z_d=\{t^{2d}+s:\deg s<d\}$, which are Oppermann classes for every
+$d$. For $d=8$ ($8\mid 2d$ again) the tail has degree $\le7$, half of the squarefree members already have the sign
+$-1$, and the block contains $10$ irreducibles. The parallel with (B) is exact: in (B) the obstruction is the
+quotient $S_4\to S_3$ (the resolvent cubic), in (C) the quotient $S_8\to\{\pm1\}$ (the sign).
+\end{remark}
+
+\begin{table}[!htbp]
+\centering
+\caption{The zero blocks $Z_d=\{t^{2d}+s:\deg s<d\}\subset\F_2[t]$. Columns: the squarefree members; those with
+$\disc\equiv5\pmod8$, i.e.\ Frobenius odd (integer lift with coefficients $0,1$); those among them with no root in
+$\F_2$; and the irreducibles. For $d=4$ the two members with $\disc\equiv5$ are $t^8+t^3+t$ and $t^8+t^3+t^2+1$,
+which have the roots $0$ and $1$. Stickelberger--Swan holds on every squarefree member (script
+\texttt{swan\_parity.py}).}\label{tab:zero}
+\begin{tabular}{rrrrrr}
+\toprule
+$d$ & $|Z_d|$ & squarefree & $\disc\equiv5$ & $\disc\equiv5$, no root & irreducible\\
+\midrule
+2 & 4 & 2 & 2 & 1 & 1\\
+3 & 8 & 4 & 3 & 1 & 1\\
+4 & 16 & 8 & 2 & \textbf{0} & \textbf{0}\\
+5 & 32 & 16 & 10 & 4 & 4\\
+6 & 64 & 32 & 20 & 8 & 6\\
+7 & 128 & 64 & 42 & 17 & 9\\
+8 & 256 & 128 & 64 & 24 & 10\\
+9 & 512 & 256 & 130 & 61 & 28\\
+10 & 1024 & 512 & 280 & 120 & 49\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{\texorpdfstring{Additive slices for $d=2^{r-1}\ge4$ and $\AGL_r(\F_2)$}{Additive slices for d at least 4 and AGL(r,2)}}\label{subsec:additive}
+For $d=2^{r-1}$, i.e.\ $2d=2^r$, consider the affine polynomials
+\[
+P_\beta(t)=L(t)+\beta,\qquad L(t)=t^{2^r}+\sum_{i=0}^{r-1}c_it^{2^i},\qquad c_i,\beta\in\F_q .
+\]
+Apart from $t$, every monomial has even degree. In particular no odd power of $t$ lies strictly between $t^d$ and
+$t^{2d}$, so every such $P_\beta$ lies in a class of $H_d$. For $r=1,2$ (that is, $d=1,2$) the Oppermann classes of
+\S\ref{sec:char2} consist of such affine cosets. There, Frobenius acts on the roots through $\mathrm{AGL}_r(\F_2)$, and
+irreducibility amounts to a $2^r$-cycle. For $r\ge3$ this mechanism disappears.
+
+\begin{theorem}\label{thm:agl}
+\begin{enumerate}
+\item Every element $T\in\mathrm{AGL}_r(\F_2)$ of $2$-power order satisfies $T^{2^m}=\mathrm{id}$, where
+$m=\lceil\log_2(r+1)\rceil$.
+\item $\mathrm{AGL}_r(\F_2)$ contains a $2^r$-cycle on $\F_2^r$ if and only if $r\in\{1,2\}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) Write $T(w)=Fw+v$. Since $T$ has $2$-power order, so does $F\in\mathrm{GL}_r(\F_2)$. Hence $F^{2^s}=I$ for some
+$s$, so $(F+I)^{2^s}=0$, and $N=F+I$ is nilpotent. By Cayley--Hamilton, $N^r=0$. In characteristic $2$,
+\[
+F^{2^m}=(I+N)^{2^m}=I+N^{2^m},\qquad I+F+\dots+F^{2^m-1}=\frac{F^{2^m}+I}{F+I}=N^{2^m-1},
+\]
+the second identity holding as polynomials in $F$. Therefore
+\[
+T^{2^m}(w)=w+N^{2^m}w+N^{2^m-1}v .
+\]
+If $2^m-1\ge r$, both powers of $N$ vanish and $T^{2^m}=\mathrm{id}$.
+
+(2) A $2^r$-cycle has order $2^r$. If $r\ge3$, then $2^{r-1}-1\ge r$, so the computation in (1), applied with $m=r-1$, shows that every
+element of $2$-power order satisfies $T^{2^{r-1}}=\mathrm{id}$, a contradiction. Conversely, for $r=1$ a translation is a
+$2$-cycle, and for $r=2$ a transvection with a suitable translation part is a $4$-cycle Proposition~\ref{prop:agl}.
+\end{proof}
+
+\begin{corollary}[additive dead zone]\label{cor:dead}
+Let $r\ge3$. No affine polynomial $L(t)+\beta$ of degree $2^r$ over $\F_{2^k}$ is irreducible, for any $k$. In
+particular, for $d=2^{r-1}\ge4$, the affine members of the Oppermann classes in $H_d$ are all reducible, and every
+irreducible polynomial in $H_d$ has a non-additive shape.
+\end{corollary}
+
+\begin{proof}
+If $c_0=0$, then $L(t)+\beta$ is a square, $\bigl(t^{2^{r-1}}+\sum_{i\ge1}\sqrt{c_i}\,t^{2^{i-1}}+\sqrt\beta\bigr)^2$.
+
+If $c_0\ne0$, then $L$ is separable, and its roots form an $r$-dimensional $\F_2$-space $V$. The roots of
+$L+\beta$ form a coset $\rho+V$. Since $L(\varphi(\rho))=\beta$, we have $\varphi(\rho)=\rho+v$ with $v\in V$, so
+Frobenius $\varphi$ acts on the coset by $w\mapsto Fw+v$, an element of $\mathrm{AGL}_r(\F_2)$ (as in
+Proposition~\ref{prop:agl}). Irreducibility would require a $2^r$-cycle, which Theorem~\ref{thm:agl} excludes.
+\end{proof}
+
+Both statements were checked by brute force (\texttt{verify\_additive\_slices.py}).
+\begin{itemize}
+\item $\mathrm{AGL}_3(\F_2)$ (order $1344$) and $\mathrm{AGL}_4(\F_2)$ (order $322560$) contain no $2^r$-cycle. Their
+largest $2$-power orders are $4$ and $8$, so the bound $2^{\lceil\log_2(r+1)\rceil}$ is attained.
+\item Among the affine polynomials of degree $8$ over $\F_q$, $q\le16$, and of degree $16$ over $\F_2$ and $\F_4$,
+none is irreducible: for instance $0$ of $65536$ for degree $8$ over $\F_{16}$. In degrees $2$ and $4$ the
+irreducible ones make up roughly half and a quarter, as Theorem~\ref{thm:main2}(B) predicts.
+\end{itemize}
+Hence the exact $\mathrm{AGL}$-counts behind Theorem~\ref{thm:main2}(B) have no analogue at $d=4,8,\dots$.
+There, the Oppermann classes are nonempty (Theorem~\ref{thm:even}; Table~\ref{tab:var}) only because of
+non-additive members.
+
+
+\section{\texorpdfstring{Odd characteristic, $d=2$: a ternary trace form}{Odd characteristic, d=2: a ternary trace form}}\label{sec:odd2}
+
+Throughout this section $q$ is odd and $\eta$ is the quadratic character of $\F_q$, with $\eta(0)=0$.
+
+\subsection{Reduction to one-parameter blocks}
+The level-$2$ classes in degree $4$ are $C_{p_3,p_2}=\{t^4+p_3t^3+p_2t^2+\alpha t+\beta:\alpha,\beta\in\F_q\}$. The
+translation $t\mapsto t-p_3/4$ is defined because $4$ is invertible (in characteristic $3$ it is $t\mapsto t-p_3$).
+It preserves irreducibility and maps $C_{p_3,p_2}$ bijectively onto
+\[
+B_e=\{t^4+et^2+\alpha t+\beta:\alpha,\beta\in\F_q\},\qquad e=p_2-\tfrac38p_3^2 .
+\]
+For $O_{f,c}$ with $f=t^2+a_1t+a_0$ we have $p_3=2a_1$ and $p_2=a_1^2+2a_0+c$, so $e=2a_0+c-a_1^2/2$.
+
+\subsection{The count}
+\begin{proposition}\label{prop:odd2}
+For every $e\in\F_q$, the number of irreducibles in $B_e$ is
+\[
+\pi(B_e)=\frac{q^2-1-\bigl(q-\eta(-1)\bigr)\eta(2e)}{4}.
+\]
+\end{proposition}
+
+\begin{proof}
+A monic irreducible quartic $P\in B_e$ is the minimal polynomial of exactly four elements $x\in\F_{q^4}$ of degree
+$4$, namely its roots. Write $\Tr=\Tr_{\F_{q^4}/\F_q}$. The coefficient conditions on $P$ translate into conditions on
+$x$: $p_3=-\Tr(x)$, and when $\Tr x=0$,
+\[
+p_2=e_2(x,x^q,x^{q^2},x^{q^3})=\tfrac12\bigl((\Tr x)^2-\Tr(x^2)\bigr)=-\tfrac12\Tr(x^2).
+\]
+Hence $4\pi(B_e)=N-M$, where
+\[
+N=\#\{x\in W:Q(x)=-2e\},\qquad W=\ker\Tr,\quad Q(x)=\Tr(x^2),
+\]
+and $M$ counts the elements of $W$ with $Q(x)=-2e$ that have degree $<4$ over $\F_q$, i.e.\ that lie in
+$\F_{q^2}$.
+
+\emph{The form $Q$.} The bilinear form $(x,y)\mapsto\Tr(xy)$ on $\F_{q^4}$ is nondegenerate. Its Gram determinant on
+a basis $\omega_1,\dots,\omega_4$ is $D=\det(\omega_i^{q^{j}})^2$. Frobenius permutes the columns of the matrix
+$(\omega_i^{q^j})$ by a $4$-cycle, an odd permutation, so $\det(\omega_i^{q^j})$ is not fixed by Frobenius. It
+therefore lies outside $\F_q$ while its square $D$ lies in $\F_q$, so $D$ is a nonsquare in $\F_q$.
+
+Since $\Tr(1\cdot x)=\Tr x$, the line $\F_q$ is orthogonal to $W$, and $\F_{q^4}=\F_q\perp W$. The Gram determinant
+of $\F_q$ is $\Tr(1)=4$, a square. So $Q|_W$ is a nondegenerate ternary form whose determinant $\Delta$ is a
+nonsquare.
+
+\emph{Counting $N$.} For a nondegenerate quadratic form in $3$ variables over $\F_q$ with determinant $\Delta$, the
+number of solutions of $Q(x)=b$ is $q^2+q\,\eta(-b\Delta)$ \cite[Thm.~6.27]{LN}; for $b=0$ this is $q^2$. With
+$b=-2e$ and $\eta(\Delta)=-1$ we get $N=q^2-q\,\eta(2e)$, also for $e=0$.
+
+\emph{Counting $M$.} An element of $\F_{q^2}$ has $\Tr x=2\Tr_{\F_{q^2}/\F_q}(x)$, so it lies in $W$ if and only if
+$x^q=-x$. Such $x$ form the line $\delta\F_q$, where $\delta^2=\nu$ is a nonsquare of $\F_q$. For these $x$,
+$x^2\in\F_q$ and $Q(x)=2(x^2+x^{2q})=4x^2$, so the condition is $x^2=-e/2$. The squares of elements $s\delta$ are
+$0$ and the nonsquares of $\F_q$, each nonsquare attained twice. Hence $M=1$ if $e=0$, and $M=1-\eta(-e/2)$ if
+$e\ne0$; in both cases $M=1-\eta(-2e)$.
+
+Therefore
+\[
+4\pi(B_e)=q^2-q\,\eta(2e)-1+\eta(-2e)=q^2-1-\bigl(q-\eta(-1)\bigr)\eta(2e). \qedhere
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:odd2}]
+Combine the reduction with Proposition~\ref{prop:odd2}. The minimum over $e$ is attained at $\eta(2e)=1$. It equals
+$(q^2-1-(q-1))/4=q(q-1)/4$ when $\eta(-1)=1$, i.e.\ $q\equiv1\pmod4$, and $(q^2-1-(q+1))/4=(q+1)(q-2)/4$ when
+$q\equiv3\pmod4$. Both are positive for every odd $q$.
+\end{proof}
+
+\begin{remark}
+Brute-force counts confirm the formula for every block $B_e$ when
+$q=3$, $5$, $7$, $9$, $11$, $13$, $25$, $27$, $49$, $81$, and for every class $C_{p_3,p_2}$ when $q\le13$ (script
+\texttt{odd\_d2\_formula.py}). They also agree with the minima of Table~\ref{tab:odd}. Characteristic $3$ needs no
+special treatment.
+
+The contrast with characteristic $2$ is instructive. There the translation $t\mapsto t+a$ cannot remove $p_3$,
+since $4=0$. The Oppermann blocks are exactly the classes with $p_3=0$, on which $t^4+et^2+\alpha t$ is
+\emph{additive}, and this additivity produces the obstruction of Proposition~\ref{prop:agl}. In odd characteristic
+the trace form $\Tr(x^2)$ has the same shape for every $e$, and the count never drops below about $q^2/4-q/4$.
+\end{remark}
+
+
+\section{\texorpdfstring{Characteristic $2$, $d=3$: field-tower count and cubic Gauss sums}{Characteristic 2, d=3: field-tower count and cubic Gauss sums}}\label{sec:d3}
+
+Let $q=2^k$. By Lemma~\ref{lem:even}, the $q^2$ Oppermann classes for $d=3$ are
+\[
+C_{e,c}=\{t^6+et^4+ct^3+s_2t^2+s_1t+s_0:\ s_2,s_1,s_0\in\F_q\},\qquad e,c\in\F_q .
+\]
+Write $C_e=C_{e,0}$. Every member of $C_{e,0}$ has $P'=s_1$, so \cite{BBR} does not apply to these classes (\S\ref{subsec:bbr}). The
+classes with $c\ne0$ are covered by \cite{BBR} for large $q$, but the count below makes this unnecessary.
+
+\begin{proposition}\label{prop:p3zero}
+\begin{enumerate}
+\item For each $c$, the number $\pi(C_{e,c})$ does not depend on $e$.
+\item $E(C_{e,0})=q^2$, so $\Psi(C_{e,0})=6\pi(C_{e,0})+q^2$. For $c\ne0$, $E(C_{e,c})=0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) In characteristic $2$ we have $(t+a)^6=(t^4+a^4)(t^2+a^2)=t^6+a^2t^4+a^4t^2+a^6$ and $(t+a)^4=t^4+a^4$. Neither has a
+$t^3$ term. On the other hand, $c(t+a)^3=ct^3+cat^2+ca^2t+ca^3$. So $t\mapsto t+a$ maps $C_{e,c}$ bijectively onto
+$C_{e+a^2,c}$ and preserves irreducibility. Since $a\mapsto a^2$ is bijective, the claim follows.
+
+(2) We count the proper prime powers of degree $6$ that lie in some $C_{e,c}$. Sixth powers of linear polynomials and
+squares of cubics contain only even powers of $t$. Cubes of irreducible quadratics never lie in any $C_{e,c}$, as shown
+below. So no such prime power has a $t^3$ term, and $E(C_{e,c})=0$ for $c\ne0$. Now take $c=0$ and, by (1), $e=0$.
+\begin{itemize}
+\item \emph{Sixth powers.} $(t+a)^6\in C_0$ only for $a=0$; this is $t^6$, with $\Lambda=1$.
+\item \emph{Cubes.} For a quadratic $\varpi=t^2+bt+c$, the coefficient of $t^5$ in $\varpi^3$ is $b$. So $\varpi^3\in C_0$
+forces $b=0$, but then $\varpi=(t+\sqrt c)^2$ is not irreducible.
+\item \emph{Squares.} For a cubic $\varpi=t^3+a_2t^2+a_1t+a_0$ we have $\varpi^2=t^6+a_2^2t^4+a_1^2t^2+a_0^2$, which lies
+in $C_0$ exactly when $a_2=0$. Translation changes $a_2$ by $3c=c$, so the $(q^3-q)/3$ irreducible cubics are
+equidistributed over the values of $a_2$, and $(q^2-1)/3$ of them have $a_2=0$. Each contributes $\Lambda=3$.
+\end{itemize}
+Hence $E(C_0)=1+(q^2-1)=q^2$. The cubes are excluded from every $C_{e,c}$, not only from $C_0$, since all of these
+classes have $p_5=0$.
+\end{proof}
+
+\begin{theorem}\label{thm:p3zero}
+Let $q=2^k$ and $e,c\in\F_q$.
+\begin{enumerate}
+\item If $k$ is odd, then $\pi(C_{e,c})=q(q^2-1)/6$ for all $e,c$.
+\item If $k$ is even, then
+\[
+\pi(C_{e,c})=\frac{q(q-1)^2}{6}+q\,m(c),\qquad
+m(c)=\#\{\nu\in\F_q^\times\setminus(\F_q^\times)^3:\ \Tr(c/\nu)=1\}.
+\]
+Here $m(0)=0$, and $(q+2)/6\le m(c)\le q/2$ for $c\ne0$.
+\end{enumerate}
+In particular, every Oppermann sub-interval with $d=3$ in characteristic $2$ contains at least $q(q-1)^2/6$
+irreducibles if $k$ is even and $q(q^2-1)/6$ if $k$ is odd; this is positive for every $q$. For $c=0$,
+$\Psi(C_e)=q^3-(-1)^k(q^2-q)$.
+\end{theorem}
+
+\begin{proof}
+Let $K=\F_q\subset E=\F_{q^3}\subset L=\F_{q^6}$. Fix $c$. By Proposition~\ref{prop:p3zero}(1), $6q\,\pi(C_{e,c})$ is the number
+of $x\in L$ of degree $6$ over $K$ whose characteristic polynomial $t^6+e_1t^5+e_2t^4+e_3t^3+\dots$ has $e_1=0$ and
+$e_3=c$.
+
+\emph{Step 1 (conditions on $x$).} With $S_m=\Tr_{L/K}(x^m)$, Newton's identity in characteristic $2$ reads
+$S_3=e_1S_2+e_2S_1+e_3$. So for $e_1=S_1=0$ we get $e_3=S_3$. The conditions are therefore
+$\Tr_{L/K}(x)=0$ and $\Tr_{L/K}(x^3)=c$.
+
+\emph{Step 2 (the relative trace $u$).} Put $u=\Tr_{L/E}(x)=x+x^{q^3}\in E$; then $\Tr_{L/K}(x)=\Tr_{E/K}(u)$. Assume
+$\Tr_{E/K}(u)=0$. We claim that $x$ has degree $6$ if and only if $u\ne0$.
+\begin{itemize}
+\item If $u=0$, then $x^{q^3}=x$, so $x\in E$.
+\item If $x\in\F_{q^2}$, then $x^{q^3}=x^q$, so $u=x+x^q\in K$, and $0=\Tr_{E/K}(u)=3u=u$.
+\end{itemize}
+Since the proper subfields of $L$ are contained in $E$ or in $\F_{q^2}$, this proves the claim.
+
+\emph{Step 3 (the fibre over $u$).} Fix $u\in E^\times$ with $\Tr_{E/K}(u)=0$. The $q^3$ elements $x$ with
+$\Tr_{L/E}(x)=u$ are $x=u\xi$ with $\xi+\xi^{q^3}=1$. For these,
+\[
+\Tr_{L/E}(\xi^3)=\xi^3+(\xi+1)^3=\xi^2+\xi+1 .
+\]
+Put $\alpha=\xi^2+\xi$; then $\alpha^{q^3}=\alpha$, so $\alpha\in E$. As $\xi$ runs over the fibre, $\alpha$ runs
+$2$-to-$1$ over $\{\alpha\in E:\Tr_{E/\F_2}(\alpha)=1\}$: the equation $\xi^2+\xi=\alpha$ has its roots outside $E$
+exactly when $\Tr_{E/\F_2}(\alpha)=1$, and then the two roots are $\xi$ and $\xi+1=\xi^{q^3}$. Finally,
+\[
+\Tr_{L/K}(x^3)=\Tr_{E/K}\bigl(u^3(\alpha+1)\bigr).
+\]
+
+\emph{Step 4 (counting in the fibre).} The condition $\Tr_{L/K}(x^3)=c$ says that $\alpha$ lies in the affine
+$K$-hyperplane
+\[
+H_{u,c}=\{\alpha\in E:\Tr_{E/K}(u^3\alpha)=\Tr_{E/K}(u^3)+c\},\qquad |H_{u,c}|=q^2 .
+\]
+The $\F_2$-linear functionals on $E$ that vanish on the direction space of $H_{u,c}$ are
+$\alpha\mapsto\Tr_{E/\F_2}(\lambda u^3\alpha)$ with $\lambda\in K$. Hence $\Tr_{E/\F_2}$ is constant on $H_{u,c}$ if
+and only if $u^3\in K^\times$.
+\begin{itemize}
+\item If $u^3\notin K^\times$, then $\Tr_{E/\F_2}(\alpha)=1$ on exactly $q^2/2$ points of $H_{u,c}$. This gives
+$q^2$ elements $x$, whatever $c$ is.
+\item If $u^3=\nu\in K^\times$, then on $H_{u,c}$ we have $\nu\Tr_{E/K}(\alpha)=\nu\Tr_{E/K}(1)+c=\nu+c$. So
+$\Tr_{E/\F_2}(\alpha)=\Tr_{K/\F_2}(1+c/\nu)$ throughout $H_{u,c}$. This gives $2q^2$ elements $x$ if that value is
+$1$, and none otherwise.
+\end{itemize}
+
+\emph{Step 5 (summing over $u$).} There are $q^2-1$ admissible $u$.
+\begin{itemize}
+\item \emph{$k$ odd.} Here $3\nmid q^3-1$, so cubing is bijective on $E^\times$ and on $K^\times$, and $u^3\in K^\times$
+forces $u\in K^\times$. But every $u\in K^\times$ has $\Tr_{E/K}(u)=3u=u\ne0$, so it is not admissible. All $q^2-1$
+admissible $u$ therefore contribute $q^2$, for every $c$, and $6q\,\pi=(q^2-1)q^2$.
+\item \emph{$k$ even.} Here $3\mid q-1$, $3\mid q^2+q+1$ and $\Tr_{K/\F_2}(1)=0$. We sort the $u$ with $u^3=\nu\in K^\times$
+by $\nu$.
+\begin{itemize}
+\item If $\nu\in(K^\times)^3$, its three cube roots lie in $K^\times$. They are not admissible, since
+$\Tr_{E/K}(u)=u\ne0$.
+\item If $\nu\notin(K^\times)^3$, its three cube roots lie in $E\setminus K$, because $K^\times\subset(E^\times)^3$. They
+have minimal polynomial $X^3-\nu$, hence trace $0$, and are admissible. There are $2(q-1)$ of them, and each
+contributes $2q^2$ when $\Tr_{K/\F_2}(c/\nu)=1$ and nothing otherwise.
+\item The remaining $(q^2-1)-2(q-1)=(q-1)^2$ admissible $u$ contribute $q^2$ each.
+\end{itemize}
+So $6q\,\pi=(q-1)^2q^2+3\cdot2q^2\,m(c)$, which is the formula claimed.
+
+For the bounds on $m(c)$ when $c\ne0$: as $\nu$ runs over the non-cubes, $c/\nu$ runs over $K^\times$ minus the coset
+$c(K^\times)^3$, which has $(q-1)/3$ elements. Since $K^\times$ contains $q/2$ elements of trace $1$, we get
+$m(c)=q/2-t(c)$ with $t(c)=\#\{y\in c(K^\times)^3:\Tr(y)=1\}\in[0,(q-1)/3]$.
+\end{itemize}
+The formula for $\Psi(C_e)$ follows from Proposition~\ref{prop:p3zero}(2).
+\end{proof}
+
+
+\subsection{\texorpdfstring{The cube-residue count $m(c)$}{The cube-residue count m(c)}}
+It remains to evaluate $m(c)$ in Theorem~\ref{thm:p3zero}(2).
+
+
+\begin{theorem}\label{thm:mc}
+Let $k$ be even, $\varepsilon=(-1)^{k/2}$, and $c\in K^\times$. Then
+\[
+m(c)=\begin{cases}\dfrac{q-\varepsilon\sqrt q}{3}, & c\in(K^\times)^3,\\[2mm]
+\dfrac{2q+\varepsilon\sqrt q}{6}, & c\notin(K^\times)^3.\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+As $\nu$ runs over the non-cubes, $y=c/\nu$ runs over $K^\times\setminus cC$, where $C=(K^\times)^3$. Hence
+$m(c)=q/2-t(c)$ with $t(c)=\#\{y\in cC:\Tr y=1\}$.
+
+Let $\omega$ be a cubic character of $K^\times$ and $\psi_0(y)=(-1)^{\Tr y}$. The indicator of $cC$ is
+\[
+\mathbf 1_{cC}(y)=\tfrac13\textstyle\sum_{i=0}^2\omega^i(y)\overline\omega^i(c),
+\]
+so
+\[
+\sum_{y\in cC}\psi_0(y)=\tfrac13\bigl(-1+\overline\omega(c)G(\omega)+\omega(c)G(\overline\omega)\bigr),\qquad
+G(\omega)=\sum_{y\in K^\times}\omega(y)\psi_0(y).
+\]
+Since $2\equiv-1\pmod3$, the Gauss sum is pure \cite{Stickelberger1890}, \cite[\S11.6]{BEW}:
+$G(\omega)=G(\overline\omega)=-\varepsilon\sqrt q$. Hence
+\[
+\sum_{y\in cC}\psi_0(y)=\tfrac13\bigl(-1-2\varepsilon\sqrt q\,\mathrm{Re}\,\omega(c)\bigr),
+\]
+where $2\,\mathrm{Re}\,\omega(c)$ equals $2$ for a cube and $-1$ otherwise. Since
+$t(c)=\frac12\bigl(|cC|-\sum_{y\in cC}\psi_0(y)\bigr)$ and $|cC|=(q-1)/3$, we get $t(c)=(q+2\varepsilon\sqrt q)/6$
+for a cube and $(q-\varepsilon\sqrt q)/6$ for a non-cube. Then $m(c)=q/2-t(c)$.
+\end{proof}
+
+\begin{corollary}\label{cor:d3}
+Let $q=2^k$. For every characteristic-$2$ Oppermann class of degree $6$:
+\[
+\pi(C_{e,c})=\begin{cases}
+q(q^2-1)/6, & k\text{ odd},\\
+q(q-1)^2/6, & k\text{ even},\ c=0,\\
+q(q^2+1-2\varepsilon\sqrt q)/6, & k\text{ even},\ c\in(K^\times)^3,\\
+q(q^2+1+\varepsilon\sqrt q)/6, & k\text{ even},\ c\notin(K^\times)^3.
+\end{cases}
+\]
+Moreover $\Psi(C_{e,c})=6\pi(C_{e,c})+q^2[c=0]$.
+\end{corollary}
+
+\begin{proof}
+Insert Theorem~\ref{thm:mc} into Theorem~\ref{thm:p3zero}. The prime-power term is Proposition~\ref{prop:p3zero}(2).
+\end{proof}
+
+Thus at $d=3$, $k$ even, the counts fluctuate around $q^3/6$ by $\pm\varepsilon q^{3/2}/6$ and $\mp\varepsilon
+q^{3/2}/3$. This is a square-root fluctuation whose sign alternates with $k/2$, the sign of the Gauss sum. It matches
+the supersingular pattern $\gamma^6\in q^3\{\pm1,\pm i\}$ observed for the level-$3$ zeros in
+Remark~\ref{rem:super}. Theorem~\ref{thm:mc} was checked for every $c$ when $q\le1024$, and for $c=1$ and one
+non-cube up to $q=2^{14}$ (Table~\ref{tab:d3}; Figure~\ref{fig:mean}, right).
+
+\input{unified_tab_d3}
+
+\begin{remark}\label{rem:super}
+For $c=0$ the error term $\pi(C_e)-q^3/6$ is $-q/6$ for $k$ odd and $-q^2/3+q/6$ for $k$ even; for $c\ne0$ and $k$ even it is of order $q^{3/2}$ (Corollary~\ref{cor:d3}). This is far smaller than the
+$O(q^{5/2})$ a monodromy argument would give.
+
+It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
+of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. Figure~\ref{fig:rigid} (right) shows these zeros for $q=8$ next to the odd case $q=7$. At level $2$ this is a
+theorem: Proposition~\ref{prop:rigid}(3) gives $\gamma_\chi^4=(-1)^kq^2$ for every character of exact level $2$,
+which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it remains an observation. The proof above avoids
+these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
+$\Tr_{L/K}(x)=0$ and $\Tr_{L/K}(x^3)=c$, which the tower $K\subset E\subset L$ makes linear.
+\end{remark}
+
+
+\FloatBarrier
+
+\section{The exact computation, the square-root barrier, and large \texorpdfstring{$q$}{q}}\label{sec:comp}
+
+\subsection{Method}
+Here $\Lambda$ is the von Mangoldt function: $\Lambda(F)=\deg\varpi$ if $F=\varpi^k$ for a monic irreducible
+$\varpi$ and some $k\ge1$, and $\Lambda(F)=0$ otherwise. For a class $x$ of level $l$ and degree $n$, let
+$\Psi(x)=\sum_{F\in x}\Lambda(F)$. The explicit formula
+\cite{Hayes,KR} reads
+\begin{equation}\label{eq:explicit}
+\Psi(x)=q^{n-l}+q^{-l}\sum_{\chi\ne1}\overline{\chi}(x)\,\psi_n(\chi),\qquad
+u\frac{L'(u,\chi)}{L(u,\chi)}=\sum_{m\ge1}\psi_m(\chi)u^m,
+\end{equation}
+where for $\chi\ne1$ the $L$-function $L(u,\chi)=\sum_{F}\chi(F)u^{\deg F}$ is a polynomial of degree $\le l-1$. Its
+coefficients are the Fourier transforms on $G_l$ of the class distributions of the monic polynomials of degree $<l$;
+$\psi_n(\chi)$ follows by the Newton recursion, and one inverse FFT on $G_l$ returns $\Psi(x)$ for all $q^l$ classes
+at once. This is the algorithm of \cite{ChenI}, run here at level $l=d$ and degree $n=2d$. The number of irreducibles
+in $x$ is
+\[
+\pi(x)=\frac1n\bigl(\Psi(x)-E(x)\bigr),\qquad
+E(x)=\sum_{k\ge2,\ k\mid n}\ \sum_{\deg\varpi=n/k,\ \varpi^k\in x}\frac nk .
+\]
+The proper prime powers in $E(x)$ are enumerated directly (Ben-Or test in degree $\le d$) and placed by the rule
+$\mathrm{class}(\varpi^k)=\mathrm{class}(\varpi)^k$ in $G_l$. Each run checks that every $\pi(x)$ is
+an integer and that $\sum_x(n\pi(x)+E(x))=q^n$, and reports the largest distance of the floating-point $\Psi(x)$ from
+an integer (below $10^{-7}$ in all runs). As an independent check, a brute-force census that tests every polynomial
+of degree $2d$ for irreducibility (\texttt{verify\_pointwise\_oppermann.py}) agrees with the FFT counts class by
+class for all $q^{2d}\le2^{22}$ (\texttt{compare\_bruteforce.py}), and in minimum, mean and empty classes for all
+$q^{2d}\le2^{26}$.
+
+\subsection{Results}
+Table~\ref{tab:odd} lists, for odd $q$, the minimum of $\pi(x)$ over all classes (all of which are Oppermann
+sub-intervals by Lemma~\ref{lem:odd}) and its ratio to the expected value $q^d/2d$. Table~\ref{tab:even} gives the same for
+the Oppermann classes in characteristic $2$. The full output, all degrees, is in the file\\ \texttt{data/hayes\_oppermann\_census.txt}.
+
+\begin{proof}[Proof of Theorems~\ref{thm:odd} and~\ref{thm:even}]
+Exact computation as described above; the minima are in Tables~\ref{tab:odd} and~\ref{tab:even}, and the empty
+classes in characteristic $2$ occur exactly at
+\[
+(q,d)\in\{(2,1),(2,2),(2,4),(4,1),(4,2),(8,1),(16,1),(16,2)\},
+\]
+one class each, which are the classes of Theorem~\ref{thm:main2}.
+\end{proof}
+
+The normalised minimum $\min_x\pi(x)/(q^d/2d)$ tends to $1$ in every column: the worst Oppermann sub-interval is
+only slightly below average, far from the Weil bound discussed next.
+
+\input{census_tables}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{oppermann_min_ratio.pdf}
+\caption{Normalised minimum $\min_{f,c}\pi(O_{f,c})/(q^d/2d)$ against $d$. Left: odd $q$. Right: even $q$; the
+points at $0$ are the empty sub-intervals of Theorem~\ref{thm:main2}.}\label{fig:ratio}
+\end{figure}
+
+
+\subsection{The square-root barrier}\label{sec:barrier}
+In \eqref{eq:explicit} with $n=2d$ and $l=d$ the main term is $q^d$.
+
+Let $\chi$ have exact level $j$. The monic polynomials of degree $\ge j$ are equidistributed over $G_j$, so
+$\deg L(u,\chi)\le j-1$. By Weil, every inverse zero $\gamma$ of $L(u,\chi)$ has $|\gamma|\in\{1,\sqrt q\}$, hence
+$|\psi_{2d}(\chi)|\le(j-1)q^d$. Characters of level $1$ have $L=1$ and contribute nothing. Multiplying by the factor
+$q^{-d}$ in \eqref{eq:explicit}, which cancels the $q^d$, and summing over the $q^j-q^{j-1}$ characters of each
+exact level $j$ gives
+\begin{equation}\label{eq:weil}
+|\Psi(x)-q^d|\le\sum_{j=2}^{d}(j-1)(q^j-q^{j-1})=(d-1)q^d-\sum_{j=1}^{d-1}q^j .
+\end{equation}
+
+\emph{For $d\ge3$} the right-hand side exceeds $q^d$ for every $q$, so \eqref{eq:weil} does not even give
+$\Psi(x)>0$. This is the exact analogue of the situation over $\Z$: Oppermann's intervals have length $\sqrt x$, and
+the Riemann hypothesis falls short by a factor $\log x$. No degree threshold beyond which $O_{f,c}\ne\emptyset$
+follows from Weil's theorem.
+
+\emph{For $d=2$}, \eqref{eq:weil} reads $|\Psi(x)-q^2|\le q^2-q$, so $\Psi(x)\ge q>0$ for every class. This still
+does not produce an irreducible, because $\Psi$ also counts prime powers. In characteristic $2$ the bound is attained,
+and this pins down every level-$2$ $L$-function.
+
+\begin{proposition}[characteristic $2$, $d=2$]\label{prop:rigid}
+Let $q=2^k$, and let $B_e=\{t^4+et^2+\alpha t+\beta\}$ as in \S\ref{sec:char2}.
+\begin{enumerate}
+\item $E(B_e)=q$ for every $e\in\F_q$.
+\item $\Psi(B_0)=q^2-(-1)^k(q^2-q)$, and $\Psi(B_e)=q^2+(-1)^kq$ for $e\ne0$. In particular, $B_0$ attains the lower
+Weil bound $q$ when $k$ is even and the upper bound $2q^2-q$ when $k$ is odd.
+\item Every character $\chi$ of exact level $2$ has $L(u,\chi)=1-\gamma_\chi u$ with $\gamma_\chi^4=(-1)^kq^2$.
+\item For every level-$2$ class $x$ in degree $4$,
+\[
+\Psi(x)=q^2-(-1)^k\bigl(q^2[x=1]-q\,[p_3(x)=0]\bigr).
+\]
+In particular, every class with $p_3\ne0$ contains exactly $q^2/4$ irreducibles.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) The proper prime powers of degree $4$ are $\varpi^4$ with $\deg\varpi=1$ and $\varpi^2$ with $\deg\varpi=2$.
+\begin{itemize}
+\item $(t+c)^4=t^4+c^4$ lies in $B_e$ only for $e=0$, and then for all $q$ values of $c$, each with $\Lambda=1$.
+\item $(t^2+b_1t+b_0)^2=t^4+b_1^2t^2+b_0^2$ lies in $B_e$ exactly when $b_1^2=e$. For $e=0$ this forces $b_1=0$, and
+$t^2+b_0$ is a square, not irreducible. For $e\ne0$ we have $b_1=\sqrt e\ne0$, and by Theorem~\ref{thm:main2}(A) the polynomial
+$t^2+b_1t+b_0$ is irreducible for exactly $q/2$ values of $b_0$, each contributing $\Lambda=2$.
+\end{itemize}
+In both cases $E(B_e)=q$.
+
+(2) We have $\Psi(B_e)=4\pi(B_e)+q$. Insert the counts of Theorem~\ref{thm:main2}(B).
+
+(3) $B_0$ is the identity of $G_2$, so $\chi(B_0)=1$ for every $\chi$. Characters of exact level $1$ have $L=1$ and
+$\psi_4=0$. By \eqref{eq:explicit} and (2),
+\[
+\sum_{\chi\ \text{exact level }2}\psi_4(\chi)=q^2\bigl(\Psi(B_0)-q^2\bigr)=-(-1)^k(q^2-q)\,q^2 .
+\]
+There are $q^2-q$ such characters, and each has $|\psi_4(\chi)|\le q^2$. Equality in the triangle inequality
+therefore forces $\psi_4(\chi)=-(-1)^kq^2$ for each of them. Then $L(u,\chi)$ cannot be constant, so
+$L(u,\chi)=1-\gamma_\chi u$ and $\psi_4(\chi)=-\gamma_\chi^4$.
+
+(4) By (3) and \eqref{eq:explicit},
+\[
+\Psi(x)=q^2-(-1)^k\sum_{\chi\ \text{exact level }2}\overline\chi(x).
+\]
+The inner sum is a sum over all characters of $G_2$ minus a sum over the characters of $G_1$, which equals
+$q^2[x=1]-q[x\in\ker(G_2\to G_1)]$. The kernel consists of the classes with $p_3=0$.
+
+If $p_3(x)\ne0$, then $x$ contains no proper prime power: $\varpi^4$ and $\varpi^2$ have no odd-degree terms. So
+$\pi(x)=\Psi(x)/4=q^2/4$.
+\end{proof}
+
+All four statements were confirmed for $q=2,4,8,16$ by the script \texttt{char2\_d2\_rigidity.py}. In
+characteristic $2$ the explicit formula thus degenerates completely at $d=2$. The $q^2-q$ characters of exact level
+$2$ all have the same $\psi_4$, so $\Psi$ takes only three values: on the identity class, on the other classes with
+$p_3=0$, and on the classes with $p_3\ne0$. The Oppermann classes are exactly the classes with $p_3=0$
+(Lemma~\ref{lem:even}), and the identity class $B_0$ is where the fourth powers absorb the entire Weil lower bound.
+
+Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) bound the number of intervals that
+deviate by a given amount; they do not exclude a single empty interval.
+
+\subsection{\texorpdfstring{Large $q$}{Large q}}\label{subsec:bbr}
+For fixed degree and $q\to\infty$, Bank, Bary-Soroker and Rosenzweig \cite{BBR} prove the following. For monic
+$P\in\F_q[t]$ of degree $k$ and $1\le m<k$, the number $N$ of irreducibles in $\{P+h:\deg h\le m\}$ satisfies
+\[
+\bigl|N-q^{m+1}/k\bigr|\le c(k)\,q^{m+1/2},
+\]
+provided that $m\ge2$ if $\gcd(q,k(k-1))>1$, and $m\ge3$ if $q$ is even and $\deg P'\le1$. They also note that the
+estimate fails outside this range.
+
+Our blocks $B_e=\{t^4+et^2+h:\deg h\le1\}$ have $k=4$ and $m=1$, and in characteristic $2$ the centre
+$P=t^4+et^2$ has $P'=0$, so both conditions exclude them. Theorem~\ref{thm:main2}(B) gives the exact count at this
+excluded point and shows how the asymptotic fails:
+\begin{itemize}
+\item for $q=4^j$ the block $e=0$ contains no irreducible, while the expected count is $q^2/4$;
+\item for $q=2^{2j+1}$ the block $e=0$ contains $q(q-1)/2$, about twice the expected count.
+\end{itemize}
+The blocks $e\ne0$, with $q^2/4$ and $q(q-2)/4$ irreducibles, do agree with the asymptotic. The obstruction comes
+from the additive structure of $t^4+et^2+\alpha t$ (Proposition~\ref{prop:agl}). For $m=1$, $k=4$ and $q$ even,
+the conditions of \cite{BBR} therefore cannot be dropped. By contrast, when $3\mid q$, a case that is also excluded by
+$\gcd(q,k(k-1))>1$ at $k=4$, $m=1$, Theorem~\ref{thm:odd2} shows that the asymptotic $q^2/4+O(q)$ continues to hold
+without exception.
+
+Theorem~\ref{thm:main2}(C) has $q=2$ fixed, so it lies outside the $q\to\infty$ regime altogether.
+
+In the other direction, \cite{BBR} gives nonemptiness for large $q$ in most cases. An Oppermann sub-interval
+$O_{f,c}=\{f^2+ct^d+h:\deg h\le d-1\}$ has $k=2d$ and $m=d-1$. Since $N\ge q^d/2d-c(2d)q^{d-1/2}$, the
+sub-interval is nonempty as soon as $q>(2d\,c(2d))^2$, provided the conditions of \cite{BBR} hold. We do not make the
+constant $c(2d)$ explicit.
+
+\begin{corollary}[of \cite{BBR}]\label{cor:BBR}
+For each $d$ there is $q_0(d)$ such that every Oppermann sub-interval of degree $2d$ over $\F_q$, with $q\ge q_0(d)$,
+contains an irreducible polynomial in each of the following cases:
+\begin{enumerate}
+\item $q$ odd and $d\ge3$;
+\item $q$ odd, $d=2$ and $\gcd(q,6)=1$;
+\item $q$ even and $d\ge4$;
+\item $q$ even, $d=3$, and the class has $p_3\ne0$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+We check the conditions of \cite{BBR} with $k=2d$ and $m=d-1$; recall that $1\le m<k$ is required.
+\begin{itemize}
+\item \emph{$q$ odd.} The only condition is $m\ge2$ when $p\mid 2d(2d-1)$. It holds for $d\ge3$. For $d=2$,
+$k(k-1)=12$, so it holds when $\gcd(q,6)=1$.
+\item \emph{$q$ even, $d\ge4$.} Here $m\ge3$, so both conditions hold.
+\item \emph{$q$ even, $d=3$.} By Lemma~\ref{lem:even} every member $P$ of an Oppermann class has $p_5=0$. In
+characteristic $2$ this gives $P'=p_3t^2+p_1$, so $\deg P'=2$ when $p_3\ne0$, and the condition ``$m\ge3$ if
+$\deg P'\le1$'' does not apply.
+\end{itemize}
+\end{proof}
+
+The cases left open by the corollary are the following. For $d=1$ the interval is too short for \cite{BBR}, but
+Theorem~\ref{thm:main2}(A) and, for odd $q$, the count $(q-1)/2$ of irreducible $t^2+bt+s_0$ settle it. For $d=2$ the
+corollary is superseded: Theorems~\ref{thm:main2}(B) and~\ref{thm:odd2} give exact counts for every $q$, including
+$3\mid q$, with no threshold.
+For $q$ even with $d=3$, the corollary is superseded as well. Theorem~\ref{thm:p3zero} in \S\ref{sec:d3}
+counts all $q^2$ classes exactly for every $q$, including the $q$ classes with $p_3=0$ (prefixes
+$(p_5,p_4,p_3)=(0,x,0)$) that \cite{BBR} misses. What remains is $q<q_0(d)$ for $q$ odd with $d\ge3$, and for $q$ even
+with $d\ge4$; these ranges are covered only by computation.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{oppermann_char2_rigidity.pdf}
+\caption{Characteristic-$2$ rigidity. \emph{Left:} normalised counts $\pi(x)/(q^d/2d)$ for $q=2^k$, $k\le8$. Exact values from the Hayes FFT are shown as
+markers; the formulas of Theorem~\ref{thm:main2}(B) and Theorem~\ref{thm:p3zero} are shown as lines. The bars give
+the range over the $d=3$ Oppermann classes with $p_3\ne0$. For odd $k$ this range reduces to the single value of
+$C_e$, as Theorem~\ref{thm:p3zero}(1) predicts. For even $k$ its endpoints are given by the two values of $m(c)$. \emph{Right:} normalised inverse zeros $\gamma/\sqrt q$ of $L(u,\chi)$ for the characters of exact level $2$ and $3$
+of $G_3$. For $q=8$ (blue; marker area proportional to multiplicity) they occupy only $16$ of the $24$-th roots of
+unity. For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
+\end{figure}
+
+\FloatBarrier
+
+\section{Mean drift and coherent variance on the Oppermann subgroup}\label{sec:subgroup}
+Throughout this section $q=2^k$, and $H_d\subset G_d$ is the Oppermann subgroup of \S\ref{subsec:newton}.
+
+\subsection{\texorpdfstring{Mean drift on $H_d$ for $d\le5$}{Mean drift on the Oppermann subgroup for d at most 5}}\label{sec:mean}
+
+\begin{proposition}\label{prop:mean}
+Let $L=\F_{q^{2d}}$ and $N_d=\#\{x\in L:\Tr_{L/K}(x^j)=0\text{ for all odd }j<d\}$. Then
+\[
+\E_{x\in H_d}[\Psi(x)]=q^{-\lceil d/2\rceil}N_d=q^d+q^{-d}\sum_{\beta\ne0}\psi_{2d}(\chi_\beta).
+\]
+\end{proposition}
+
+\begin{proof}
+$\sum_{x\in H_d}\Psi(x)=\sum\Lambda(F)$ over the $F$ of degree $2d$ with $\Phi(F)=0$. Group these by roots as in the
+proof of Theorem~\ref{thm:AS}; since $S_j(F_x)=\Tr_{L/K}(x^j)$, the sum equals $N_d$. The second expression follows
+from orthogonality: $|H_d|^{-1}\sum_{x\in H_d}\overline\chi(x)$ equals $1$ if $\chi\in H_d^\perp$ and $0$ otherwise,
+and $\psi_{2d}(1)=q^{2d}$.
+\end{proof}
+
+\begin{corollary}\label{cor:d23}
+For $d=2,3$, $\E_{H_d}[\Psi]=q^d$. Moreover $\E_{H_2}[\pi]=q(q-1)/4$ and $\E_{H_3}[\pi]=q(q^2-1)/6$.
+\end{corollary}
+
+\begin{proof}
+Only $j=1$ occurs, and $\psi_{2d}(\chi_{\beta_1})=\sum_x(-1)^{\Tr(\beta_1x)}=0$ for $\beta_1\ne0$.
+
+For $\pi$ we subtract the elements of degree less than $2d$ from $N_d$. For $d=2$, every $x\in\F_{q^2}$ has $\Tr_{L/K}(x)=2\Tr_{\F_{q^2}/K}(x)=0$. These are $q^2$ elements, and
+$N_2=q^3$, so $\sum_{H_2}4\pi=q^3-q^2$. For $d=3$, the elements of $\F_{q^3}$ satisfy the condition automatically. An
+element $x\in\F_{q^2}$ has $\Tr_{L/K}(x)=\Tr_{\F_{q^2}/K}(x)$, which vanishes only for $x\in K$ (since
+$\ker\Tr_{\F_{q^2}/K}=K$ in characteristic~$2$). Hence
+$\sum_{H_3}6\pi=q^5-q^3$.
+\end{proof}
+
+\begin{theorem}\label{thm:d45}
+Let $d\in\{4,5\}$ and $q=2^k$. Then
+\[
+\begin{array}{c|c|c|c}
+ & N_d & \E_{H_d}[\Psi] & \E_{H_d}[\pi]\\\hline
+d=4,\ k\text{ even} & q^6 & q^4 & (q^4-q^2)/8\\
+d=4,\ k\text{ odd} & q^6-2q^4+2q^3 & q^4-2q^2+2q & (q^4-3q^2+2q)/8\\
+d=5 & q^8+q^5-q^4 & q^5+q^2-q & (q^5-q)/10
+\end{array}
+\]
+\end{theorem}
+
+\begin{proof}
+For $d\in\{4,5\}$ the odd indices are $j=1,3$. Let $E=\F_{q^d}$, so $K\subset E\subset L=\F_{q^{2d}}$, and put
+$u=\Tr_{L/E}(x)=x+x^{q^d}$. Then $\Tr_{L/K}(x)=\Tr_{E/K}(u)$.
+
+\emph{Case $u=0$.} Then $x\in E$. Both traces vanish, since $\Tr_{L/K}(y)=2\Tr_{E/K}(y)=0$ for $y\in E$. This gives
+$q^d$ solutions.
+
+\emph{Case $u\ne0$.} We need $\Tr_{E/K}(u)=0$, which leaves $q^{d-1}-1$ values of $u$. As in Theorem~\ref{thm:p3zero},
+write $x=u\xi$ with $\xi+\xi^{q^d}=1$, and put $\alpha=\xi^2+\xi\in E$. Then $\alpha$ runs $2$-to-$1$ over
+$\{\Tr_{E/\F_2}(\alpha)=1\}$, and $\Tr_{L/K}(x^3)=\Tr_{E/K}(u^3(\alpha+1))$. The condition $\Tr_{L/K}(x^3)=0$ cuts out
+an affine $K$-hyperplane $H_u\subset E$ of size $q^{d-1}$. On $H_u$, the functional $\Tr_{E/\F_2}$ is non-constant
+unless $u^3=\nu\in K^\times$.
+\begin{itemize}
+\item If $u^3\notin K^\times$, then $u$ contributes $q^{d-1}$ elements $x$.
+\item If $u^3=\nu\in K^\times$, then $\Tr_{E/K}(\alpha)=\Tr_{E/K}(1)=d$ on $H_u$, so
+$\Tr_{E/\F_2}(\alpha)=dk\bmod2$. Then $u$ contributes $2q^{d-1}$ elements if $dk$ is odd, and none otherwise.
+\end{itemize}
+With $a_d=\#\{u\in E^\times:u^3\in K,\ \Tr_{E/K}(u)=0\}$ this gives
+\[
+N_d=q^d+(q^{d-1}-1-a_d)\,q^{d-1}+2a_d\,q^{d-1}[dk\text{ odd}].
+\]
+
+\emph{Computing $a_d$.} Such $u$ is a root of some $X^3-\nu$ with $\nu\in K^\times$, so its degree over $K$ is $1$, $2$
+or $3$, and it must divide $d$.
+\begin{itemize}
+\item $d=4$. Every $u\in K^\times$ qualifies, since $\Tr_{E/K}(u)=4u=0$. Elements of degree $2$ occur only when some
+$X^3-\nu$ has an irreducible quadratic factor over $K$. This happens exactly when $k$ is odd: then $3\nmid q-1$,
+and $X^3-\nu=(X-a)(X^2+aX+a^2)$. The resulting $2(q-1)$ elements $a\omega,a\omega^2\in\F_{q^2}\setminus K$ have trace
+$\Tr_{E/K}=2\Tr_{\F_{q^2}/K}=0$. When $k$ is even, the cube roots of a non-cube lie in $\F_{q^3}\not\subset E$. So
+$a_4=q-1$ for $k$ even and $a_4=3(q-1)$ for $k$ odd. In both cases $dk$ is even.
+\item $d=5$. Only degree $1$ is possible. But $u\in K^\times$ has $\Tr_{E/K}(u)=5u=u\ne0$, so $a_5=0$.
+\end{itemize}
+Substituting gives $N_d$, and $\E_{H_d}[\Psi]=N_d/q^{\lceil d/2\rceil}$.
+
+\emph{The mean of $\pi$.} The elements of degree less than $2d$ satisfying the conditions are exactly those of $E$.
+For $d=4$, every proper subfield of $\F_{q^8}$ lies in $E$. For $d=5$, an element $x\in\F_{q^2}\setminus K$ has
+$\Tr_{L/K}(x)=5\Tr_{\F_{q^2}/K}(x)\ne0$ (since $\ker\Tr_{\F_{q^2}/K}=K$ in characteristic~$2$). Hence $\sum_{H_d}2d\pi=N_d-q^d$.
+\end{proof}
+
+Table~\ref{tab:means} compares Corollary~\ref{cor:d23} and Theorem~\ref{thm:d45} with the exact class counts for
+$q\le16$; all $16$ cases agree. By Proposition~\ref{prop:mean}, the drift $\E_{H_d}[\Psi]-q^d$ is $q^{-d}$ times a sum
+of Artin--Schreier sums of the Gold-type polynomials $\beta_1x+\beta_3x^3$ over $\F_{q^{2d}}$. It vanishes for $d=4$
+with $k$ even. It is $-2q^2+2q$ for $d=4$ with $k$ odd, coming from the cube roots of unity outside $K$, and $+q^2-q$
+for $d=5$. Figure~\ref{fig:mean} (left) shows the drift in units of $q^{d/2}$ for $d\le12$.
+
+\input{unified_tab_means}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{subgroup_mean_gauss.pdf}
+\caption{\emph{Left:} mean drift on the Oppermann subgroup, $(\E_{H_d}[\Psi]-q^d)/q^{d/2}$, for $q=2,4,8,16$. Open
+circles mark the closed forms of Theorem~\ref{thm:d45}; the drift vanishes for $d=2,3$. \emph{Right:} the normalised
+values of $m(c)$, which equal $\mp\varepsilon=\mp(-1)^{k/2}$ by Theorem~\ref{thm:mc}.}\label{fig:mean}
+\end{figure}
+
+\subsection{Coherent superposition and subgroup variance}\label{sec:var}
+By the explicit formula, $\Psi(x)=q^{-d}\sum_{\chi\in\widehat{G_d}}\overline\chi(x)\psi_{2d}(\chi)$. On all of $G_d$,
+Parseval gives
+\[
+\Var_{G_d}(\Psi)=q^{-2d}\sum_{\chi\ne1}|\psi_{2d}(\chi)|^2,
+\]
+one term per character. On $H_d$ this changes.
+
+\begin{proposition}\label{prop:var}
+\[
+\Var_{x\in H_d}\bigl(\Psi(x)\bigr)=q^{-2d}\sum_{[\chi]\ne H_d^\perp}\Bigl|\sum_{\eta\in H_d^\perp}\psi_{2d}(\chi\eta)\Bigr|^2,
+\]
+where $[\chi]$ runs over the cosets of $H_d^\perp$ in $\widehat{G_d}$.
+\end{proposition}
+
+\begin{proof}
+For $x\in H_d$, $\overline\chi(x)$ depends only on the restriction $\chi|_{H_d}$, that is, on the coset
+$[\chi]\in\widehat{G_d}/H_d^\perp\cong\widehat{H_d}$. Hence
+\[
+\Psi|_{H_d}=q^{-d}\sum_{\lambda\in\widehat{H_d}}\overline\lambda\,A(\lambda),\qquad
+A(\lambda)=\sum_{\chi|_{H_d}=\lambda}\psi_{2d}(\chi).
+\]
+The trivial $\lambda$ gives the mean (Proposition~\ref{prop:mean}). Apply Parseval on $H_d$.
+\end{proof}
+
+\emph{Coherent superposition.} The $|H_d^\perp|=q^{\lfloor d/2\rfloor}$ characters in one coset are orthogonal on
+$G_d$ but coincide on $H_d$, so their coefficients add as amplitudes rather than as energies. If the phases of the
+$\psi_{2d}(\chi\eta)$ in a coset were independent, $\Var_{H_d}$ and $\Var_{G_d}$ would agree on average. If they are
+aligned, $\Var_{H_d}$ can exceed $\Var_{G_d}$ by a factor up to $|H_d^\perp|$; if they cancel, it is smaller. Both
+extremes occur.
+
+\begin{theorem}\label{thm:var23}
+Let $q=2^k$.
+\begin{enumerate}
+\item $\Var_{H_2}(\Psi)/q^2=q-1$ and $\Var_{G_2}(\Psi)/q^2=1-1/q$. The ratio is exactly $q=|H_2^\perp|$, so the
+coherence is maximal.
+\item $\Var_{H_2}(4\pi)/q^2=q-1$.
+\item $\Var_{H_3}(\Psi)/q^3=1-1/q$ for $k$ odd and $3(1-1/q)$ for $k$ even.
+\item $\Var_{H_3}(6\pi)/q^3=0$ for $k$ odd and $6(1-1/q)$ for $k$ even.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) By Proposition~\ref{prop:rigid}, $\Psi(x)-q^2$ takes three values: $-(-1)^k(q^2-q)$ on the identity class,
+$(-1)^kq$ on the other $q-1$ classes of $H_2$, and $0$ on the $q^2-q$ classes outside $H_2$. Averaging the squares
+over $H_2$ (with $q$ classes) and over $G_2$ (with $q^2$ classes) gives $q^2(q-1)$ and $q(q-1)$.
+
+The ratio is maximal because Proposition~\ref{prop:rigid}(3) gives $\psi_4(\chi)=-(-1)^kq^2$ for all characters of exact
+level $2$: every coset sum is fully aligned.
+
+(2) $E(B_e)=q$ for every $e$ Proposition~\ref{prop:rigid}(1), so $4\pi=\Psi-q$ on $H_2$ and has the same variance as
+$\Psi$.
+
+(3), (4) $H_3\cong\F_q^2$ with coordinates $(e,c)$. By Corollary~\ref{cor:d3}, both $\Psi$ and $\pi$ depend only on
+$c$. Averaging over $(e,c)\in H_3$ is therefore the same as averaging over $c\in\F_q$, and all variances below are
+written as $q^{-1}\sum_{c\in\F_q}$.
+
+For $k$ odd, $6\pi=q(q^2-1)$ is constant, so $\Var_{H_3}(6\pi)=0$. The variance of $\Psi$ then comes entirely from
+the prime powers, $E(C_{e,c})=q^2[c=0]$. Since $\Psi-q^3=-q+q^2[c=0]$,
+\[
+\Var_{H_3}(\Psi)=q^{-1}\bigl((q^2-q)^2+(q-1)q^2\bigr)=q^2(q-1).
+\]
+
+For $k$ even, the deviation $\Psi-q^3$ is
+\begin{itemize}
+\item $-q^2+q$ for $c=0$;
+\item $q-2\varepsilon q^{3/2}$ for each of the $(q-1)/3$ cubes $c$;
+\item $q+\varepsilon q^{3/2}$ for each of the $2(q-1)/3$ non-cubes $c$.
+\end{itemize}
+Its mean is $0$. In the second moment the cross terms in $\varepsilon q^{5/2}$ cancel, leaving
+\[
+\Var_{H_3}(\Psi)=q^{-1}\bigl(q^2(q-1)^2+(q-1)(q^2+2q^3)\bigr)=3q^2(q-1).
+\]
+For $6\pi$, the mean is $q(q^2-1)$, and the deviations are
+\begin{itemize}
+\item $-2q(q-1)$ for $c=0$;
+\item $2q-2\varepsilon q^{3/2}$ for each cube $c$;
+\item $2q+\varepsilon q^{3/2}$ for each non-cube $c$.
+\end{itemize}
+The same computation gives
+\[
+\Var_{H_3}(6\pi)=q^{-1}\bigl(4q^2(q-1)^2+(q-1)(4q^2+2q^3)\bigr)=6q^2(q-1).
+\]
+Adding $E(C_{e,0})=q^2$ halves the deviation at $c=0$, to $-q(q-1)$. Removing the mean of $E$ shifts the other
+deviations by $-q$. Together these halve the variance.
+\end{proof}
+
+All four statements were also checked exactly, with rational arithmetic on the class counts, for
+$q=2,4,\dots,64$ (\texttt{verify\_variance23.py}).
+
+For $d\ge4$ we have only numerical data (Table~\ref{tab:var}, Figure~\ref{fig:var}). We observe the following:
+\begin{enumerate}
+\item On the whole group, $\Var_{G_d}(\Psi)/q^d$ follows the Keating--Rudnick value $d-1$ closely for $q\ge4$, and in
+odd characteristic. For $q=2$ it stays near $d-2$. Keating and Rudnick prove $\Var\sim q^{h+1}(n-h-2)$ as
+$q\to\infty$ for intervals of size $q^{h+1}$ in degree $n$; here $h=d-1$ and $n=2d$, see \cite{KR} for the precise
+hypotheses. We use $d-1$ only as a reference value.
+\item On the subgroup, $\Var_{H_d}(\Psi)/q^d$ is erratic. For even $d$ it is large and grows with $q$: $q-1$ at $d=2$,
+and $1.1$, $3.0$, $5.0$, $18.5$ at $d=4$ for $q=2,4,8,16$. For odd $d$ it is moderate: $1-1/q$ or $3(1-1/q)$ at
+$d=3$, and $1.5$, $6.3$, $3.5$, $6.5$ at $d=5$. This is the coherence of Proposition~\ref{prop:var}.
+
+Two structural features separate even from odd $d$, although we have no proof of the dichotomy beyond $d=3$.
+First, the coherence multiplicity $|H_d^\perp|=q^{\lfloor d/2\rfloor}$ jumps by a factor $q$ at each even $d$. Second,
+the squares $\varpi^2=\sum a_i^2t^{2i}$ of irreducibles of degree $d$ contain only even powers of $t$. For odd $d$
+their coefficient $e_d$ (of $t^d$) is $0$, so they pile up on the slice $e_d=0$ of $H_d$. For even $d$ it is
+$a_{d/2}^2$, which is spread over all $e_d\in\F_q$.
+\end{enumerate}
+
+\input{unified_tab_variance}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{subgroup_variance.pdf}
+\caption{Normalised variance of $\Psi$ over all classes $G_d$ (left, odd and even $q$) and over the Oppermann
+subgroup $H_d$ (right, $q$ even). Dashed line: the Keating--Rudnick value $d-1$. Circles: Theorem~\ref{thm:var23}.}\label{fig:var}
+\end{figure}
+
+
+\section{Questions}
+\begin{enumerate}
+\item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? For $d\le3$ the
+question is settled for every $q$ (Theorems~\ref{thm:main2} and~\ref{thm:p3zero}). For each $d\ge4$, by
+Corollary~\ref{cor:BBR}, only finitely many $q$ can carry further empty sub-intervals. Corollary~\ref{cor:dead}
+shows that, from $d=4$ on, the additive mechanism of (B) is no longer available to produce empty or full classes.
+\item For odd $q$, is every Oppermann sub-interval nonempty, for all $q$ and $d$? Lemma~\ref{lem:odd} turns this into
+a statement about all short intervals of length $q^{n/2}$. For $d=2$ it holds for every odd $q$
+(Theorem~\ref{thm:odd2}). For each $d\ge3$, by Corollary~\ref{cor:BBR}, it fails for at most finitely many $q$. The
+trace-form method of Section~\ref{sec:odd2} would need, for $d=3$, the joint distribution of $\Tr(x^2)$ and
+$\Tr(x^3)$ on $\ker\Tr\subset\F_{q^6}$.
+\item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with $\min_x\pi(x)\ge c\,q^d/2d$ for all
+large $d$?
+\item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge6$, and explain the even/odd
+dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in Table~\ref{tab:var}.
+\end{enumerate}
+
+
+\section*{Data and code}
+Sections~\ref{sec:classes}--\ref{sec:comp}, except \S\ref{subsec:newton} and \S\ref{subsec:additive}, are supported by
+the repository \url{https://github.com/Ruqing1963/oppermann-function-fields}:
+\begin{itemize}
+\item \texttt{hayes\_oppermann.py} (Theorems~\ref{thm:odd}, \ref{thm:even});
+\item \texttt{verify\_pointwise\_oppermann.py}, \texttt{compare\_bruteforce.py} (cross-checks);
+\item \texttt{char2\_d2\_blocks.py}, \texttt{char2\_d2\_theorem.py} (Theorem~\ref{thm:main2}(B));
+\item \texttt{swan\_parity.py} (Table~\ref{tab:zero});
+\item \texttt{odd\_d2\_formula.py} (Theorem~\ref{thm:odd2});
+\item \texttt{char2\_d3\_p3zero.py}, \texttt{char2\_d3\_all.py}, \texttt{make\_unified\_d3\_table.py}
+(Theorem~\ref{thm:p3zero}, Table~\ref{tab:d3});
+\item \texttt{char2\_d2\_rigidity.py} (Proposition~\ref{prop:rigid});
+\item \texttt{make\_figure.py}, \texttt{make\_figure2.py}, \texttt{make\_tables.py} (Figures~\ref{fig:ratio},
+\ref{fig:rigid}; Tables~\ref{tab:odd}, \ref{tab:even}).
+\end{itemize}
+Section~\ref{sec:subgroup}, \S\ref{subsec:newton}, \S\ref{subsec:additive} and Theorem~\ref{thm:mc} are supported by
+\url{https://github.com/Ruqing1963/oppermann-char2-subgroup}:
+\begin{itemize}
+\item \texttt{verify\_subgroup\_mean.py} (Theorems~\ref{thm:group}, \ref{thm:AS}, \ref{thm:d45});
+\item \texttt{cubic\_gauss\_m.py} (Theorem~\ref{thm:mc});
+\item \texttt{subgroup\_variance\_census.py}, \texttt{verify\_variance23.py} (Theorem~\ref{thm:var23},
+Table~\ref{tab:var});
+\item \texttt{verify\_additive\_slices.py} (Theorem~\ref{thm:agl});
+\item \texttt{make\_figures.py} (Figures~\ref{fig:mean}, \ref{fig:var}).
+\end{itemize}
+
+
+\begin{thebibliography}{99}
+\bibitem{BBR} E.~Bank, L.~Bary-Soroker, L.~Rosenzweig, \emph{Prime polynomials in short intervals and in arithmetic
+progressions}, Duke Math. J. \textbf{164} (2015), 277--295.
+\bibitem{Berlekamp76} E.~R. Berlekamp, \emph{An analog to the discriminant over fields of characteristic two},
+J. Algebra \textbf{38} (1976), 315--317.
+\bibitem{BEW} B.~C. Berndt, R.~J. Evans, K.~S. Williams, \emph{Gauss and Jacobi Sums}, Wiley, New York, 1998.
+\bibitem{ChenI} R.~Chen, \emph{Primes in Legendre intervals over $\F_q[t]$: an exact explicit-formula algorithm,
+verification for $d\le10$, and an anomaly in characteristic~2}, preprint (2026), DOI 10.5281/zenodo.23225896.
+\bibitem{Hayes} D.~R. Hayes, \emph{The distribution of irreducibles in $GF[q,x]$}, Trans. Amer. Math. Soc.
+\textbf{117} (1965), 101--127.
+\bibitem{KR} J.~P. Keating, Z.~Rudnick, \emph{The variance of the number of prime polynomials in short intervals and
+in residue classes}, Int. Math. Res. Not. IMRN \textbf{2014}, no.~1, 259--288.
+\bibitem{LN} R.~Lidl, H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Encyclopedia of Mathematics and its
+Applications \textbf{20}, Cambridge University Press, 1997.
+\bibitem{Oppermann} L.~Oppermann, \emph{Om vor Kundskab om Primtallenes M\ae ngde mellem givne Gr\ae ndser},
+Oversigt over det Kongelige Danske Videnskabernes Selskabs Forhandlinger (1882), 169--179.
+\bibitem{Stickelberger} L.~Stickelberger, \emph{\"Uber eine neue Eigenschaft der Diskriminanten algebraischer
+Zahlk\"orper}, Verhandlungen des ersten Internationalen Mathematiker-Kongresses, Z\"urich, 1897, 182--193.
+\bibitem{Stickelberger1890} L.~Stickelberger, \emph{\"Uber eine Verallgemeinerung der Kreistheilung}, Math. Ann.
+\textbf{37} (1890), 321--367.
+\bibitem{Swan} R.~G. Swan, \emph{Factorization of polynomials over finite fields}, Pacific J. Math. \textbf{12}
+(1962), 1099--1106.
+\end{thebibliography}
+
+\end{document}
