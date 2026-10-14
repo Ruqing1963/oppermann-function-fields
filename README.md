@@ -4,7 +4,7 @@
 
 Ruqing Chen. DOI: [10.5281/zenodo.23353949](https://doi.org/10.5281/zenodo.23353949)
 
-Paper: `paper/oppermann_function_fields.tex` / `.pdf` (22 pages).
+Paper: `paper/oppermann_function_fields.tex` / `.pdf` (23 pages).
 
 For monic f of degree d, the Legendre interval {fÂ² + s : deg s â‰¤ d} splits into q **Oppermann sub-intervals**
 
@@ -55,6 +55,7 @@ each of size q^d. For q = 2 these are the two halves, the analogue of (nÂ², n�
 | `char2_d3_p3zero.py`, `char2_d3_all.py` | `char2_d3_p3zero.txt`, `char2_d3_all.txt` | Thm 5.2 |
 | `cubic_gauss_m.py`, `make_d3_table.py` | `cubic_gauss_m.txt`, `paper/tab_d3.tex` | Thm 5.3, Cor 5.4, Table 2 |
 | `char2_d2_rigidity.py` | `char2_d2_rigidity.txt` | Prop 6.1 |
+| `verify_level3_cosets.py` | `level3_cosets.txt` | Prop 7.6 (level-3 coset sums; γ⁶ = q³ on the non-cube cosets) |
 | `subgroup_lib.py`, `verify_subgroup_mean.py` | `verify_subgroup_mean.txt` | Thms 2.4, 2.5, 7.3 |
 | `subgroup_variance_census.py`, `verify_variance23.py` | `subgroup_variance.{txt,json}`, `verify_variance23.txt` | Thm 7.5 |
 | `make_figure.py`, `make_figure2.py`, `make_tables.py` | `figures/oppermann_min_ratio.pdf`, `figures/oppermann_char2_rigidity.pdf`, `paper/census_tables.tex` | Figs 1, 2 |

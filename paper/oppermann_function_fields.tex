@@ -199,6 +199,18 @@ odd and $3(1-1/q)$ for $k$ even (Theorem~\ref{thm:var23}).
 Throughout, a \emph{sub-interval} means the set $O_{f,c}$. Distinct pairs $(f,c)$ can give the same set; counts of
 sub-intervals are counts of sets, that is, of Hayes classes.
 
+\emph{Relation to \cite{ChenI}.} The Legendre interval $I_f$ is the union of the $q$ sub-intervals $O_{f,c}$. It is
+the class of $f^2$ at level $d-1$; in characteristic $2$ these classes form the subgroup of squares in $G_{d-1}$.
+\cite{ChenI} found that in characteristic $2$ the variance of $\Psi$ over Legendre intervals differs markedly from
+the variance over all classes. The difference is carried entirely by correlations between quadratic twists, that is,
+between characters trivial on the squares, and \cite{ChenI} gives no structural description of these twists. The
+proof of Theorem~\ref{thm:group} applies verbatim at level $d-1$. It shows that the squares in $G_{d-1}$ are exactly
+the kernel of the odd power sums $S_j$, $j<d$. So the twists in question are the Artin--Schreier characters
+$\chi_\beta$ of Theorem~\ref{thm:AS}, and their coefficients are the sums given there. At level $d$ the subgroup $H_d$
+plays the same role for the Oppermann sub-intervals; \S\ref{sec:subgroup} computes the resulting coherence exactly
+for $d\le3$. The obstructions (A)--(C) refine \cite{ChenI} in a different direction: they empty single sub-intervals
+$O_{f,c}$, while the Legendre intervals themselves contain primes in every case computed here and in \cite{ChenI}.
+
 \emph{Outline.}
 \begin{itemize}
 \item Section~\ref{sec:classes} identifies the Oppermann sub-intervals with Hayes classes. In characteristic $2$ it
@@ -856,7 +868,7 @@ $O(q^{5/2})$ a monodromy argument would give.
 It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
 of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. Figure~\ref{fig:rigid} (right) shows these zeros for $q=8$ next to the odd case $q=7$. At level $2$ this is a
 theorem: Proposition~\ref{prop:rigid}(3) gives $\gamma_\chi^4=(-1)^kq^2$ for every character of exact level $2$,
-which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it remains an observation. The proof above avoids
+which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it is proved for the $2q(q-1)/3$ characters of Proposition~\ref{prop:level3} when $k$ is even, and otherwise remains an observation. The proof above avoids
 these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
 $\Tr_{L/K}(x)=0$ and $\Tr_{L/K}(x^3)=c$, which the tower $K\subset E\subset L$ makes linear.
 \end{remark}
@@ -1264,6 +1276,44 @@ deviations by $-q$. Together these halve the variance.
 All four statements were also checked exactly, with rational arithmetic on the class counts, for
 $q=2,4,\dots,64$ (\texttt{verify\_variance23.py}).
 
+The exact class values on $H_3$ also determine the coset sums $A(\lambda)$ of Proposition~\ref{prop:var}. Since
+$H_3=\{1+eu^2+cu^3\}\cong(\F_q^2,+)$, its characters are $\lambda_{a,b}(e,c)=(-1)^{\Tr(ae+bc)}$.
+
+\begin{proposition}[level-$3$ coset sums]\label{prop:level3}
+Let $q=2^k$, and let $A(\lambda)=\sum_{\chi|_{H_3}=\lambda}\psi_6(\chi)$, a sum over $q$ characters of $G_3$.
+\begin{enumerate}
+\item $A(\lambda_{a,b})=0$ if $a\ne0$.
+\item For $b\ne0$, $A(\lambda_{0,b})=q^4$ if $k$ is odd or $b$ is a cube, and $A(\lambda_{0,b})=-2q^4$ if $k$ is even
+and $b$ is a non-cube.
+\end{enumerate}
+Consequently, for $k$ even, each of the $2q(q-1)/3$ characters $\chi$ restricting to some $\lambda_{0,b}$ with $b$ a
+non-cube has exact level $3$, and both inverse zeros of $L(u,\chi)$ satisfy $\gamma^6=q^3$.
+\end{proposition}
+
+\begin{proof}
+By the proof of Proposition~\ref{prop:var},
+\[
+A(\lambda)=q^3|H_3|^{-1}\sum_{x\in H_3}\Psi(x)\lambda(x)=q\sum_{e,c}\Psi(e,c)\lambda_{a,b}(e,c).
+\]
+By
+Corollary~\ref{cor:d3}, $\Psi$ depends only on $c$, so the sum over $e$ kills every $\lambda_{a,b}$ with $a\ne0$.
+
+For $a=0$ and $b\ne0$, the constant part of $\Psi$ drops out, and $A=q^2\sum_c(\Psi(c)-q^3)(-1)^{\Tr(bc)}$. For $k$
+odd, $\Psi(c)-q^3=-q+q^2[c=0]$, which gives $q^4$. For $k$ even, insert the deviations listed in the proof of
+Theorem~\ref{thm:var23}. The cubic-character sum
+$\sum_{c\in(K^\times)^3}(-1)^{\Tr(bc)}=\frac13(-1-2\varepsilon\sqrt q\,\mathrm{Re}\,\omega(b))$ from the proof of
+Theorem~\ref{thm:mc} then gives $A=q^4(2\,\mathrm{Re}\,\omega(b)-1)$, which is $q^4$ or $-2q^4$.
+
+For the consequence: each $L(u,\chi)$ with $\chi\ne1$ has degree at most $2$, and its inverse zeros have absolute
+value at most $\sqrt q$, so $|\psi_6(\chi)|\le2q^3$. A sum of $q$ such terms can equal $-2q^4$ only if every term
+equals $-2q^3$. This forces $\deg L=2$ and $\gamma_1^6=\gamma_2^6=q^3$.
+\end{proof}
+
+All coset sums were checked against the exact class values for $q\le64$, with the script
+\texttt{verify\_level3\_cosets.py}. The
+$L$-functions confirm the consequence; in fact many more characters have $\psi_6=-2q^3$, for example $1020$ for
+$q=16$, against the $160$ that the proposition forces.
+
 For $d\ge4$ we have only numerical data (Table~\ref{tab:var}, Figure~\ref{fig:var}). We observe the following:
 \begin{enumerate}
 \item On the whole group, $\Var_{G_d}(\Psi)/q^d$ follows the Keating--Rudnick value $d-1$ closely for $q\ge4$, and in
@@ -1304,11 +1354,17 @@ shows that, from $d=4$ on, the additive mechanism of (B) is no longer available 
 a statement about all short intervals of length $q^{n/2}$. For $d=2$ it holds for every odd $q$
 (Theorem~\ref{thm:odd2}). For each $d\ge3$, by Corollary~\ref{cor:BBR}, it fails for at most finitely many $q$. The
 trace-form method of Section~\ref{sec:odd2} would need, for $d=3$, the joint distribution of $\Tr(x^2)$ and
-$\Tr(x^3)$ on $\ker\Tr\subset\F_{q^6}$.
+$\Tr(x^3)$ on $\ker\Tr\subset\F_{q^6}$. That is, it would need the point counts of the intersections of an
+affine quadric and an affine cubic in the $5$-dimensional $\F_q$-space $\ker\Tr$. These are threefolds, not curves,
+and their point counts involve cubic exponential sums in five variables, for which no closed form is to be expected.
+In characteristic $2$ the tower $\F_q\subset\F_{q^3}\subset\F_{q^6}$ linearises both conditions.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with $\min_x\pi(x)\ge c\,q^d/2d$ for all
 large $d$?
 \item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge6$, and explain the even/odd
 dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in Table~\ref{tab:var}.
+\item In characteristic $2$, do all characters of exact level $3$ of $G_3$ have $L$-functions with
+$\gamma^6\in q^3\{\pm1,\pm i\}$? This is observed for $q\le16$ (Figure~\ref{fig:rigid}, right). It is proved at
+level $2$ (Proposition~\ref{prop:rigid}), and at level $3$ for the characters of Proposition~\ref{prop:level3}.
 \end{enumerate}
 
 
@@ -1324,7 +1380,8 @@ All scripts are in \texttt{code/} and their outputs in \texttt{data/} of
 \item \texttt{odd\_d2\_formula.py}: Theorem~\ref{thm:odd2}.
 \item \texttt{char2\_d3\_p3zero.py}, \texttt{char2\_d3\_all.py}: Theorem~\ref{thm:p3zero}.
 \item \texttt{cubic\_gauss\_m.py}, \texttt{make\_d3\_table.py}: Theorem~\ref{thm:mc}, Table~\ref{tab:d3}.
-\item \texttt{char2\_d2\_rigidity.py}: Proposition~\ref{prop:rigid}.
+\item \texttt{char2\_d2\_rigidity.py}: Proposition~\ref{prop:rigid}; \texttt{verify\_level3\_cosets.py}:
+Proposition~\ref{prop:level3}.
 \item \texttt{subgroup\_lib.py}, \texttt{verify\_subgroup\_mean.py}: Theorems~\ref{thm:group}, \ref{thm:AS},
 \ref{thm:d45}, Corollary~\ref{cor:d23}.
 \item \texttt{subgroup\_variance\_census.py}, \texttt{verify\_variance23.py}: Theorem~\ref{thm:var23},
