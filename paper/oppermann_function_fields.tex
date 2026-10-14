@@ -37,8 +37,7 @@ Galois obstructions, exact counts for small degree,\\ and the Oppermann subgroup
 \author{Ruqing Chen}
 \address{GUT Geoservice Inc., Montreal, Canada}
 \email{ruqing@hotmail.com}
-\thanks{DOI 10.5281/zenodo.23353949.}
-\thanks{Code and data: \url{https://github.com/Ruqing1963/oppermann-function-fields}}
+\thanks{Code and data: \url{https://github.com/Ruqing1963/oppermann-function-fields}\newline(archived at DOI 10.5281/zenodo.23353949).}
 \date{\today}
 \subjclass[2020]{Primary 11T55; Secondary 11T06, 11T24, 11N05, 11Y16}
 \keywords{Oppermann's conjecture, function fields, irreducible polynomials, short intervals, Hayes characters,
@@ -176,7 +175,7 @@ $q\ge q_0(d)$ contains an irreducible polynomial.
 \end{corollary}
 
 For $d\ge3$, Corollary~\ref{cor:BBR} covers every class except those with $q$ even, $d=3$ and $p_3=0$.
-Theorem~\ref{thm:intro_p3zero}, proved as Theorem~\ref{thm:p3zero}, covers those, and indeed every class with $q$
+Theorem~\ref{thm:intro_p3zero}, proved as Theorem~\ref{thm:p3zero} and Corollary~\ref{cor:d3}, covers those, and indeed every class with $q$
 even and $d=3$. In characteristic $2$ and $d=2$, the
 empty sub-intervals for $q=2,4,16,64,\dots$ show that no such $q_0(2)$ exists there.
 
@@ -282,10 +281,10 @@ near-squares carry Galois-theoretic structure, and that structure produces the c
 Throughout this subsection $q=2^k$, $K=\F_q$ and $\Tr=\Tr_{K/\F_2}$. We write $H_d\subset G_d$ for the set of
 Oppermann classes of level $d$, described in Lemma~\ref{lem:even}.
 
-For monic $P=\prod_\alpha(t-\alpha)$ of degree $n$, put $\sigma(P)=u^nP(1/u)=\prod_\alpha(1+\alpha u)$; in
-characteristic $2$ the signs disappear. Write $\sigma(P)\equiv1+e_1u+\dots+e_du^d\pmod{u^{d+1}}$, so that $e_j$ is the
-$j$-th elementary symmetric function of the roots. The class of $P$ is $\sigma(P)$ in
-$G_d=(1+u\F_q[u])/(1+u^{d+1}\F_q[u])$, a group of order $q^d$, and $\sigma(PQ)=\sigma(P)\sigma(Q)$. Let
+For monic $P=\prod_\alpha(t-\alpha)$ of degree $n$, write its class in $G_d$ as
+$\sigma(P)=u^nP(1/u)=\prod_\alpha(1+\alpha u)\equiv1+e_1u+\dots+e_du^d\pmod{u^{d+1}}$. Since the signs disappear in
+characteristic $2$, $e_j=p_{n-j}$ is the $j$-th elementary symmetric function of the roots, and
+$\sigma(PQ)=\sigma(P)\sigma(Q)$. Let
 $S_m(P)=\sum_\alpha\alpha^m\in\F_q$. Since
 \[
 u\frac{\sigma'(P)}{\sigma(P)}=\sum_\alpha\frac{\alpha u}{1+\alpha u}=\sum_{m\ge1}S_m(P)u^m
@@ -533,7 +532,7 @@ P_\beta(t)=L(t)+\beta,\qquad L(t)=t^{2^r}+\sum_{i=0}^{r-1}c_it^{2^i},\qquad c_i,
 \]
 Apart from $t$, every monomial has even degree. In particular no odd power of $t$ lies strictly between $t^d$ and
 $t^{2d}$, so every such $P_\beta$ lies in a class of $H_d$. For $r=1,2$ (that is, $d=1,2$) the Oppermann classes of
-\S\ref{sec:char2} consist of such affine cosets. There, Frobenius acts on the roots through $\mathrm{AGL}_r(\F_2)$, and
+\S\S3.1--3.2 consist of such affine cosets. There, Frobenius acts on the roots through $\mathrm{AGL}_r(\F_2)$, and
 irreducibility amounts to a $2^r$-cycle. For $r\ge3$ this mechanism disappears.
 
 \begin{theorem}\label{thm:agl}
@@ -558,7 +557,7 @@ If $2^m-1\ge r$, both powers of $N$ vanish and $T^{2^m}=\mathrm{id}$.
 
 (2) A $2^r$-cycle has order $2^r$. If $r\ge3$, then $2^{r-1}-1\ge r$, so the computation in (1), applied with $m=r-1$, shows that every
 element of $2$-power order satisfies $T^{2^{r-1}}=\mathrm{id}$, a contradiction. Conversely, for $r=1$ a translation is a
-$2$-cycle, and for $r=2$ a transvection with a suitable translation part is a $4$-cycle Proposition~\ref{prop:agl}.
+$2$-cycle, and for $r=2$ a transvection with a suitable translation part is a $4$-cycle (Proposition~\ref{prop:agl}).
 \end{proof}
 
 \begin{corollary}[additive dead zone]\label{cor:dead}
@@ -694,10 +693,10 @@ squares of cubics contain only even powers of $t$. Cubes of irreducible quadrati
 below. So no such prime power has a $t^3$ term, and $E(C_{e,c})=0$ for $c\ne0$. Now take $c=0$ and, by (1), $e=0$.
 \begin{itemize}
 \item \emph{Sixth powers.} $(t+a)^6\in C_0$ only for $a=0$; this is $t^6$, with $\Lambda=1$.
-\item \emph{Cubes.} For a quadratic $\varpi=t^2+bt+c$, the coefficient of $t^5$ in $\varpi^3$ is $b$. So $\varpi^3\in C_0$
-forces $b=0$, but then $\varpi=(t+\sqrt c)^2$ is not irreducible.
+\item \emph{Cubes.} For a quadratic $\varpi=t^2+b_1t+b_0$, the coefficient of $t^5$ in $\varpi^3$ is $b_1$. So
+$\varpi^3\in C_0$ forces $b_1=0$, but then $\varpi=(t+\sqrt{b_0})^2$ is not irreducible.
 \item \emph{Squares.} For a cubic $\varpi=t^3+a_2t^2+a_1t+a_0$ we have $\varpi^2=t^6+a_2^2t^4+a_1^2t^2+a_0^2$, which lies
-in $C_0$ exactly when $a_2=0$. Translation changes $a_2$ by $3c=c$, so the $(q^3-q)/3$ irreducible cubics are
+in $C_0$ exactly when $a_2=0$. Translation $t\mapsto t+a$ changes $a_2$ by $3a=a$, so the $(q^3-q)/3$ irreducible cubics are
 equidistributed over the values of $a_2$, and $(q^2-1)/3$ of them have $a_2=0$. Each contributes $\Lambda=3$.
 \end{itemize}
 Hence $E(C_0)=1+(q^2-1)=q^2$. The cubes are excluded from every $C_{e,c}$, not only from $C_0$, since all of these
@@ -914,7 +913,7 @@ only slightly below average, far from the Weil bound discussed next.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\textwidth]{oppermann_min_ratio.pdf}
+\includegraphics[width=0.93\textwidth]{oppermann_min_ratio.pdf}
 \caption{Normalised minimum $\min_{f,c}\pi(O_{f,c})/(q^d/2d)$ against $d$. Left: odd $q$. Right: even $q$; the
 points at $0$ are the empty sub-intervals of Theorem~\ref{thm:main2}.}\label{fig:ratio}
 \end{figure}
@@ -997,6 +996,17 @@ $p_3=0$, and on the classes with $p_3\ne0$. The Oppermann classes are exactly th
 Results on the variance of $\Psi$ over Legendre intervals (an average over $f$) bound the number of intervals that
 deviate by a given amount; they do not exclude a single empty interval.
 
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.93\textwidth]{oppermann_char2_rigidity.pdf}
+\caption{Characteristic-$2$ rigidity. \emph{Left:} normalised counts $\pi(x)/(q^d/2d)$ for $q=2^k$, $k\le8$. Exact values from the Hayes FFT are shown as
+markers; the formulas of Theorem~\ref{thm:main2}(B) and Theorem~\ref{thm:p3zero} are shown as lines. The bars give
+the range over the $d=3$ Oppermann classes with $p_3\ne0$. For odd $k$ this range reduces to the single value of
+$C_e$, as Theorem~\ref{thm:p3zero}(1) predicts. For even $k$ its endpoints are given by the two values of $m(c)$. \emph{Right:} normalised inverse zeros $\gamma/\sqrt q$ of $L(u,\chi)$ for the characters of exact level $2$ and $3$
+of $G_3$. For $q=8$ (blue; marker area proportional to multiplicity) they occupy only $16$ of the $24$-th roots of
+unity. For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
+\end{figure}
+
 \subsection{\texorpdfstring{Large $q$}{Large q}}\label{subsec:bbr}
 For fixed degree and $q\to\infty$, Bank, Bary-Soroker and Rosenzweig \cite{BBR} prove the following. For monic
 $P\in\F_q[t]$ of degree $k$ and $1\le m<k$, the number $N$ of irreducibles in $\{P+h:\deg h\le m\}$ satisfies
@@ -1058,16 +1068,7 @@ counts all $q^2$ classes exactly for every $q$, including the $q$ classes with $
 $(p_5,p_4,p_3)=(0,x,0)$) that \cite{BBR} misses. What remains is $q<q_0(d)$ for $q$ odd with $d\ge3$, and for $q$ even
 with $d\ge4$; these ranges are covered only by computation.
 
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=\textwidth]{oppermann_char2_rigidity.pdf}
-\caption{Characteristic-$2$ rigidity. \emph{Left:} normalised counts $\pi(x)/(q^d/2d)$ for $q=2^k$, $k\le8$. Exact values from the Hayes FFT are shown as
-markers; the formulas of Theorem~\ref{thm:main2}(B) and Theorem~\ref{thm:p3zero} are shown as lines. The bars give
-the range over the $d=3$ Oppermann classes with $p_3\ne0$. For odd $k$ this range reduces to the single value of
-$C_e$, as Theorem~\ref{thm:p3zero}(1) predicts. For even $k$ its endpoints are given by the two values of $m(c)$. \emph{Right:} normalised inverse zeros $\gamma/\sqrt q$ of $L(u,\chi)$ for the characters of exact level $2$ and $3$
-of $G_3$. For $q=8$ (blue; marker area proportional to multiplicity) they occupy only $16$ of the $24$-th roots of
-unity. For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
-\end{figure}
+
 
 \FloatBarrier
 
@@ -1123,7 +1124,7 @@ $u=\Tr_{L/E}(x)=x+x^{q^d}$. Then $\Tr_{L/K}(x)=\Tr_{E/K}(u)$.
 \emph{Case $u=0$.} Then $x\in E$. Both traces vanish, since $\Tr_{L/K}(y)=2\Tr_{E/K}(y)=0$ for $y\in E$. This gives
 $q^d$ solutions.
 
-\emph{Case $u\ne0$.} We need $\Tr_{E/K}(u)=0$, which leaves $q^{d-1}-1$ values of $u$. As in Theorem~\ref{thm:p3zero},
+\emph{Case $u\ne0$.} We need $\Tr_{E/K}(u)=0$, which leaves $q^{d-1}-1$ values of $u$. As in the proof of Theorem~\ref{thm:p3zero},
 write $x=u\xi$ with $\xi+\xi^{q^d}=1$, and put $\alpha=\xi^2+\xi\in E$. Then $\alpha$ runs $2$-to-$1$ over
 $\{\Tr_{E/\F_2}(\alpha)=1\}$, and $\Tr_{L/K}(x^3)=\Tr_{E/K}(u^3(\alpha+1))$. The condition $\Tr_{L/K}(x^3)=0$ cuts out
 an affine $K$-hyperplane $H_u\subset E$ of size $q^{d-1}$. On $H_u$, the functional $\Tr_{E/\F_2}$ is non-constant
@@ -1165,7 +1166,7 @@ for $d=5$. Figure~\ref{fig:mean} (left) shows the drift in units of $q^{d/2}$ fo
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=\textwidth]{subgroup_mean_gauss.pdf}
+\includegraphics[width=0.93\textwidth]{subgroup_mean_gauss.pdf}
 \caption{\emph{Left:} mean drift on the Oppermann subgroup, $(\E_{H_d}[\Psi]-q^d)/q^{d/2}$, for $q=2,4,8,16$. Open
 circles mark the closed forms of Theorem~\ref{thm:d45}; the drift vanishes for $d=2,3$. \emph{Right:} the normalised
 values of $m(c)$, which equal $\mp\varepsilon=\mp(-1)^{k/2}$ by Theorem~\ref{thm:mc}.}\label{fig:mean}
@@ -1202,6 +1203,8 @@ $\psi_{2d}(\chi\eta)$ in a coset were independent, $\Var_{H_d}$ and $\Var_{G_d}$
 aligned, $\Var_{H_d}$ can exceed $\Var_{G_d}$ by a factor up to $|H_d^\perp|$; if they cancel, it is smaller. Both
 extremes occur.
 
+\input{tab_subgroup_variance}
+
 \begin{theorem}\label{thm:var23}
 Let $q=2^k$.
 \begin{enumerate}
@@ -1221,7 +1224,7 @@ over $H_2$ (with $q$ classes) and over $G_2$ (with $q^2$ classes) gives $q^2(q-1
 The ratio is maximal because Proposition~\ref{prop:rigid}(3) gives $\psi_4(\chi)=-(-1)^kq^2$ for all characters of exact
 level $2$: every coset sum is fully aligned.
 
-(2) $E(B_e)=q$ for every $e$ Proposition~\ref{prop:rigid}(1), so $4\pi=\Psi-q$ on $H_2$ and has the same variance as
+(2) $E(B_e)=q$ for every $e$ (Proposition~\ref{prop:rigid}(1)), so $4\pi=\Psi-q$ on $H_2$ and has the same variance as
 $\Psi$.
 
 (3), (4) $H_3\cong\F_q^2$ with coordinates $(e,c)$. By Corollary~\ref{cor:d3}, both $\Psi$ and $\pi$ depend only on
@@ -1278,20 +1281,23 @@ their coefficient $e_d$ (of $t^d$) is $0$, so they pile up on the slice $e_d=0$ 
 $a_{d/2}^2$, which is spread over all $e_d\in\F_q$.
 \end{enumerate}
 
-\input{tab_subgroup_variance}
-
-\begin{figure}[tbp]
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{subgroup_variance.pdf}
+\includegraphics[width=0.93\textwidth]{subgroup_variance.pdf}
 \caption{Normalised variance of $\Psi$ over all classes $G_d$ (left, odd and even $q$) and over the Oppermann
 subgroup $H_d$ (right, $q$ even). Dashed line: the Keating--Rudnick value $d-1$. Circles: Theorem~\ref{thm:var23}.}\label{fig:var}
 \end{figure}
 
 
+
+
+
+\FloatBarrier
+
 \section{Questions}
 \begin{enumerate}
 \item In characteristic $2$, are (A)--(C) the only empty Oppermann sub-intervals for all $q$ and $d$? For $d\le3$ the
-question is settled for every $q$ (Theorems~\ref{thm:main2} and~\ref{thm:p3zero}). For each $d\ge4$, by
+question is settled for every $q$ (Theorems~\ref{thm:main2}, \ref{thm:p3zero} and Corollary~\ref{cor:d3}). For each $d\ge4$, by
 Corollary~\ref{cor:BBR}, only finitely many $q$ can carry further empty sub-intervals. Corollary~\ref{cor:dead}
 shows that, from $d=4$ on, the additive mechanism of (B) is no longer available to produce empty or full classes.
 \item For odd $q$, is every Oppermann sub-interval nonempty, for all $q$ and $d$? Lemma~\ref{lem:odd} turns this into

@@ -3,13 +3,13 @@ make_subgroup_figures.py -- Figures 3 and 4 (Section 7; right panel of Figure 3:
 
 Figure 1 (../figures/subgroup_mean_gauss.pdf)
   left : mean drift on the Oppermann subgroup, (E_H[Psi] - q^d) / q^{d/2}, against d (q = 2, 4, 8, 16);
-         the closed forms of Theorem 3.3 at d = 4, 5 are drawn as open circles.
+         the closed forms of Theorem 7.3 at d = 4, 5 are drawn as open circles.
   right: the cubic Gauss-sum sign behind m(c): (3 m(cube) - q)/sqrt q = -eps and (6 m(non-cube) - 2q)/sqrt q = eps,
          eps = (-1)^{k/2}, for q = 4, ..., 2^14 (data/cubic_gauss_m.txt).
 Figure 2 (../figures/subgroup_variance.pdf)
   left : Var_G(Psi)/q^d over all classes, q = 2, 3, 4, 5, 7, 8, 16, with the Keating--Rudnick value d - 1;
   right: Var_H(Psi)/q^d over the Oppermann subgroup (q even), same reference line; the exact values of
-         Theorem 5.2 at d = 2, 3 are marked.
+         Theorem 7.5 at d = 2, 3 are marked.
 """
 import json
 import math
@@ -45,7 +45,7 @@ def figure1(rows):
         th5 = (q * q - q) / q ** 2.5
         ax.plot([4, 5], [th4, th5], "o", markerfacecolor="none", markeredgecolor="black", markersize=9,
                 markeredgewidth=0.9)
-    ax.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorem 3.3")
+    ax.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorem 7.3")
     ax.set_xlabel("$d$")
     ax.set_ylabel(r"$(\mathbb{E}_{H_d}[\Psi]-q^d)\,/\,q^{d/2}$")
     ax.set_title("mean drift on the Oppermann subgroup", fontsize=10)
@@ -95,7 +95,7 @@ def figure2(rows):
         k = q.bit_length() - 1
         bx.plot([2, 3], [q - 1, (1 - 1 / q) * (1 if k % 2 else 3)], "o", markerfacecolor="none",
                 markeredgecolor="black", markersize=9, markeredgewidth=0.9)
-    bx.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorem 5.2")
+    bx.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorem 7.5")
     ax.set_title(r"all classes: $\mathrm{Var}_{G_d}(\Psi)/q^d$", fontsize=10)
     bx.set_title(r"Oppermann subgroup: $\mathrm{Var}_{H_d}(\Psi)/q^d$", fontsize=10)
     for a in (ax, bx):
