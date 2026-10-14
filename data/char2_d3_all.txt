@@ -1,0 +1,8 @@
+﻿q =   2: 4 classes, violations 0
+q =   4: 16 classes, violations 0, m(c) values [0, 1, 2]
+q =   8: 64 classes, violations 0
+q =  16: 256 classes, violations 0, m(c) values [0, 4, 6]
+q =  32: 1024 classes, violations 0
+q =  64: 4096 classes, violations 0, m(c) values [0, 20, 24]
+q = 128: 16384 classes, violations 0
+q = 256: 65536 classes, violations 0, m(c) values [0, 80, 88]

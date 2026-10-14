@@ -1,5 +1,7 @@
 # Oppermann intervals in F_q[t]
 
+DOI: [10.5281/zenodo.23353949](https://doi.org/10.5281/zenodo.23353949)
+
 Independent of the Legendre-interval repositories, Parts I–IV.
 
 For monic f of degree d, the Legendre interval {f² + s : deg s ≤ d} splits into q **Oppermann sub-intervals**
@@ -26,7 +28,11 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
 
 **Odd characteristic, d = 2: proved for every q.** π(O_{f,c}) = (q² − 1 − (q − η(−1))·η(2e))/4 > 0. The proof uses the ternary trace form Tr(x²) on ker Tr ⊂ F_{q⁴}.
 
-**Characteristic 2, d = 3, p₃ = 0 (the classes BBR does not cover): proved for every q.** All q classes are equivalent under translation. Each contains q(q²−1)/6 irreducibles (k odd) or q(q−1)²/6 (k even), by a trace computation in F_q ⊂ F_{q³} ⊂ F_{q⁶}.
+**Characteristic 2, d = 3: all q² classes C_{e,c} are counted exactly, for every q = 2^k.** The count comes from a trace computation in F_q ⊂ F_{q³} ⊂ F_{q⁶}:
+- π = q(q²−1)/6 when k is odd;
+- π = q(q−1)²/6 + q·m(c) when k is even, where m(c) = #{non-cubes ν : Tr(c/ν) = 1}. So m(0) = 0, and (q+2)/6 ≤ m(c) ≤ q/2 for c ≠ 0.
+
+Every class is nonempty, so in characteristic 2 the cases d ≤ 3 are settled for every q.
 
 **Large q:** for every d ≥ 3, all Oppermann sub-intervals are nonempty once q ≥ q₀(d). This follows from Bank–Bary-Soroker–Rosenzweig together with the d = 3, p₃ = 0 theorem; q₀(d) is not explicit.
 
@@ -51,7 +57,7 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
 | `code/swan_parity.py` | zero blocks {t^{2d} + s} over F₂: factorisation, disc mod 8, Stickelberger check → `data/swan_parity.txt` |
 | `code/make_figure.py` | `figures/oppermann_min_ratio.pdf` |
 | `code/make_figure2.py` | `figures/oppermann_char2_rigidity.pdf` (char-2 parity oscillation; level-2/3 zeros) |
-| `code/odd_d2_formula.py`, `code/char2_d3_p3zero.py`, `code/char2_d2_rigidity.py` | checks of Thm 1.4, Thm 6.4 / Table 4, Prop 6.1 |
+| `code/odd_d2_formula.py`, `code/char2_d3_p3zero.py`, `code/char2_d3_all.py`, `code/char2_d2_rigidity.py` | checks of Thm 1.4, Thm 6.4 / Table 4 (all q² classes, q ≤ 256), Prop 6.1 |
 | `code/hayes_fft_fq.py`, `code/fqlib.py`, `code/small_q_gf.py` | finite-field and Hayes-group routines copied from Part I. The only change is extra moduli in `fqlib.py` for q = 32, …, 256 |
 | `notes/REPORT.md` | working notes |
 
