@@ -804,12 +804,23 @@ The error term $\pi(C_e)-q^3/6$ is $-q/6$ for $k$ odd and $-q^2/3+q/6$ for $k$ e
 $O(q^{5/2})$ a monodromy argument would give.
 
 It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
-of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. At level $2$ this is a
+of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. Figure~\ref{fig:rigid} (right) shows these zeros for $q=8$ next to the odd case $q=7$. At level $2$ this is a
 theorem: Proposition~\ref{prop:rigid}(3) gives $\gamma_\chi^4=(-1)^kq^2$ for every character of exact level $2$,
 which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it remains an observation. The proof above avoids
 these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
 $\Tr_{L/K}(x)=\Tr_{L/K}(x^3)=0$, which the tower $K\subset E\subset L$ makes linear.
 \end{remark}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{oppermann_char2_rigidity.pdf}
+\caption{Characteristic-$2$ rigidity. \emph{Left:} normalised counts $\pi(x)/(q^d/2d)$ for $q=2^k$, $k\le8$. Exact values from the Hayes FFT are shown as
+markers; the formulas of Theorem~\ref{thm:main2}(B) and Theorem~\ref{thm:p3zero} are shown as lines. The bars give
+the range over the $d=3$ Oppermann classes with $p_3\ne0$. For odd $k$ this range reduces to the single value of
+$C_e$, for all $k\le8$ that we computed. \emph{Right:} normalised inverse zeros $\gamma/\sqrt q$ of $L(u,\chi)$ for the characters of exact level $2$ and $3$
+of $G_3$. For $q=8$ (blue; marker area proportional to multiplicity) they occupy only $16$ of the $24$-th roots of
+unity. For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
+\end{figure}
 
 \section{Questions}
 \begin{enumerate}
@@ -840,7 +851,9 @@ Figure~\ref{fig:ratio}.
 \item \texttt{odd\_d2\_formula.py}: brute-force check of Theorem~\ref{thm:odd2}.
 \item \texttt{char2\_d3\_p3zero.py}: Table~\ref{tab:p3zero}.
 \item \texttt{char2\_d2\_rigidity.py}: Proposition~\ref{prop:rigid}.
-\item \texttt{hayes\_fft\_fq.py}, \texttt{fqlib.py}, \texttt{small\_q\_gf.py}: taken unchanged from \cite{ChenI}.
+\item \texttt{make\_figure2.py}: Figure~\ref{fig:rigid}.
+\item \texttt{hayes\_fft\_fq.py}, \texttt{fqlib.py}, \texttt{small\_q\_gf.py}: taken from \cite{ChenI}.
+\texttt{fqlib.py} was extended by moduli for $q=32,\dots,256$.
 \end{itemize}
 All scripts are in \texttt{code/}; their outputs are in \texttt{data/}.
 \begin{thebibliography}{99}

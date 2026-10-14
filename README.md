@@ -50,6 +50,8 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
 | `code/char2_d2_blocks.py`, `code/char2_d2_theorem.py` | d = 2 in characteristic 2: block counts and the exact formula, q ≤ 64 |
 | `code/swan_parity.py` | zero blocks {t^{2d} + s} over F₂: factorisation, disc mod 8, Stickelberger check → `data/swan_parity.txt` |
 | `code/make_figure.py` | `figures/oppermann_min_ratio.pdf` |
+| `code/make_figure2.py` | `figures/oppermann_char2_rigidity.pdf` (char-2 parity oscillation; level-2/3 zeros) |
+| `code/odd_d2_formula.py`, `code/char2_d3_p3zero.py`, `code/char2_d2_rigidity.py` | checks of Thm 1.4, Thm 6.4 / Table 4, Prop 6.1 |
 | `code/hayes_fft_fq.py`, `code/fqlib.py`, `code/small_q_gf.py` | finite-field and Hayes-group routines copied from Part I (unchanged) |
 | `notes/REPORT.md` | working notes |
 

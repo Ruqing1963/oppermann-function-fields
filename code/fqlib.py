@@ -28,7 +28,10 @@ from small_q_gf import make_field  # noqa: E402
 # monic irreducible moduli (low first) for the prime-power fields used here
 MODULI = {2: (2, 1, [0, 1]), 3: (3, 1, [0, 1]), 5: (5, 1, [0, 1]), 7: (7, 1, [0, 1]),
           11: (11, 1, [0, 1]), 13: (13, 1, [0, 1]),
-          4: (2, 2, [1, 1, 1]), 8: (2, 3, [1, 1, 0, 1]), 9: (3, 2, [1, 0, 1]), 16: (2, 4, [1, 1, 0, 0, 1])}
+          4: (2, 2, [1, 1, 1]), 8: (2, 3, [1, 1, 0, 1]), 9: (3, 2, [1, 0, 1]), 16: (2, 4, [1, 1, 0, 0, 1]),
+          # added in the Oppermann project (characteristic-2 fields up to 256; Figure 2):
+          32: (2, 5, [1, 0, 1, 0, 0, 1]), 64: (2, 6, [1, 1, 0, 0, 0, 0, 1]), 128: (2, 7, [1, 1, 0, 0, 0, 0, 0, 1]),
+          256: (2, 8, [1, 0, 1, 1, 1, 0, 0, 0, 1])}
 
 
 def field_tables(q):
