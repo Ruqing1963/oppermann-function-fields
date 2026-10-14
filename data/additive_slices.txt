@@ -1,0 +1,20 @@
+﻿(a) AGL_r(F_2)
+  r = 1: |AGL| = 2, 2^r-cycles: 1, largest 2-power order 2, bound 2^ceil(log2(r+1)) = 2
+  r = 2: |AGL| = 24, 2^r-cycles: 6, largest 2-power order 4, bound 2^ceil(log2(r+1)) = 4
+  r = 3: |AGL| = 1344, 2^r-cycles: 0, largest 2-power order 4, bound 2^ceil(log2(r+1)) = 4
+  r = 4: |AGL| = 322560, 2^r-cycles: 0, largest 2-power order 8, bound 2^ceil(log2(r+1)) = 8
+(b) affine polynomials t^{2^r} + sum c_i t^{2^i} + beta over F_q: irreducible / total
+  degree  2, q =  2: 1 / 4
+  degree  2, q =  4: 6 / 16
+  degree  2, q =  8: 28 / 64
+  degree  2, q = 16: 120 / 256
+  degree  4, q =  2: 1 / 8
+  degree  4, q =  4: 12 / 64
+  degree  4, q =  8: 112 / 512
+  degree  4, q = 16: 960 / 4096
+  degree  8, q =  2: 0 / 16
+  degree  8, q =  4: 0 / 256
+  degree  8, q =  8: 0 / 4096
+  degree  8, q = 16: 0 / 65536
+  degree 16, q =  2: 0 / 32
+  degree 16, q =  4: 0 / 1024

@@ -1,0 +1,17 @@
+﻿  q  d    |H|       E_H[Psi]        formula        E_H[pi]        formula  thm2.1a  thm2.1b  thm2.2 (#beta)
+  2  2      2              4              4            1/2            1/2     True     True             1/1
+  2  3      4              8              8              1              1     True     True             1/1
+  2  4      4             12             12              1              1     True     True             3/3
+  2  5      8             34             34              3              3     True     True             3/3
+  4  2      4             16             16              3              3     True     True             1/1
+  4  3     16             64             64             10             10     True     True             1/1
+  4  4     16            256            256             30             30     True     True             3/3
+  4  5     64           1036           1036            102            102     True     True               -
+  8  2      8             64             64             14             14     True     True             1/1
+  8  3     64            512            512             84             84     True     True               -
+  8  4     64           3984           3984            490            490     True     True               -
+  8  5    512          32824          32824           3276           3276     True     True               -
+ 16  2     16            256            256             60             60     True     True             1/1
+ 16  3    256           4096           4096            680            680     True     True               -
+ 16  4    256          65536          65536           8160           8160     True     True               -
+ 16  5   4096        1048816        1048816         104856         104856     True     None               -

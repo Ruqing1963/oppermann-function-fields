@@ -1,14 +1,14 @@
 """
-make_unified_d3_table.py -- the merged d = 3 table of the unified paper (oppermann_unified.tex):
+make_d3_table.py -- Table 2: the d = 3 class counts in characteristic 2:
 all characteristic-2 Oppermann classes C_{e,c} of degree 6, q = 2^k, k <= 14.
 
-Values from Theorem 5.3 / Corollary 5.5 of the unified paper:
+Values from Theorem 5.2 and Corollary 5.4:
   k odd : q(q^2-1)/6 for every class;
   k even: q(q-1)^2/6 (c = 0),  q(q^2+1-2 eps sqrt q)/6 (c a cube),  q(q^2+1+eps sqrt q)/6 (c a non-cube),
           eps = (-1)^{k/2}.
 For q <= 256 these agree with the exact Hayes-FFT counts of every class (char2_d3_all.py, data/char2_d3_all.txt);
-for q = 1024, 4096, 16384 the two values of m(c) were checked directly (oppermann_subgroup/code/cubic_gauss_m.py).
-Output: ../paper/unified_tab_d3.tex
+for q = 1024, 4096, 16384 the two values of m(c) were checked directly (cubic_gauss_m.py).
+Output: ../paper/tab_d3.tex
 """
 import math
 import os
@@ -44,9 +44,9 @@ def main():
             rows.append(f"{num(q)} & ${'+' if eps > 0 else '-'}1$ & {num(c0)} & {num(cube)} & {num(non)} & "
                         f"{num(round(q ** 3 / 6))}\\\\")
     rows += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
-    with open(os.path.join(HERE, "..", "paper", "unified_tab_d3.tex"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(HERE, "..", "paper", "tab_d3.tex"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(rows) + "\n")
-    print("wrote unified_tab_d3.tex")
+    print("wrote tab_d3.tex")
 
 
 if __name__ == "__main__":

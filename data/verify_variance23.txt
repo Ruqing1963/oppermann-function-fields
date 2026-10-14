@@ -1,0 +1,6 @@
+﻿q =  2: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 1/2, VarH 6pi/q^3 = 0)
+q =  4: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 9/4, VarH 6pi/q^3 = 9/2)
+q =  8: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 7/8, VarH 6pi/q^3 = 0)
+q = 16: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 45/16, VarH 6pi/q^3 = 45/8)
+q = 32: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 31/32, VarH 6pi/q^3 = 0)
+q = 64: d = 2 True,  d = 3 True   (VarH Psi/q^3 = 189/64, VarH 6pi/q^3 = 189/32)
