@@ -52,7 +52,7 @@ The preprint draft is `paper/oppermann_function_fields.tex`.
 | `code/make_figure.py` | `figures/oppermann_min_ratio.pdf` |
 | `code/make_figure2.py` | `figures/oppermann_char2_rigidity.pdf` (char-2 parity oscillation; level-2/3 zeros) |
 | `code/odd_d2_formula.py`, `code/char2_d3_p3zero.py`, `code/char2_d2_rigidity.py` | checks of Thm 1.4, Thm 6.4 / Table 4, Prop 6.1 |
-| `code/hayes_fft_fq.py`, `code/fqlib.py`, `code/small_q_gf.py` | finite-field and Hayes-group routines copied from Part I (unchanged) |
+| `code/hayes_fft_fq.py`, `code/fqlib.py`, `code/small_q_gf.py` | finite-field and Hayes-group routines copied from Part I. The only change is extra moduli in `fqlib.py` for q = 32, …, 256 |
 | `notes/REPORT.md` | working notes |
 
 Run with:
