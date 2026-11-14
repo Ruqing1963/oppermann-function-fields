@@ -3,7 +3,8 @@ make_subgroup_figures.py -- Figures 3 and 4 (Section 7; right panel of Figure 3:
 
 Figure 1 (../figures/subgroup_mean_gauss.pdf)
   left : mean drift on the Oppermann subgroup, (E_H[Psi] - q^d) / q^{d/2}, against d (q = 2, 4, 8, 16);
-         the closed forms of Theorem 7.3 at d = 4, 5 are drawn as open circles.
+         the closed forms of Theorems 7.3 (d = 4, 5), 7.11 (d = 6) and 7.10 (d = 7) are drawn as open circles
+         wherever exact class data exist (q = 16 only for d <= 5).
   right: the cubic Gauss-sum sign behind m(c): (3 m(cube) - q)/sqrt q = -eps and (6 m(non-cube) - 2q)/sqrt q = eps,
          eps = (-1)^{k/2}, for q = 4, ..., 2^14 (data/cubic_gauss_m.txt).
 Figure 2 (../figures/subgroup_variance.pdf)
@@ -43,9 +44,14 @@ def figure1(rows):
         k = q.bit_length() - 1
         th4 = 0.0 if k % 2 == 0 else (-2 * q * q + 2 * q) / q ** 2
         th5 = (q * q - q) / q ** 2.5
-        ax.plot([4, 5], [th4, th5], "o", markerfacecolor="none", markeredgecolor="black", markersize=9,
+        th6 = (-1) ** (k + 1) * q * q * (q - 1) / q ** 3          # Theorem 7.11
+        th7 = (q ** 3 - q) / q ** 3.5                             # Theorem 7.10
+        have = {p[0] for p in pts}
+        cx = [d for d in (4, 5, 6, 7) if d in have]
+        cy = [dict(zip((4, 5, 6, 7), (th4, th5, th6, th7)))[d] for d in cx]
+        ax.plot(cx, cy, "o", markerfacecolor="none", markeredgecolor="black", markersize=9,
                 markeredgewidth=0.9)
-    ax.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorem 7.3")
+    ax.plot([], [], "o", markerfacecolor="none", markeredgecolor="black", label="Theorems 7.3, 7.10, 7.11")
     ax.set_xlabel("$d$")
     ax.set_ylabel(r"$(\mathbb{E}_{H_d}[\Psi]-q^d)\,/\,q^{d/2}$")
     ax.set_title("mean drift on the Oppermann subgroup", fontsize=10)

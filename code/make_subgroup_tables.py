@@ -31,9 +31,28 @@ def means():
             if not p or not p[0].isdigit():
                 continue
             rows.append(p)
+    # d = 6, 7 from the exact class data of the variance census (the stored means are dyadic rationals, hence exact)
+    from fractions import Fraction
+    with open(os.path.join(DATA, "subgroup_variance.json")) as fh:
+        census = json.load(fh)
+    for r in census:
+        q, d = r["q"], r["d"]
+        if q % 2 or d not in (6, 7):
+            continue
+        k = q.bit_length() - 1
+        mpsi = Fraction(r["meanH"]) * q ** d
+        mpi = Fraction(r["meanHpi"]) * q ** d / (2 * d)
+        closed = q ** 6 + (-1) ** (k + 1) * q * q * (q - 1) if d == 6 else q ** 7 + q ** 3 - q
+        assert mpsi == closed, (q, d, mpsi, closed)                      # Theorems 7.11, 7.10
+        if d == 7:
+            assert mpi == Fraction(q * (q ** 6 - 1), 14), (q, d, mpi)
+        rows.append([str(q), str(d), str(r["H"]), str(mpsi), "", str(mpi)])
+    rows.sort(key=lambda p: (int(p[0]), int(p[1])))
     out = [r"\begin{table}[tbp]", r"\centering",
            r"\caption{Means over the Oppermann subgroup $H_d$ (exact, from the Hayes FFT) against the closed forms of "
-           r"Corollary~\ref{cor:d23} and Theorem~\ref{thm:d45}. Every entry agrees.}\label{tab:means}",
+           r"Corollary~\ref{cor:d23} and Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{thm:d7}. Every entry agrees; "
+           r"for $d=6$ the closed form concerns $\mathbb{E}_{H_d}[\Psi]$ only. Exact class data for $d=6,7$ exist for "
+           r"$q\le8$.}\label{tab:means}",
            r"\begin{tabular}{rrrrrr}", r"\toprule",
            r"$q$ & $d$ & $|H_d|$ & $\mathbb{E}_{H_d}[\Psi]$ & $\mathbb{E}_{H_d}[\pi]$ & $q^d$\\", r"\midrule"]
     last = None
