@@ -46,12 +46,14 @@ def means():
         assert mpsi == closed, (q, d, mpsi, closed)                      # Theorems 7.11, 7.10
         if d == 7:
             assert mpi == Fraction(q * (q ** 6 - 1), 14), (q, d, mpi)
+        else:
+            assert mpi == Fraction(q ** 6 - q ** 3 + (-1) ** (k + 1) * q * q * (q - 1), 12), (q, d, mpi)
         rows.append([str(q), str(d), str(r["H"]), str(mpsi), "", str(mpi)])
     rows.sort(key=lambda p: (int(p[0]), int(p[1])))
     out = [r"\begin{table}[tbp]", r"\centering",
            r"\caption{Means over the Oppermann subgroup $H_d$ (exact, from the Hayes FFT) against the closed forms of "
-           r"Corollary~\ref{cor:d23} and Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{thm:d7}. Every entry agrees; "
-           r"for $d=6$ the closed form concerns $\mathbb{E}_{H_d}[\Psi]$ only. Exact class data for $d=6,7$ exist for "
+           r"Corollary~\ref{cor:d23} and Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{thm:d7}. Every entry of both mean "
+           r"columns agrees. Exact class data for $d=6,7$ exist for "
            r"$q\le8$.}\label{tab:means}",
            r"\begin{tabular}{rrrrrr}", r"\toprule",
            r"$q$ & $d$ & $|H_d|$ & $\mathbb{E}_{H_d}[\Psi]$ & $\mathbb{E}_{H_d}[\pi]$ & $q^d$\\", r"\midrule"]

@@ -6,7 +6,7 @@ Ruqing Chen. Version 2 (November 2026), DOI: [10.5281/zenodo.24211741](https://d
 
 **New in version 2:** level-3 L-functions in characteristic 2 (Theorem 7.7), coset sums on H_d (Proposition 7.8), and the mean drift on H_d for d = 6 and d = 7 for every q = 2^k (Theorems 7.10, 7.11), so the drift is known in closed form for all d ≤ 7.
 
-Paper: `paper/oppermann_function_fields.tex` / `.pdf` (29 pages).
+Paper: `paper/oppermann_function_fields.tex` / `.pdf` (30 pages).
 
 For monic f of degree d, the Legendre interval {f² + s : deg s ≤ d} splits into q **Oppermann sub-intervals**
 
@@ -44,7 +44,8 @@ each of size q^d. For q = 2 these are the two halves, the analogue of (n², n²+
   - d = 3: Var_H/q³ = 1 − 1/q (k odd) or 3(1 − 1/q) (k even).
   - The coset sums of the characters (−1)^Tr(a·e₂) of H_d vanish for odd d; for d = 4 they are −q⁶ (k even), −q⁵(q − 2) (k odd), so Var_H/q⁴ ≥ q − 1 for k even (Prop 7.8).
   - For d ≥ 5 there is a numerical census, compared with the Keating–Rudnick value d − 1.
-- **Level-3 L-functions (Thm 7.7):** every character χ of exact level 3 of G₃ has L(u, χ) = (1 − γ₁u)(1 − γ₂u) with γ₁γ₂ = ±q or ±iq, (γ₁ + γ₂)²/γ₁γ₂ ∈ {0, 1, 2, 4} and γ⁶ ∈ q³{±1, ±i}; the normalised zeros are 16 of the 24th roots of unity. This holds for every q = 2^k.
+- **Level-3 L-functions (Thm 7.7):** every character χ of exact level 3 of G₃ has L(u, χ) = (1 − γ₁u)(1 − γ₂u) with γ₁γ₂ = ±q or ±iq, (γ₁ + γ₂)²/γ₁γ₂ ∈ {0, 1, 2, 4} and γ⁶ ∈ q³{±1, ±i}; the normalised zeros are 16 of the 24th roots of unity. This holds for every q = 2^k. On each coset of q characters with a fixed restriction to H₃ the values of r and c₂ are distributed explicitly (r = 1; or r = 2, 0 for q/2 each; or r = 4 for q/4 and r = 0 for 3q/4), and exactly q(q²−1)/4 (k even), q(q−1)(q−2)/8 (k odd) characters have ψ₆ = −2q³.
+- **Mean of π at d = 6:** E_H[π] = (q⁶ − q³ + (−1)^(k+1) q²(q − 1))/12 (Thm 7.11).
 
 ## Files
 

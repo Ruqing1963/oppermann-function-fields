@@ -19,7 +19,11 @@ For every character the script checks, with f(x) = chi(1 + x u), s0 = alpha / be
       r = c_1^2 / c_2 is 1 (no root), 0 or 2 (one root), 0 or 4 (three roots);
   (5) both inverse zeros gamma of L(u, chi) = 1 + c_1 u + c_2 u^2 have |gamma|^2 = q and gamma^6 in q^3 {+-1, +-i};
   (6) selection rule: r = 1 only if c_2^2 = +(-1)^k q^2, r = 2 only if c_2^2 = -(-1)^k q^2; the normalised zeros
-      gamma / sqrt(q) are 24th roots of unity of order dividing 8 or (k odd) of order 24, (k even) of order 3, 6, 12.
+      gamma / sqrt(q) are 24th roots of unity of order dividing 8 or (k odd) of order 24, (k even) of order 3, 6, 12;
+  (7) on each coset {chi : chi|H_3 = lambda_{alpha,beta}} (q characters): r = 1 for all (no root), r = 2 and r = 0
+      for q/2 each (one root), r = 4 for q/4 and r = 0 for 3q/4 (three roots); for alpha != 0 the two values of c_2
+      occur equally often for each r; the number of characters with psi_6 = -2 q^3 is q(q^2-1)/4 (k even),
+      q(q-1)(q-2)/8 (k odd).
 
 Usage: python verify_level3_theorem.py [k ...]      (default 1 2 3 4; output also in ../data/level3_theorem.txt)
 """
@@ -101,6 +105,7 @@ def run(k, rng):
     stats = dict(chars=0, mult=0, cocycle=0, c2=0, c2sq=0, c3=0, c1sym=0, c1abs=0, roots_tr=0, roots_pm=0, prod3=0,
                  r_ok=0, gam_abs=0, gam6=0, sel=0, order=0)
     nthree = 0
+    ncos = cosok = npsi = 0
     rhist = {}
     occupied = set()
     pairs = None
@@ -111,7 +116,22 @@ def run(k, rng):
             a3b2 = int(M[M[alpha, M[alpha, alpha]], inv[M[beta, beta]]])
             roots = [t for t in range(1, q)
                      if M[M[beta, beta], M[t, M[t, t]]] ^ M[M[alpha, alpha], t] ^ beta == 0]
-            for choice in range(q):
+            coset = []
+            for choice in range(q + 1):
+                if choice == q:
+                    # (7) distribution of r and of c_2 over the q characters restricting to lambda_{alpha,beta}
+                    ncos += 1
+                    rs = sorted(c[0] for c in coset)
+                    want = {0: [1] * q, 1: [0] * (q // 2) + [2] * (q // 2), 3: [0] * (3 * q // 4) + [4] * (q // 4)}[len(roots)]
+                    okc = rs == want
+                    if alpha:
+                        for rv in set(rs):
+                            vals = [c[1] for c in coset if c[0] == rv]
+                            okc &= len(set(vals)) == 2 and all(vals.count(v) * 2 == len(vals) for v in set(vals))
+                    else:
+                        okc &= all(c[1] == q for c in coset)
+                    cosok += okc
+                    break
                 # chi(g_i) = i^{e_i}, 2 e_i = exponent of lambda(g_i^2) = lambda(b_i^2, 0)
                 gexp = []
                 for i in range(k):
@@ -177,6 +197,9 @@ def run(k, rng):
                 stats["gam_abs"] += all(abs(abs(g) ** 2 - q) < 1e-7 for g in gams)
                 g6 = [g ** 6 / q ** 3 for g in gams]
                 stats["gam6"] += all(min(abs(v - w) for w in I4) < 1e-7 for v in g6)
+                extremal = all(abs(v - 1) < 1e-7 for v in g6)                    # psi_6(chi) = -2 q^3
+                npsi += extremal
+                coset.append((rint, c2))
                 # (6)
                 sign = int(round((c2 * c2).real)) // (q * q)
                 sel = True
@@ -211,6 +234,12 @@ def run(k, rng):
         allok &= stats[key] == n
     say("  %-62s %d / %d" % ("(4) f(t1) f(t2) f(t3) = +1 (characters with three roots)", stats["prod3"], nthree))
     allok &= stats["prod3"] == nthree
+    say("  %-62s %d / %d" % ("(7) cosets of lambda_{a,b}: r = 1 | q/2,q/2 | 3q/4,q/4; c_2 halves", cosok, ncos))
+    allok &= cosok == ncos
+    pred = q * (q * q - 1) // 4 if k % 2 == 0 else q * (q - 1) * (q - 2) // 8
+    say("  (7) characters with psi_6 = -2 q^3 (both gamma^6 = q^3): %d; predicted %s = %d: %s" % (
+        npsi, "q(q^2-1)/4" if k % 2 == 0 else "q(q-1)(q-2)/8", pred, npsi == pred))
+    allok &= npsi == pred
     say("  (number of roots, r): " + ", ".join("%s: %d" % (kk, v) for kk, v in sorted(rhist.items())))
     say("  24th roots of unity occupied by gamma/sqrt(q): %d of 24: exponents %s" % (len(occupied), sorted(occupied)))
     say("  ALL CHECKS PASS: %s" % allok)

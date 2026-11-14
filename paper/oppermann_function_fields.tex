@@ -1354,6 +1354,14 @@ primitive cube root of unity, $\pm i$, or $1$ for $r=0,1,2,4$. Moreover $\gamma_
 \item If $r=1$ then $\Tr(a^3/b^2)\equiv k\pmod2$, and if $r=2$ then $\Tr(a^3/b^2)\not\equiv k\pmod2$. Consequently
 $\gamma_j/\sqrt q$ is a root of unity of order dividing $8$, or of order exactly $24$ \textup{(}$k$ odd\textup{)},
 respectively of order $3$, $6$ or $12$ \textup{(}$k$ even\textup{)}. These are $16$ of the $24$-th roots of unity.
+\item Fix $(a,b)$ with $b\ne0$ and consider the $q$ characters $\chi$ with $\chi|_{H_3}=\lambda_{a,b}$. If the cubic
+of \textup{(2)} has no root in $\F_q$, all of them have $r=1$; if it has one root, $r=2$ for $q/2$ of them and $r=0$
+for $q/2$; if it has three roots, $r=4$ for $q/4$ of them and $r=0$ for $3q/4$. If $a\ne0$, the two possible values
+of $c_2$ occur equally often among the characters with a given $r$; if $a=0$ then $c_2=q$. Consequently the number
+of characters of exact level $3$ with $\psi_6(\chi)=-2q^3$, that is with $\gamma_1^6=\gamma_2^6=q^3$, is
+\[
+\frac{q(q^2-1)}4\quad(k\text{ even}),\qquad \frac{q(q-1)(q-2)}8\quad(k\text{ odd}).
+\]
 \end{enumerate}
 \end{theorem}
 
@@ -1411,6 +1419,31 @@ $z^2=\zeta^{\pm1}\epsilon$ and $\epsilon^2=\psi(a^3/b^2)$. For $r\in\{0,2,4\}$, 
 $z^8=1$. For $r=1$, $\epsilon^2=(-1)^k$. If $k$ is even, $\epsilon=\pm1$ and $z^2$ has order $3$ or $6$, so $z$ has
 order $3$, $6$ or $12$. If $k$ is odd, $\epsilon=\pm i$ and $z^2$ has order $12$, so $z$ has order $24$. In both
 cases the admissible set consists of the $8$ eighth roots of unity and $8$ further roots.
+
+(5) The characters restricting to $\lambda_{a,b}$ are the twists $\chi\cdot\psi(\beta e_1)$, $\beta\in\F_q$, of one of
+them; the twist replaces $f(x)$ by $f(x)\psi(\beta x)$ and leaves $(a,b)$ and the cubic unchanged. For one root
+$t_1\ne0$, $\beta\mapsto\psi(\beta t_1)$ takes each sign $q/2$ times, so $f(t_1)=1$ ($r=2$) for $q/2$ twists. For
+three roots, $t_3=t_1+t_2$ and $t_1,t_2$ are $\F_2$-independent, so $\beta\mapsto(\psi(\beta t_1),\psi(\beta t_2))$
+takes each of the four values $q/4$ times; the triples $(f(t_1),f(t_2),f(t_3))$ of product $1$ are thus equally
+frequent, and exactly one of the four gives $r=4$. Next, $s_0=a/b$ is not a root, because the cubic takes the value
+$b$ at $s_0$. So for $a\ne0$, $s_0$ is nonzero and outside the $\F_2$-span $\{0,t_i\}$ of the roots, the map
+$\beta\mapsto\psi(\beta s_0)$ is independent of the signs at the roots, and $c_2=qf(s_0)$ takes its two values
+equally often for each $r$. For $a=0$, $c_2=qf(0)=q$.
+
+For the count, put $\epsilon=c_2/q$. By (3), $\gamma_1^6=\gamma_2^6=q^3$ means $\zeta^3=\zeta^{-3}$ and
+$\zeta^3\epsilon^3=1$, that is, $r\in\{1,4\}$ and $\epsilon=1$, or $r=0$ and $\epsilon=-1$; in particular
+$\epsilon^2=\psi(a^3/b^2)=1$. Let $a=0$. For $k$ odd the cubic $t^3=1/b$ has one root and $r\in\{0,2\}$ with
+$\epsilon=1$: no character. For $k$ even it has no root for the $2(q-1)/3$ non-cubes $b$, giving $q$ characters
+each, and three roots for the $(q-1)/3$ cubes, giving $q/4$ each. Let $a\ne0$. For fixed $a$, $b\mapsto a^3/b^2$ is
+a bijection of $\F_q^\times$, so $\Tr(a^3/b^2)=0$ for $(q-1)(q/2-1)$ pairs $(a,b)$. For $k$ odd these have exactly
+one root by (4); the $q/2$ characters with $r=0$ split evenly, and $q/4$ have $\epsilon=-1$. For $k$ even they have
+no root or three roots; in the first case $q/2$ characters have $\epsilon=1$, in the second
+$\frac12\cdot\frac q4+\frac12\cdot\frac{3q}4=\frac q2$ have $r=4$, $\epsilon=1$ or $r=0$, $\epsilon=-1$. The total is
+$(q-1)(q/2-1)\,q/4=q(q-1)(q-2)/8$ for $k$ odd and
+\[
+\frac{2(q-1)}3\,q+\frac{q-1}3\cdot\frac q4+(q-1)\Bigl(\frac q2-1\Bigr)\frac q2=\frac{q(q^2-1)}4
+\]
+for $k$ even.
 \end{proof}
 
 For $q=2,4,8,16$ all $q^2(q-1)$ characters of exact level $3$ were constructed from the group law of $G_3$, and
@@ -1418,8 +1451,11 @@ every statement of the theorem and of its proof was checked for each of them, wi
 summation (\texttt{verify\_level3\_theorem.py}; $4$, $48$, $448$ and $3840$ characters, no exception). For $q=8$ and
 $q=16$ the zeros occupy all $16$ admissible roots of unity; for $q=4$ they occupy $15$ and for $q=2$ eight. The
 theorem contains the last statement of Proposition~\ref{prop:level3}: for $a=0$, $k$ even and $b$ a non-cube, the
-cubic $b^2t^3=b$ has no root, so $r=1$, $c_2=q$ and $\gamma_j^6=q^3$. It also shows that $\psi_6(\chi)=-2q^3$ for
-many more characters, for instance whenever $r=1$ and $c_2=q$. Together with Proposition~\ref{prop:rigid}(3),
+cubic $b^2t^3=b$ has no root, so $r=1$, $c_2=q$ and $\gamma_j^6=q^3$. Part~(5) counts all characters with
+$\psi_6(\chi)=-2q^3$: there are $q(q^2-1)/4$ for $k$ even, which is the $1020$ observed at $q=16$ (and $15$ at
+$q=4$), and $q(q-1)(q-2)/8$ for $k$ odd ($0$ at $q=2$, $42$ at $q=8$); the script confirms these four numbers and
+the distribution of $r$ and $c_2$ on every coset. The sign of $f$ at the roots is thus not an invariant of
+$(a,b)$: it varies over the coset with the distribution of (5). Together with Proposition~\ref{prop:rigid}(3),
 Theorem~\ref{thm:level3} proves the supersingularity observed in Remark~\ref{rem:super} and in
 Figure~\ref{fig:rigid} (right), for every $q=2^k$.
 
@@ -1612,7 +1648,7 @@ $k$ even.
 \begin{theorem}[$d=6$]\label{prop:d6}
 For every $q=2^k$,
 \[
-\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1) .
+\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1),\qquad \E_{H_6}[\pi]=\frac{q^6-q^3+(-1)^{k+1}q^2(q-1)}{12} .
 \]
 \end{theorem}
 
@@ -1706,6 +1742,13 @@ S=-\kappa(q-1)+(q-1)^2+3(q-1)I-(q-1)^2-3n_3 ,\qquad \kappa=1\ (k\text{ odd}),\ 3
 \]
 which is $-(q-1)$ for $k$ odd and $-3(q-1)-6(q-1)I=-(q-1)(2q+1)$ for $k$ even. By Lemma~\ref{lem:dual67},
 $N_6=q^6+q^4(q^5-1+S)$ and $\E_{H_6}[\Psi]-q^6=q^3-q+qS=(-1)^{k+1}q^2(q-1)$.
+
+\emph{The mean of $\pi$.} An element of $L=\F_{q^{12}}$ of degree less than $12$ lies in $E=\F_{q^6}$ or in
+$\F_{q^4}$. All $q^6$ elements of $E$ satisfy the conditions, since $\Tr_{L/K}(x^j)=2\Tr_{E/K}(x^j)=0$. If
+$x\in\F_{q^4}$ satisfies them, then $\Tr_{L/K}(x^j)=3\Tr_{\F_{q^4}/K}(x^j)$ vanishes for $j=1,3$, so by
+Lemma~\ref{lem:newton} the characteristic polynomial of $x$ over $K$ is $X^4+e_2X^2+e_4=(X^2+\sqrt{e_2}X+\sqrt{e_4})^2$
+and $x\in\F_{q^2}\subset E$. Hence $\sum_{H_6}12\pi=N_6-q^6$, and with $|H_6|=q^3$,
+$\E_{H_6}[\pi]=(\E_{H_6}[\Psi]-q^3)/12$.
 \end{proof}
 
 \emph{Numerical checks.} The polynomial identities of the two proofs, including the expansions of $w^5$, $w^6$,
@@ -1739,9 +1782,7 @@ every $q$ (Corollary~\ref{cor:d23}, Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{
 Table~\ref{tab:var} beyond Proposition~\ref{prop:lambda_a}: which cosets carry the variance for even $d\ge6$?
 \item In characteristic $2$, all characters of exact level $2$ and $3$ of $G_3$ have $L$-functions with
 $\gamma^6\in q^3\{\pm1,\pm i\}$ (Proposition~\ref{prop:rigid}, Theorem~\ref{thm:level3}). Is there an analogous
-statement for the characters of exact level $4$ of $G_4$, whose $L$-functions have degree $3$? In
-Theorem~\ref{thm:level3} the sign of $f$ at the roots of the cubic, which decides between $r=0$ and $r=2$ or $4$,
-is not determined; find it.
+statement for the characters of exact level $4$ of $G_4$, whose $L$-functions have degree $3$?
 \end{enumerate}
 
 
