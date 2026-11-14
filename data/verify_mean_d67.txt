@@ -1,0 +1,44 @@
+q= 2 d=6: N_d(dual) = 544, E_H[Psi] - q^d = 4;  N_d(FFT) = 544  OK
+   S_I = 31 (= q^(d-1) - 1: True), S_II = -1, S_III = 4, S_IV = -4
+   branch II  by degree of w over K: deg 1: -1 (1 terms)
+   branch III by degree of w over K: deg 1: +1 (1 terms), deg 3: +3 (3 terms)
+   branch IV  by degree of w over K: deg 1: -1 (1 terms), deg 3: -3 (3 terms)
+   predicted S_II = -a_6 = -1: True;  S_III(deg 1) = (q-1)^2 = 1: True
+   k odd: S_III = 2q(q-1) = 4: True;  S_IV = -2q(q-1): True;  drift = q^3 - q^2 = 4: True
+q= 4 d=6: N_d(dual) = 259072, E_H[Psi] - q^d = -48;  N_d(FFT) = 259072  OK
+   S_I = 1023 (= q^(d-1) - 1: True), S_II = -9, S_III = 18, S_IV = -36
+   branch II  by degree of w over K: deg 1: -3 (3 terms), deg 3: -6 (6 terms)
+   branch III by degree of w over K: deg 1: +9 (9 terms), deg 3: +9 (9 terms)
+   branch IV  by degree of w over K: deg 1: -9 (9 terms), deg 3: -27 (27 terms)
+   predicted S_II = -a_6 = -9: True;  S_III(deg 1) = (q-1)^2 = 9: True
+q= 8 d=6: N_d(dual) = 134447104, E_H[Psi] - q^d = 448;  N_d(FFT) = 134447104  OK
+   S_I = 32767 (= q^(d-1) - 1: True), S_II = -7, S_III = 112, S_IV = -112
+   branch II  by degree of w over K: deg 1: -7 (7 terms)
+   branch III by degree of w over K: deg 1: +49 (49 terms), deg 3: +63 (63 terms)
+   branch IV  by degree of w over K: deg 1: -49 (49 terms), deg 3: -63 (63 terms)
+   predicted S_II = -a_6 = -7: True;  S_III(deg 1) = (q-1)^2 = 49: True
+   k odd: S_III = 2q(q-1) = 112: True;  S_IV = -2q(q-1): True;  drift = q^3 - q^2 = 448: True
+q=16 d=6: N_d(dual) = 68703748096, E_H[Psi] - q^d = -3840;  (no FFT at this size)
+   S_I = 1048575 (= q^(d-1) - 1: True), S_II = -45, S_III = 450, S_IV = -900
+   branch II  by degree of w over K: deg 1: -15 (15 terms), deg 3: -30 (30 terms)
+   branch III by degree of w over K: deg 1: +225 (225 terms), deg 3: +225 (225 terms)
+   branch IV  by degree of w over K: deg 1: -225 (225 terms), deg 3: -675 (675 terms)
+   predicted S_II = -a_6 = -45: True;  S_III(deg 1) = (q-1)^2 = 225: True
+q= 2 d=7: N_d(dual) = 2144, E_H[Psi] - q^d = 6;  N_d(FFT) = 2144  OK
+   S_I = 63 (= q^(d-1) - 1: True), S_II = 0, S_III = 0, S_IV = 0
+   branch II  by degree of w over K: empty
+   branch III by degree of w over K: empty
+   branch IV  by degree of w over K: empty
+   predicted: all kernels trivial, drift = q^3 - q = 6: True
+q= 4 d=7: N_d(dual) = 4209664, E_H[Psi] - q^d = 60;  N_d(FFT) = 4209664  OK
+   S_I = 4095 (= q^(d-1) - 1: True), S_II = 0, S_III = 0, S_IV = 0
+   branch II  by degree of w over K: empty
+   branch III by degree of w over K: empty
+   branch IV  by degree of w over K: empty
+   predicted: all kernels trivial, drift = q^3 - q = 60: True
+q= 8 d=7: N_d(dual) = 8591998976, E_H[Psi] - q^d = 504;  N_d(FFT) = 8591998976  OK
+   S_I = 262143 (= q^(d-1) - 1: True), S_II = 0, S_III = 0, S_IV = 0
+   branch II  by degree of w over K: empty
+   branch III by degree of w over K: empty
+   branch IV  by degree of w over K: empty
+   predicted: all kernels trivial, drift = q^3 - q = 504: True

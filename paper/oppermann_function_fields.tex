@@ -71,8 +71,10 @@ $q=16$, $d\le5$.
 
 Finally, in characteristic $2$ the Oppermann classes form a subgroup $H_d$ of the Hayes group: the kernel of the odd
 power sums, with $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$. Its annihilator yields Artin--Schreier sums. The mean of
-$\Psi$ over $H_d$ drifts by $-2q^2+2q$ at $d=4$ with $k$ odd and by $q^2-q$ at $d=5$. The variance is a coherent sum
-over annihilator cosets, maximal at $d=2$, where $\Var_{H_2}(\Psi)/q^2=q-1$.
+$\Psi$ over $H_d$ drifts by $-2q^2+2q$ at $d=4$ with $k$ odd, by $q^2-q$ at $d=5$ and by $q^3-q$ at $d=7$. The
+variance is a coherent sum over annihilator cosets, maximal at $d=2$, where $\Var_{H_2}(\Psi)/q^2=q-1$. All
+characters of exact level $3$ of the level-$3$ Hayes group have supersingular $L$-functions: their inverse zeros
+satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$.
 \end{abstract}
 
 \maketitle
@@ -190,9 +192,16 @@ Let $q=2^k$, and let $H_d\subset G_d$ be the set of Oppermann classes of level $
 $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$ (Theorem~\ref{thm:group}). The characters of $G_d/H_d$ have Artin--Schreier
 sums as explicit-formula coefficients (Theorem~\ref{thm:AS}).
 \item $\E_{H_d}[\Psi]-q^d=0$ for $d=2,3$, and for $d=4$ with $k$ even. It equals $-2q^2+2q$ for $d=4$ with $k$ odd,
-and $q^2-q$ for $d=5$ (Corollary~\ref{cor:d23}, Theorem~\ref{thm:d45}).
+$q^2-q$ for $d=5$, and $q^3-q$ for $d=7$ (Corollary~\ref{cor:d23}, Theorems~\ref{thm:d45}, \ref{thm:d7}). For
+$d=6$ it equals $(-1)^{k+1}q^2(q-1)$ for $q\le64$ (Proposition~\ref{prop:d6}, which reduces the general case to a
+statement about cubic factors of $X^{10}+AX^6+BX^5+B^2$).
 \item $\Var_{H_2}(\Psi)/q^2=q-1$, whereas $\Var_{G_2}(\Psi)/q^2=1-1/q$. Further, $\Var_{H_3}(\Psi)/q^3=1-1/q$ for $k$
-odd and $3(1-1/q)$ for $k$ even (Theorem~\ref{thm:var23}).
+odd and $3(1-1/q)$ for $k$ even (Theorem~\ref{thm:var23}). For odd $d$ the coset sums of the characters
+$(-1)^{\Tr(ae_2)}$ of $H_d$ vanish, and for $d=4$ they give $\Var_{H_4}(\Psi)/q^4\ge q-1$ when $k$ is even
+(Proposition~\ref{prop:lambda_a}).
+\item Every character $\chi$ of exact level $3$ of $G_3$ has $L(u,\chi)=(1-\gamma_1u)(1-\gamma_2u)$ with
+$|\gamma_j|=\sqrt q$, $\gamma_j^6\in q^3\{\pm1,\pm i\}$ and $(\gamma_1+\gamma_2)^2/\gamma_1\gamma_2\in\{0,1,2,4\}$
+(Theorem~\ref{thm:level3}).
 \end{enumerate}
 \end{theorem}
 
@@ -219,7 +228,8 @@ proves the Newton--trace duality.
 and the $\AGL_r(\F_2)$ dead zone, the ternary trace form, and the field-tower and Gauss-sum count.
 \item Section~\ref{sec:comp} describes the exact computation, the square-root barrier, the rigidity of the level-$2$
 $L$-functions, and the large-$q$ corollary.
-\item Section~\ref{sec:subgroup} studies the mean and the variance over the Oppermann subgroup.
+\item Section~\ref{sec:subgroup} studies the mean and the variance over the Oppermann subgroup, and determines the
+$L$-functions of the characters of exact level $3$ of $G_3$.
 \end{itemize}
 
 
@@ -865,10 +875,10 @@ non-cube up to $q=2^{14}$ (Table~\ref{tab:d3}; Figure~\ref{fig:mean}, right).
 For $c=0$ the error term $\pi(C_e)-q^3/6$ is $-q/6$ for $k$ odd and $-q^2/3+q/6$ for $k$ even; for $c\ne0$ and $k$ even it is of order $q^{3/2}$ (Corollary~\ref{cor:d3}). This is far smaller than the
 $O(q^{5/2})$ a monodromy argument would give.
 
-It reflects a supersingularity that we observed numerically: for $q\le16$, every character of exact level $2$ or $3$
+It reflects a supersingularity: every character of exact level $2$ or $3$
 of $G_3$ has an $L$-function whose inverse zeros satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$. Figure~\ref{fig:rigid} (right) shows these zeros for $q=8$ next to the odd case $q=7$. At level $2$ this is a
 theorem: Proposition~\ref{prop:rigid}(3) gives $\gamma_\chi^4=(-1)^kq^2$ for every character of exact level $2$,
-which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it is proved for the $2q(q-1)/3$ characters of Proposition~\ref{prop:level3} when $k$ is even, and otherwise remains an observation. The proof above avoids
+which implies $\gamma_\chi^6\in\{\pm q^3,\pm iq^3\}$. At level $3$ it is a theorem as well: Theorem~\ref{thm:level3} gives $\gamma^6\in q^3\{\pm1,\pm i\}$ for every character of exact level $3$ and every $q=2^k$, and determines which $16$ of the $24$-th roots of unity occur. The proof above avoids
 these $L$-functions altogether. Summing over $e$ replaces the level-$3$ condition by the two trace conditions
 $\Tr_{L/K}(x)=0$ and $\Tr_{L/K}(x^3)=c$, which the tower $K\subset E\subset L$ makes linear.
 \end{remark}
@@ -1016,7 +1026,7 @@ markers; the formulas of Theorem~\ref{thm:main2}(B) and Theorem~\ref{thm:p3zero}
 the range over the $d=3$ Oppermann classes with $p_3\ne0$. For odd $k$ this range reduces to the single value of
 $C_e$, as Theorem~\ref{thm:p3zero}(1) predicts. For even $k$ its endpoints are given by the two values of $m(c)$. \emph{Right:} normalised inverse zeros $\gamma/\sqrt q$ of $L(u,\chi)$ for the characters of exact level $2$ and $3$
 of $G_3$. For $q=8$ (blue; marker area proportional to multiplicity) they occupy only $16$ of the $24$-th roots of
-unity. For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
+unity, those of order dividing $8$ or equal to $24$ (Theorem~\ref{thm:level3}). For $q=7$ (grey; $630$ zeros) they spread over the whole circle.}\label{fig:rigid}
 \end{figure}
 
 \subsection{\texorpdfstring{Large $q$}{Large q}}\label{subsec:bbr}
@@ -1172,7 +1182,8 @@ Table~\ref{tab:means} compares Corollary~\ref{cor:d23} and Theorem~\ref{thm:d45}
 $q\le16$; all $16$ cases agree. By Proposition~\ref{prop:mean}, the drift $\E_{H_d}[\Psi]-q^d$ is $q^{-d}$ times a sum
 of Artin--Schreier sums of the Gold-type polynomials $\beta_1x+\beta_3x^3$ over $\F_{q^{2d}}$. It vanishes for $d=4$
 with $k$ even. It is $-2q^2+2q$ for $d=4$ with $k$ odd, coming from the cube roots of unity outside $K$, and $+q^2-q$
-for $d=5$. Figure~\ref{fig:mean} (left) shows the drift in units of $q^{d/2}$ for $d\le12$.
+for $d=5$. Figure~\ref{fig:mean} (left) shows the drift in units of $q^{d/2}$ for $d\le12$. The cases $d=6$ and $d=7$ are
+treated in \S\ref{sec:mean67}.
 
 \input{tab_subgroup_means}
 
@@ -1314,7 +1325,183 @@ All coset sums were checked against the exact class values for $q\le64$, with th
 $L$-functions confirm the consequence; in fact many more characters have $\psi_6=-2q^3$, for example $1020$ for
 $q=16$, against the $160$ that the proposition forces.
 
-For $d\ge4$ we have only numerical data (Table~\ref{tab:var}, Figure~\ref{fig:var}). We observe the following:
+The next theorem explains this. It determines the $L$-function of every character of exact level $3$ of $G_3$ up to
+finitely many possibilities, directly from the group law of $G_3$. Every class of $G_3$ factors uniquely as
+\[
+1+e_1u+e_2u^2+e_3u^3=(1+e_1u)\bigl(1+e_2u^2+(e_3+e_1e_2)u^3\bigr),
+\]
+with the second factor in $H_3$. A character $\chi$ of $G_3$ is therefore determined by its restriction
+$\lambda_{a,b}$ to $H_3$ and by the function $f(x)=\chi(1+xu)$ on $\F_q$; it has exact level $3$ if and only if
+$b\ne0$, and there are $q^2(q-1)$ such characters.
+
+\begin{theorem}[level-$3$ $L$-functions]\label{thm:level3}
+Let $q=2^k$, let $\chi$ be a character of $G_3$ with $\chi|_{H_3}=\lambda_{a,b}$, $b\ne0$, and $f(x)=\chi(1+xu)$. Write
+$L(u,\chi)=1+c_1u+c_2u^2=(1-\gamma_1u)(1-\gamma_2u)$.
+\begin{enumerate}
+\item $c_2=q\,f(a/b)$ and $c_2^2=(-1)^{\Tr(a^3/b^2)}q^2$. In particular $\deg L=2$.
+\item $c_1^2=r\,c_2$ with
+\[
+r=1+\sum_{t\in\F_q,\ b^2t^3+a^2t+b=0}f(t)\ \in\{0,1,2,4\},
+\]
+and $f(t)=\pm1$ at every root $t$. More precisely $r=1$ if the cubic has no root in $\F_q$, $r\in\{0,2\}$ if it has
+exactly one, and $r\in\{0,4\}$ if it has three.
+\item $|\gamma_1|=|\gamma_2|=\sqrt q$, and $\zeta=\gamma_1/\gamma_2$ satisfies $\zeta+\zeta^{-1}=r-2$: $\zeta=-1$, a
+primitive cube root of unity, $\pm i$, or $1$ for $r=0,1,2,4$. Moreover $\gamma_j^2=\zeta^{\pm1}c_2$ and
+\[
+\gamma_1^6,\ \gamma_2^6\in q^3\{\pm1,\pm i\}.
+\]
+\item If $r=1$ then $\Tr(a^3/b^2)\equiv k\pmod2$, and if $r=2$ then $\Tr(a^3/b^2)\not\equiv k\pmod2$. Consequently
+$\gamma_j/\sqrt q$ is a root of unity of order dividing $8$, or of order exactly $24$ \textup{(}$k$ odd\textup{)},
+respectively of order $3$, $6$ or $12$ \textup{(}$k$ even\textup{)}. These are $16$ of the $24$-th roots of unity.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $\psi(z)=(-1)^{\Tr(z)}$. Since
+$(1+xu)(1+yu)=(1+(x+y)u)\bigl(1+xyu^2+xy(x+y)u^3\bigr)$ in $G_3$,
+\begin{equation}\label{eq:cocycle}
+f(x)f(y)=f(x+y)\,\psi\bigl(axy+b(x^2y+xy^2)\bigr)\qquad(x,y\in\F_q).
+\end{equation}
+With $y=x$ this gives $f(x)^2=\psi(ax^2)$, so $f$ takes values in $\{\pm1,\pm i\}$ and $\overline{f(x)}=f(x)\psi(ax^2)$.
+
+(1) The monic polynomials of degree $n\le3$ have the classes $1+e_1u+\dots+e_nu^n$, each once. For $n=3$ the classes
+exhaust $G_3$, so $c_3=0$ and $\deg L\le2$. For $n=2$, by the factorisation above,
+\[
+c_2=\sum_{e_1}f(e_1)\sum_{e_2}\psi\bigl((a+be_1)e_2\bigr)=q\,f(s_0),\qquad s_0=a/b .
+\]
+Hence $c_2^2=q^2f(s_0)^2=q^2\psi(as_0^2)=q^2\psi(a^3/b^2)$.
+
+(2) Apply \eqref{eq:cocycle} with $x=s_0$, $y=t$. The terms $as_0t$ and $bs_0^2t$ are both equal to $a^2t/b$ and
+cancel, and $bs_0t^2=at^2$. So $f(s_0+t)=f(s_0)f(t)\psi(at^2)=f(s_0)\overline{f(t)}$. Summing over $t$ gives
+$c_1=f(s_0)\overline{c_1}$, and therefore
+\[
+c_1^2=f(s_0)\,|c_1|^2=\frac{|c_1|^2}{q}\,c_2 .
+\]
+Next, by \eqref{eq:cocycle} with $x=y+t$,
+\[
+|c_1|^2=\sum_{t}\sum_yf(y+t)\overline{f(y)}=\sum_tf(t)\sum_y\psi\bigl(bty^2+(at+bt^2)y\bigr).
+\]
+Since $\Tr(bty^2)=\Tr(\sqrt{bt}\,y)$, the inner sum is $q$ if $\sqrt{bt}=at+bt^2$ and $0$ otherwise. Squaring, the
+condition is $t=0$ or $b^2t^3+a^2t+b=0$. With $f(0)=1$ this is the formula for $r=|c_1|^2/q$.
+
+Let $t$ be a root of the cubic. Multiplying $b^2t^3+a^2t+b=0$ by $t^3$ gives $a^2t^4=(bt^3)^2+bt^3$, so
+$\Tr(at^2)=\Tr(a^2t^4)=0$ and $f(t)^2=\psi(at^2)=1$. The cubic has $0$, $1$ or $3$ roots in $\F_q$ (it is separable: a repeated
+root would satisfy $b^2t^2=a^2$, and then the cubic takes the value $b\ne0$). As $r=|c_1|^2/q\ge0$, this leaves $r=1$ for no root, $r\in\{0,2\}$ for one root, and
+$r\in\{0,2,4\}$ for three roots. It remains to exclude $r=2$ for three roots $t_1,t_2,t_3$, that is, to show
+$f(t_1)f(t_2)f(t_3)=1$. Here $t_1+t_2+t_3=0$ and $t_1t_2t_3=1/b$. By \eqref{eq:cocycle},
+$f(t_1)f(t_2)=f(t_3)\psi(at_1t_2+bt_1t_2t_3)$, so
+\[
+f(t_1)f(t_2)f(t_3)=f(t_3)^2\,\psi\Bigl(\frac{a}{bt_3}+1\Bigr)=\psi\Bigl(\frac{a}{bt_3}\Bigr)\psi(1).
+\]
+If $a=0$, the cubic is $t^3=1/b$; three roots force $3\mid q-1$, so $k$ is even and $\psi(1)=1$. If $a\ne0$, put
+$t=aw/b$: the cubic becomes $w^3+w+b^2/a^3$, and $a/(bt_3)=1/w_3$. The other two roots are the roots of
+$w^2+w_3w+w_3^2+1$, and they lie in $\F_q$ if and only if $\Tr\bigl((w_3^2+1)/w_3^2\bigr)=0$, that is,
+$\Tr(1/w_3)=\Tr(1)$. So the product is $\psi(1)^2=1$ in this case as well.
+
+(3) From $c_1=-(\gamma_1+\gamma_2)$ and $c_2=\gamma_1\gamma_2$, $\zeta+2+\zeta^{-1}=c_1^2/c_2=r$. For
+$r\in\{0,1,2,4\}$ the solutions are the roots of unity listed, so $|\gamma_1|=|\gamma_2|$, and
+$|\gamma_1\gamma_2|=|c_2|=q$. Further $\gamma_1^2=\zeta c_2$ and $\gamma_2^2=\zeta^{-1}c_2$, so
+$\gamma_j^6=\zeta^{\pm3}c_2^3$ with $\zeta^3\in\{\pm1,\pm i\}$ and $c_2^3=q^3f(s_0)^3\in q^3\{\pm1,\pm i\}$.
+
+(4) Put $y=bt$: the cubic becomes $y^3+a^2y+b^2$. By Lemma~\ref{lem:oneroot} it has exactly one root in $\F_q$ if
+and only if $\Tr(a^6/b^4)=\Tr(a^3/b^2)\ne\Tr(1)$. By (2), $r=2$ occurs only for one root and $r=1$ only for no root;
+this is the first statement. For the second, let $z=\gamma_j/\sqrt q$ and $\epsilon=c_2/q=f(s_0)$, so
+$z^2=\zeta^{\pm1}\epsilon$ and $\epsilon^2=\psi(a^3/b^2)$. For $r\in\{0,2,4\}$, $z^2\in\{\pm1,\pm i\}$ and
+$z^8=1$. For $r=1$, $\epsilon^2=(-1)^k$. If $k$ is even, $\epsilon=\pm1$ and $z^2$ has order $3$ or $6$, so $z$ has
+order $3$, $6$ or $12$. If $k$ is odd, $\epsilon=\pm i$ and $z^2$ has order $12$, so $z$ has order $24$. In both
+cases the admissible set consists of the $8$ eighth roots of unity and $8$ further roots.
+\end{proof}
+
+For $q=2,4,8,16$ all $q^2(q-1)$ characters of exact level $3$ were constructed from the group law of $G_3$, and
+every statement of the theorem and of its proof was checked for each of them, with $c_1,c_2,c_3$ computed by direct
+summation (\texttt{verify\_level3\_theorem.py}; $4$, $48$, $448$ and $3840$ characters, no exception). For $q=8$ and
+$q=16$ the zeros occupy all $16$ admissible roots of unity; for $q=4$ they occupy $15$ and for $q=2$ eight. The
+theorem contains the last statement of Proposition~\ref{prop:level3}: for $a=0$, $k$ even and $b$ a non-cube, the
+cubic $b^2t^3=b$ has no root, so $r=1$, $c_2=q$ and $\gamma_j^6=q^3$. It also shows that $\psi_6(\chi)=-2q^3$ for
+many more characters, for instance whenever $r=1$ and $c_2=q$. Together with Proposition~\ref{prop:rigid}(3),
+Theorem~\ref{thm:level3} proves the supersingularity observed in Remark~\ref{rem:super} and in
+Figure~\ref{fig:rigid} (right), for every $q=2^k$.
+
+\medskip
+We return to the coset sums $A(\lambda)$ for general $d$. For $a\in\F_q^\times$ let
+$\lambda_a(x)=(-1)^{\Tr(ae_2(x))}$; since $e_1=0$ on $H_d$, this is a character of $H_d$ for every $d\ge2$. Among the
+$q^{\lfloor d/2\rfloor}$ characters of $G_d$ that restrict to $\lambda_a$, exactly $q$ have level at most $2$, and
+these have exact level~$2$.
+
+\begin{proposition}[the cosets of $\lambda_a$]\label{prop:lambda_a}
+Let $q=2^k$, $d\ge2$ and $a\in\F_q^\times$.
+\begin{enumerate}
+\item \emph{Level-$2$ part.} Let $P(a)$ be the sum of $\psi_{2d}(\chi)$ over the $q$ characters of level $2$
+restricting to $\lambda_a$. If $d=2m$ is even, each of them has $\psi_{2d}(\chi)=-(-1)^{km}q^d$, and
+$P(a)=-(-1)^{km}q^{d+1}$. If $d=2m+1$ is odd, $\psi_{2d}(\chi)=(-1)^{km}q^{d-1}\psi_2(\chi)$ and $P(a)=0$.
+\item \emph{Odd $d$.} If $d$ is odd, then $A(\lambda_a)=0$.
+\item \emph{$d=4$.} $A(\lambda_a)=-q^6$ for $k$ even and $A(\lambda_a)=-q^5(q-2)$ for $k$ odd. Consequently
+\[
+\frac{\Var_{H_4}(\Psi)}{q^4}\ \ge\ q-1\quad(k\text{ even}),\qquad \frac{\Var_{H_4}(\Psi)}{q^4}\ \ge\ (q-1)\Bigl(1-\frac2q\Bigr)^2\quad(k\text{ odd}).
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) By Proposition~\ref{prop:rigid}(3), $L(u,\chi)=1-\gamma u$ with $\gamma^4=(-1)^kq^2$, and
+$\psi_n(\chi)=-\gamma^n$. So $\psi_{4m}(\chi)=-(-1)^{km}q^{2m}$ and
+$\psi_{4m+2}(\chi)=(-1)^{km}q^{2m}\psi_2(\chi)$. The $q$ characters in question are the characters of $G_2$
+extending $\lambda_a$ from $\ker(G_2\to G_1)$, so their sum is $q\lambda_a$ on that kernel and $0$ elsewhere. The
+polynomials of degree $2$ with $\Lambda\ne0$ and $e_1=0$ are the squares $(t+c)^2$, with $\Lambda=1$ and $e_2=c^2$.
+Hence $\sum_\chi\psi_2(\chi)=q\sum_c(-1)^{\Tr(ac^2)}=0$.
+
+(2), (3) As in the proof of Proposition~\ref{prop:mean}, with $L=\F_{q^{2d}}$,
+\[
+A(\lambda_a)=q^{\lfloor d/2\rfloor}\sum_{x\in H_d}\Psi(x)\lambda_a(x)
+=q^{\lfloor d/2\rfloor}\sum_{\substack{x\in L\\ \Tr_{L/K}(x^j)=0,\ j\text{ odd}<d}}(-1)^{\Tr(a\,e_2(x))},
+\]
+where $e_2(x)$ is the second elementary symmetric function of the $2d$ conjugates $x^{q^i}$, $0\le i<2d$.
+
+For $c\in K$ the translation $x\mapsto x+c$ preserves the conditions. Indeed $\Tr_{L/K}((x+c)^j)$ is a combination of
+the $\Tr_{L/K}(x^i)$ with $i\le j$; for odd $i$ these vanish, for even $i=2^ei'$ with $i'$ odd they equal
+$\Tr_{L/K}(x^{i'})^{2^e}=0$, and $\Tr_{L/K}(1)=2d=0$. Moreover
+$e_2(x+c)=e_2(x)+(2d-1)c\,\Tr_{L/K}(x)+\binom{2d}2c^2=e_2(x)+dc^2$. For odd $d$ choose $c$ with $\Tr(ac^2)=1$: the
+sum equals its own negative, which proves (2).
+
+Let $d=4$, $E=\F_{q^4}$ and $T=\Tr_{E/K}$, and use the notation of the proof of Theorem~\ref{thm:d45}:
+$u=x+x^{q^4}$, and for $u\ne0$, $x=u\xi$, $\alpha=\xi^2+\xi$. Pairing the conjugate $x^{q^i}$ with $x^{q^{i+4}}$ shows
+\[
+e_2(x)=T\bigl(x^{1+q^4}\bigr)+e_2^{E/K}(u)=T(u^2\alpha)+e_2^{E/K}(u),
+\]
+with $e_2^{E/K}(u)$ the second elementary symmetric function of $u,u^q,u^{q^2},u^{q^3}$. For $u=0$, $x\in E$ and
+$e_2(x)=T(x)^2$; these terms sum to $q^3\sum_{y\in K}(-1)^{\Tr(ay^2)}=0$. For $u\ne0$ with $T(u)=0$, the sum over
+$\xi$ is twice the sum over the $\alpha\in E$ with $\Tr_{E/\F_2}(\alpha)=1$ and $T(u^3(\alpha+1))=0$ of
+$(-1)^{\Tr_{E/\F_2}(au^2\alpha)}$. Detecting the two conditions by additive characters, it equals
+\[
+q^3\sum_{\substack{(\epsilon,c)\in\F_2\times K\\ cu^3=au^2+\epsilon}}(-1)^{\epsilon},
+\]
+because on these pairs $\Tr_{E/\F_2}(cu^3)=\Tr(aT(u)^2)+4k\epsilon=0$. For $\epsilon=0$ the condition is $u\in K^\times$;
+for $u\in K^\times$ both values of $\epsilon$ occur and cancel. For $u\notin K$ only $\epsilon=1$ is possible, and
+$\theta=1/u$ is then a root of $X^3+aX+c$ of degree $2$ over $K$ (its degree divides $4$ and is at most $3$). So $c$
+runs over the values for which $X^3+aX+c$ has exactly one root $r\in K$, and $u$ over the reciprocals of the other
+two roots $\theta,\theta'\in\F_{q^2}$; the condition $T(u)=2\Tr_{\F_{q^2}/K}(u)=0$ is automatic. By
+Lemma~\ref{lem:oneroot} there are $q/2$ such $c$ for $k$ even and $q/2-1$ for $k$ odd. For such $u$,
+$e_2^{E/K}(u)=(u+u^q)^2$ and $u+u^q=(\theta+\theta')/\theta\theta'=r^2/c$. Since $c=r^3+ar=r(r+\sqrt a)^2$,
+\[
+\Tr\Bigl(\frac{ar^4}{c^2}\Bigr)=\Tr\Bigl(\frac{\sqrt a\,r^2}{c}\Bigr)=\Tr\Bigl(\frac{v}{(v+1)^2}\Bigr)
+=\Tr\Bigl(\frac1{v+1}+\frac1{(v+1)^2}\Bigr)=0,\qquad v=\frac r{\sqrt a}.
+\]
+So every such $u$ contributes $-q^3$, and $\sum_{x\in H_4}\Psi(x)\lambda_a(x)=-q^3\cdot2\cdot\frac q2=-q^4$ for $k$
+even, and $-q^3(q-2)$ for $k$ odd. Multiplying by $q^2$ gives $A(\lambda_a)$. The bound for the variance is
+Proposition~\ref{prop:var}, keeping only the $q-1$ cosets of the $\lambda_a$.
+\end{proof}
+
+All three parts were checked against the exact class values: (1) and (2) for $q=2$, $d\le10$; $q=4$, $d\le6$;
+$q=8,16$, $d\le4$, and (3) for $q=2,4,8,16$ (\texttt{verify\_level2\_cosets.py}). Part (1) is the complete
+explanation of the maximal coherence at $d=2$, where all characters have level at most $2$. For $d\ge4$ it accounts
+for little: the level-$2$ parts carry the fraction $0.06$, $0.02$, $0.003$ of $\Var_{H_4}(\Psi)$ for $q=4,8,16$, and
+$0.002$ of $\Var_{H_6}(\Psi)$ for $q=4$. The coherence at $d=4$ comes from the whole coset, by (3): the lower bounds
+$3$, $3.94$, $15$ for $q=4,8,16$ are to be compared with the exact values $3.05$, $5.04$, $18.52$ of
+Table~\ref{tab:var}. In the proof, the coherent terms are the $u=x+x^{q^d}$ lying in the quadratic subfield
+$\F_{q^2}\subset\F_{q^d}$, which have $\Tr_{\F_{q^d}/K}(u)=0$ automatically when $4\mid d$.
+
+For $d\ge5$ we have, beyond Proposition~\ref{prop:lambda_a}, only numerical data (Table~\ref{tab:var},
+Figure~\ref{fig:var}). We observe the following:
 \begin{enumerate}
 \item On the whole group, $\Var_{G_d}(\Psi)/q^d$ follows the Keating--Rudnick value $d-1$ closely for $q\ge4$, and in
 odd characteristic. For $q=2$ it stays near $d-2$. Keating and Rudnick prove $\Var\sim q^{h+1}(n-h-2)$ as
@@ -1324,7 +1511,10 @@ hypotheses. We use $d-1$ only as a reference value.
 and $1.1$, $3.0$, $5.0$, $18.5$ at $d=4$ for $q=2,4,8,16$. For odd $d$ it is moderate: $1-1/q$ or $3(1-1/q)$ at
 $d=3$, and $1.5$, $6.3$, $3.5$, $6.5$ at $d=5$. This is the coherence of Proposition~\ref{prop:var}.
 
-Two structural features separate even from odd $d$, although we have no proof of the dichotomy beyond $d=3$.
+Proposition~\ref{prop:lambda_a} gives one proved difference between even and odd $d$: the $q-1$ coset sums
+$A(\lambda_a)$ vanish for every odd $d$, while for $d=4$ they alone force $\Var_{H_4}(\Psi)/q^4\ge q-1$ ($k$ even). For
+$d=6$ the exact class values give $A(\lambda_a)=3q^8$ at $q=2$ and $-3q^8$ at $q=4$, which is only a small part of the variance, so the dichotomy as a whole is not
+explained. Two further structural features separate even from odd $d$.
 First, the coherence multiplicity $|H_d^\perp|=q^{\lfloor d/2\rfloor}$ jumps by a factor $q$ at each even $d$. Second,
 the squares $\varpi^2=\sum a_i^2t^{2i}$ of irreducibles of degree $d$ contain only even powers of $t$. For odd $d$
 their coefficient $e_d$ (of $t^d$) is $0$, so they pile up on the slice $e_d=0$ of $H_d$. For even $d$ it is
@@ -1339,10 +1529,156 @@ subgroup $H_d$ (right, $q$ even). Dashed line: the Keating--Rudnick value $d-1$.
 \end{figure}
 
 
-
-
-
 \FloatBarrier
+
+\subsection{\texorpdfstring{Mean drift for $d=6$ and $d=7$}{Mean drift for d=6 and d=7}}\label{sec:mean67}
+For $d\in\{6,7\}$ the odd indices are $j=1,3,5$, and the method of Theorem~\ref{thm:d45} needs one more step. Let
+$E=\F_{q^d}$, $T=\Tr_{E/K}$, and for $A\in K$, $B\in K^\times$ put
+\[
+g_{A,B}(X)=X^{10}+AX^6+BX^5+B^2 .
+\]
+
+\begin{lemma}\label{lem:dual67}
+Let $d\in\{6,7\}$. For $w\in E^\times$ with $T(w)=0$ let
+\[
+\ker\nolimits_w=\bigl\{(\epsilon,a,\nu)\in\F_2\times K\times K:\ \epsilon+aw^6+\nu w^5+\nu^2w^{10}=0\bigr\},
+\]
+an $\F_2$-vector space. Then
+\[
+N_d=q^d+q^{d-2}\sum_{\substack{w\in E^\times\\ T(w)=0}}\ \sum_{(\epsilon,a,\nu)\in\ker_w}(-1)^{\epsilon(1+dk)+\Tr_{E/\F_2}(\nu w^5)} .
+\]
+The inner sum is $|\ker_w|$ or $0$; if $w$ lies in a subfield $F\subset E$ with $[E:F]$ even, the sign is
+$(-1)^{\epsilon(1+dk)}$.
+\end{lemma}
+
+\begin{proof}
+As in the proof of Theorem~\ref{thm:d45}, the $x\in L$ with $u=x+x^{q^d}=0$ are the $q^d$ elements of $E$, and for
+$u\ne0$ we need $T(u)=0$ and write $x=u\xi$, $\alpha=\xi^2+\xi$, where $\alpha$ runs $2$-to-$1$ over
+$\{\Tr_{E/\F_2}(\alpha)=1\}$. Since $\xi^3+(\xi+1)^3=\alpha+1$ and $\xi^5+(\xi+1)^5=\alpha^2+\alpha+1$, the conditions
+are
+\[
+\Tr_{E/\F_2}(\alpha)=1,\qquad T\bigl(u^3(\alpha+1)\bigr)=0,\qquad T\bigl(u^5(\alpha^2+\alpha+1)\bigr)=0 .
+\]
+The third is not $K$-linear in $\alpha$, but all three are $\F_2$-affine: for $b\in K$,
+$\Tr\bigl(b\,T(u^5\alpha^2)\bigr)=\Tr_{E/\F_2}(bu^5\alpha^2)=\Tr_{E/\F_2}(\sqrt b\,u^{5/2}\alpha)$. Detecting the
+conditions by the characters $\epsilon\in\F_2$, $a\in K$, $b\in K$ and summing over $\alpha\in E$, the number of
+$\alpha$ is
+\[
+\frac{q^d}{2q^2}\sum_{\substack{(\epsilon,a,b)\\ \epsilon+au^3+\sqrt b\,u^{5/2}+bu^5=0}}(-1)^{\epsilon+\Tr_{E/\F_2}(au^3+bu^5)} .
+\]
+On these triples $\Tr_{E/\F_2}(au^3)=\epsilon dk+\Tr_{E/\F_2}(\sqrt b\,u^{5/2})+\Tr_{E/\F_2}(bu^5)=\epsilon dk$, so
+the sign is $(-1)^{\epsilon(1+dk)+\Tr_{E/\F_2}(bu^5)}$. Put $w=\sqrt u$ and $\nu=\sqrt b$; then $T(w)=0$ if and only
+if $T(u)=0$, and $\Tr_{E/\F_2}(bu^5)=\Tr_{E/\F_2}(\nu w^5)$. Each $\alpha$ gives two $x$. The sign is a character of
+$\ker_w$, which gives the first remark; for the second, $\Tr_{E/\F_2}$ vanishes on $F$.
+\end{proof}
+
+The triple $(0,0,0)$ contributes $q^{d-2}(q^{d-1}-1)$ in total. A nonzero triple of $\ker_w$ is a polynomial relation
+for $w$ over $K$: $aw^6=1$ if $\nu=0$ (then $\epsilon=1$); $\nu^2w^5+aw+\nu=0$ if $\epsilon=0$, $\nu\ne0$; and
+$g_{A,B}(w)=0$ with $A=a/\nu^2$, $B=1/\nu$ if $\epsilon=1$, $\nu\ne0$.
+
+\begin{theorem}[$d=7$]\label{thm:d7}
+For every $q=2^k$,
+\[
+N_7=q^7+q^5(q^6-1),\qquad \E_{H_7}[\Psi]=q^7+q^3-q,\qquad \E_{H_7}[\pi]=\frac{q(q^6-1)}{14}.
+\]
+\end{theorem}
+
+\begin{proof}
+We show $\ker_w=0$ for every $w\in E^\times$ with $T(w)=0$. The degree of $w$ over $K$ is $1$ or $7$, and $w\in K$
+has $T(w)=7w\ne0$. So $w$ has degree $7$, and its minimal polynomial $M=X^7+m_5X^5+\dots+m_0$ has no term in $X^6$.
+The relations $aw^6=1$ and $\nu^2w^5+aw+\nu=0$ have degree less than $7$. It remains to exclude $M\mid g_{A,B}$.
+Suppose $g_{A,B}=M\cdot(X^3+c_2X^2+c_1X+c_0)$. The coefficients of $X^9,X^8,X^7$ give $c_2=0$, $c_1=m_5$,
+$c_0=m_4$; the coefficient of $X^5$ gives $m_2=B\ne0$; and those of $X^4,\dots,X^0$ read
+\[
+m_1=m_3m_5+m_4^2,\quad m_0=m_2m_5+m_3m_4,\quad m_1m_5=m_2m_4,\quad m_0m_5=m_1m_4,\quad m_0m_4=m_2^2 .
+\]
+The last three give $m_4\ne0$, $m_2m_5^2=m_4^3$, hence $m_5\ne0$; with $s=m_5$ and $t=m_4/m_5$ they give $m_4=st$,
+$m_2=st^3$, $m_0=st^5$, $m_1=st^4$, and the first then gives $m_3=t^4+st^2$. But then
+\[
+M(t)=t^7+st^5+st^5+(t^4+st^2)t^3+st^5+st^5+st^5=0,
+\]
+so $M$ has the root $t\in K$, a contradiction. Hence $N_7=q^7+q^5(q^6-1)$, and
+$\E_{H_7}[\Psi]=N_7/q^4$. For $\pi$: the elements of degree less than $14$ satisfying the conditions are those of
+$E$, because $x\in\F_{q^2}\setminus K$ has $\Tr_{L/K}(x)=7\Tr_{\F_{q^2}/K}(x)\ne0$. So $\sum_{H_7}14\pi=N_7-q^7$.
+\end{proof}
+
+For $d=6$ the kernels are not all trivial. Let $I$ be the number of $c\in K$ for which $V^3+V+c$ is irreducible over
+$K$. By Lemma~\ref{lem:oneroot}, $V^3+V+c$ has exactly one root in $K$ for $q/2-1$ values of $c\ne0$ if $k$ is odd
+and for $q/2$ values if $k$ is even; since the $q-2$ elements $V\ne0,1$ are the roots of the cubics with $c\ne0$, it
+has three roots for $(q-2)/6$, respectively $(q-4)/6$, values. Hence $I=(q+1)/3$ for $k$ odd and $I=(q-1)/3$ for
+$k$ even.
+
+\begin{proposition}[$d=6$]\label{prop:d6}
+Let $q=2^k$, and let $e_q\ge0$ be the number of pairs $((A,B),C)$ with $A\in K$, $B\in K^\times$ and
+$C=X^3+X^2+c_1X+c_0$ an irreducible cubic over $K$ dividing $g_{A,B}$, other than the pairs with $k$ even, $B$ a
+non-cube, $A=B+1$ and $C$ the factor of $(X^2+X)^3+B$ described in the proof. Then
+\[
+\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1)-3q(q-1)\,e_q .
+\]
+\end{proposition}
+
+\begin{proof}
+Here $1+dk$ is odd, and $w$ has degree $1$, $2$, $3$ or $6$ over $K$. Degree $2$ is excluded by
+$T(w)=3\Tr_{\F_{q^2}/K}(w)\ne0$; for the degrees $1$ and $3$, $T(w)=0$ holds automatically and the sign in
+Lemma~\ref{lem:dual67} is $(-1)^\epsilon$.
+
+\emph{Degree $6$.} The minimal polynomial $M=X^6+m_4X^4+\dots+m_0$ has no term in $X^5$. It cannot be proportional
+to $aX^6+1=(\sqrt aX^3+1)^2$, nor divide a quintic. Suppose $g_{A,B}=M\cdot(X^4+c_3X^3+\dots+c_0)$. Comparing
+coefficients as for $d=7$ gives $c_3=0$, $c_2=m_4$, $c_1=m_3$, $m_1=B$, $c_0=B^2/m_0$, and, with $m_0=h^2$,
+$m_3=B^3/h^4$, $m_2=h^3/B$, $m_4=B/h+B^4/h^6$. Then
+\[
+M=\Bigl(X^2+\frac{B^2}{h^3}X+\frac Bh\Bigr)\Bigl(X^4+\frac{B^2}{h^3}X^3+\frac{h^3}B\Bigr)
+\]
+is reducible. So $\ker_w=0$ for $w$ of degree $6$.
+
+\emph{The relations $aw^6=1$.} Then $u=w^2$ has $u^3\in K^\times$, as in Theorem~\ref{thm:d45}: the $q-1$ elements
+of $K^\times$ and, for $k$ even, the $2(q-1)$ cube roots of non-cubes, of degree $3$. The total is $-(q-1)$ for
+$k$ odd and $-3(q-1)$ for $k$ even.
+
+\emph{The relations $\nu^2w^5+aw+\nu=0$,} with sign $+$. For $w\in K^\times$ every $\nu\in K^\times$ occurs once:
+$(q-1)^2$ terms. For $w$ of degree $3$, $w$ is a root of an irreducible cubic factor of $X^5+A'X+B'$ with
+$A'=a/\nu^2$, $B'=1/\nu\ne0$. Comparing coefficients, the cubic factors of such quintics are exactly the
+$X^3+cX^2+c_1X+c^3$ with $c\ne0$ and $c_1\ne c^2$, each for a unique $(A',B')$. With $X=cZ$ and then $Z=Y+1$ this
+cubic becomes $c^3(Y^3+gY+g)$, $g=1+c_1/c^2$, which is irreducible for $I$ values of $g$. So there are $3(q-1)I$
+terms.
+
+\emph{The relations $g_{A,B}(w)=0$,} with sign $-$. For $w\in K^\times$: $(q-1)^2$ terms. For $w$ of degree $3$ the
+number of terms is $3n_3$, where $n_3$ is the number of pairs $((A,B),C)$ with $C$ an irreducible cubic factor of
+$g_{A,B}$. If $C=X^3+c_1X+c_0$ has no term in $X^2$, division with remainder shows that $C$ divides exactly one
+$g_{A,B}$ when $c_0c_1\ne0$, namely for $B=c_0^3/c_1^2$ and $A=c_0^4/c_1^4+c_0^2/c_1+c_1^2$, and none when
+$c_1=0$. There are $(q-1)I$ irreducible cubics $X^3+c_1X+c_0$ with $c_1\ne0$. The substitution $X\mapsto X/c$ maps
+the pairs with $X^2$-coefficient $1$ bijectively to those with $X^2$-coefficient $c\in K^\times$. Finally
+\[
+g_{B+1,B}=(X^4+X^3+B)\bigl((X^2+X)^3+B\bigr),\qquad (X^2+X)^3+B=\prod_{\beta^3=B}(X^2+X+\beta).
+\]
+Let $k$ be even and $B$ a non-cube. Then the three $\beta$ are conjugate in $\F_{q^3}\setminus K$ with
+$\Tr_{\F_{q^3}/\F_2}(\beta)=\Tr(\Tr_{\F_{q^3}/K}\beta)=0$, so each $X^2+X+\beta$ splits in $\F_{q^3}$, and the six
+roots form two Frobenius orbits $\{w^{q^i}\}$ and $\{w^{q^i}+1\}$. Their traces $\tau$, $\tau+1$ satisfy
+$\tau^2+\tau=\Tr_{\F_{q^3}/K}(\beta)=0$. So exactly one of the two cubics has $X^2$-coefficient $1$. This gives
+$2(q-1)/3=2I$ pairs with $X^2$-coefficient $1$, and by definition there are $e_q$ others. Altogether
+\[
+n_3=(q-1)I+(q-1)\bigl(2I\,[k\text{ even}]+e_q\bigr).
+\]
+
+\emph{Total.} The sum of all nontrivial kernel terms is
+\[
+S=-\kappa(q-1)+(q-1)^2+3(q-1)I-(q-1)^2-3n_3 ,\qquad \kappa=1\ (k\text{ odd}),\ 3\ (k\text{ even}),
+\]
+which is $-(q-1)-3(q-1)e_q$ for $k$ odd and $-(q-1)(2q+1)-3(q-1)e_q$ for $k$ even. By Lemma~\ref{lem:dual67},
+$N_6=q^6+q^4(q^5-1+S)$ and $\E_{H_6}[\Psi]-q^6=q^3-q+qS$.
+\end{proof}
+
+\emph{Numerical evidence for $e_q=0$.} The census of all irreducible cubics $X^3+X^2+c_1X+c_0$ dividing some
+$g_{A,B}$ gives $e_q=0$ for $q=2,4,\dots,64$: there are none for $k$ odd, and for $k$ even exactly the $2(q-1)/3$
+of the proof (\texttt{verify\_d67\_factors.py}, which also checks the polynomial identities used above
+symbolically). Independently, the formula of Lemma~\ref{lem:dual67} was evaluated term by term for $d=6$,
+$q\le16$ and $d=7$, $q\le8$ (\texttt{verify\_mean\_d67.py}); the kernel terms occur only in the degrees and with the
+multiplicities found above, and $N_d$ agrees with the Hayes FFT for $q\le8$. So
+\[
+\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1)\qquad\text{for }q\le64,
+\]
+that is $4$, $-48$, $448$, $-3840$, $31744$, $-258048$, and we expect $e_q=0$ for all $q$. In this range the drift depends on $k$ only through its parity. The drifts for
+$d\le7$ are thus $0$, $0$, $0$ or $-2q(q-1)$, $q(q-1)$, $\pm q^2(q-1)$ and $q(q^2-1)$.
 
 \section{Questions}
 \begin{enumerate}
@@ -1360,11 +1696,15 @@ and their point counts involve cubic exponential sums in five variables, for whi
 In characteristic $2$ the tower $\F_q\subset\F_{q^3}\subset\F_{q^6}$ linearises both conditions.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with $\min_x\pi(x)\ge c\,q^d/2d$ for all
 large $d$?
-\item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge6$, and explain the even/odd
-dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in Table~\ref{tab:var}.
-\item In characteristic $2$, do all characters of exact level $3$ of $G_3$ have $L$-functions with
-$\gamma^6\in q^3\{\pm1,\pm i\}$? This is observed for $q\le16$ (Figure~\ref{fig:rigid}, right). It is proved at
-level $2$ (Proposition~\ref{prop:rigid}), and at level $3$ for the characters of Proposition~\ref{prop:level3}.
+\item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge8$, and prove $e_q=0$ in
+Proposition~\ref{prop:d6}, which would give the drift $(-1)^{k+1}q^2(q-1)$ at $d=6$ for all $q$ (it holds for
+$q\le64$; $d=7$ is Theorem~\ref{thm:d7}). Explain the even/odd dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in
+Table~\ref{tab:var} beyond Proposition~\ref{prop:lambda_a}: which cosets carry the variance for even $d\ge6$?
+\item In characteristic $2$, all characters of exact level $2$ and $3$ of $G_3$ have $L$-functions with
+$\gamma^6\in q^3\{\pm1,\pm i\}$ (Proposition~\ref{prop:rigid}, Theorem~\ref{thm:level3}). Is there an analogous
+statement for the characters of exact level $4$ of $G_4$, whose $L$-functions have degree $3$? In
+Theorem~\ref{thm:level3} the sign of $f$ at the roots of the cubic, which decides between $r=0$ and $r=2$ or $4$,
+is not determined; find it.
 \end{enumerate}
 
 
@@ -1381,7 +1721,10 @@ All scripts are in \texttt{code/} and their outputs in \texttt{data/} of
 \item \texttt{char2\_d3\_p3zero.py}, \texttt{char2\_d3\_all.py}: Theorem~\ref{thm:p3zero}.
 \item \texttt{cubic\_gauss\_m.py}, \texttt{make\_d3\_table.py}: Theorem~\ref{thm:mc}, Table~\ref{tab:d3}.
 \item \texttt{char2\_d2\_rigidity.py}: Proposition~\ref{prop:rigid}; \texttt{verify\_level3\_cosets.py}:
-Proposition~\ref{prop:level3}.
+Proposition~\ref{prop:level3}; \texttt{verify\_level3\_theorem.py}: Theorem~\ref{thm:level3}.
+\item \texttt{verify\_level2\_cosets.py}: Proposition~\ref{prop:lambda_a}.
+\item \texttt{verify\_mean\_d67.py}, \texttt{verify\_d67\_factors.py}: Lemma~\ref{lem:dual67},
+Theorem~\ref{thm:d7}, Proposition~\ref{prop:d6}.
 \item \texttt{subgroup\_lib.py}, \texttt{verify\_subgroup\_mean.py}: Theorems~\ref{thm:group}, \ref{thm:AS},
 \ref{thm:d45}, Corollary~\ref{cor:d23}.
 \item \texttt{subgroup\_variance\_census.py}, \texttt{verify\_variance23.py}: Theorem~\ref{thm:var23},
