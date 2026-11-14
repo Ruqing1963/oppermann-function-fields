@@ -66,6 +66,53 @@ def symbolic():
         zero((X**4 + X**3 + B)*((X**2 + X)**3 + B) - (X**10 + (B + 1)*X**6 + B*X**5 + B**2), X, B))
 
 
+def resultant_proof():
+    """The identities of the proof of Theorem 7.11 (no irreducible cubic X^3+X^2+c1X+c0 divides g_{A,B} outside the
+    family c0 = c1^2, A = B+1, B = c1^4+c1^3), all in F_2[c1, c0] (and F_4[c1, c0] for (j))."""
+    X, c0, c1, om, u = sp.symbols("X c0 c1 om u")
+    P = lambda ex, *g: sp.Poly(sp.expand(ex), *g, modulus=2)
+    zero = lambda ex, *g: P(ex, *g).is_zero
+    C = X**3 + X**2 + c1*X + c0
+    red = lambda ex: sp.rem(P(ex, X, c1, c0), P(C, X, c1, c0)).as_expr()
+    say("=== Theorem 7.11: elimination for cubic factors X^3 + X^2 + c1 X + c0 of g_{A,B} (mod 2) ===")
+    w5, w6, w10 = red(X**5), red(X**6), red(X**10)
+    e5 = (c0 + 1)*X**2 + (c1**2 + c1 + c0)*X + (c1 + 1)*c0
+    e6 = (c1**2 + c1 + 1)*X**2 + (c1 + c0)*X + (c0**2 + c0)
+    e10 = (c1**4 + c1**2 + c1*c0**2 + c1 + 1)*X**2 + (c0 + 1)**2*(c1 + c0)*X + (c1**2*c0**2 + c0**3 + c0**2 + c0)
+    say("  (e) X^5, X^6, X^10 mod C as in the text: %s %s %s" % (zero(w5 - e5, X, c1, c0), zero(w6 - e6, X, c1, c0), zero(w10 - e10, X, c1, c0)))
+    a2, b2, r2 = c1**2 + c1 + 1, c0 + 1, c1**4 + c1**2 + c1*c0**2 + c1 + 1
+    a1, b1, r1 = c1 + c0, c1**2 + c1 + c0, (c0 + 1)**2*(c1 + c0)
+    a0, b0, r0 = c0**2 + c0, (c1 + 1)*c0, c1**2*c0**2 + c0**3 + c0**2 + c0
+    Delta = c1**4 + c1**2*c0 + c0**2
+    NB = (c1 + c0)*(c1**2 + c1*c0 + c0)**2
+    NA = (c1**6 + c1**5 + c1**4 + c0*c1**4 + c0*c1**2 + c0**2*(c1**3 + c1**2 + c1 + 1) + c0**3 + c0**4)
+    say("  (f) det = Delta: %s;  Cramer: Delta*B = N_B: %s, Delta*A = N_A: %s" % (
+        zero(a2*b1 - b2*a1 - Delta, c1, c0), zero(a2*r1 - a1*r2 - NB, c1, c0), zero(r2*b1 - r1*b2 - NA, c1, c0)))
+    # Delta = 0: N_B = 0, so c1 = c0 (then C(1) = 0) or c1^2 + c1 c0 + c0 = 0; then (c1+1)^2 Delta = c1^4 (c1^2+c1+1),
+    # so c1^2 + c1 + 1 = 0, c0 = 1 and C(c1) = c1^3 + 1 = 0
+    say("  (g) C(1) = c1 + c0: %s;  with c0 = c1^2/(c1+1): (c1+1)^2 Delta = c1^4 (c1^2+c1+1): %s;  C(c1) at c0 = 1 equals c1^3 + 1: %s" % (
+        zero(C.subs(X, 1) - (c1 + c0), c1, c0),
+        zero((c1 + 1)**2*c1**4 + c1**2*c1**2*(c1 + 1) + c1**4 - c1**4*(c1**2 + c1 + 1), c1),
+        zero(C.subs({X: c1, c0: 1}) - (c1**3 + 1), c1)))
+    E = NB**2 + b0*NB*Delta + a0*NA*Delta + r0*Delta**2
+    F = (c1**2 + c0)*(c1**4 + c1**2*c0 + c0**3)*((c1**2 + c0)**2 + c0**2*(c1**2 + c0) + c0**4)
+    say("  (h) E := Delta^2 (B^2 + (c1+1)c0 B + (c0^2+c0) A + c1^2c0^2+c0^3+c0^2+c0) at A = N_A/Delta, B = N_B/Delta equals "
+        "(c1^2+c0)(c1^4+c1^2c0+c0^3)((c1^2+c0)^2+c0^2(c1^2+c0)+c0^4): %s" % zero(E - F, c1, c0))
+    say("  (i) c1^3 C((c0+c1)/c1) = c1^4 + c1^2 c0 + c0^3: %s" % zero(sp.together(c1**3*C.subs(X, (c0 + c1)/c1)) - (c1**4 + c1**2*c0 + c0**3), c1, c0))
+    # (j) over F_4: om^2 + om + 1 = 0, u^2 = c0;  C(om^2 u)^2 = om c0 (c1^2 + om^2 c0^2 + c0)
+    lhs = sp.expand(C.subs(X, om**2*u)**2).subs(c0, u**2)
+    rhs = sp.expand(om*u**2*(c1**2 + om**2*u**4 + u**2))
+    dj = sp.rem(P(lhs - rhs, om, u, c1), P(om**2 + om + 1, om, u, c1))
+    pr = sp.rem(P((c1**2 + om**2*c0**2 + c0)*(c1**2 + om*c0**2 + c0) - ((c1**2 + c0)**2 + c0**2*(c1**2 + c0) + c0**4), om, c1, c0), P(om**2 + om + 1, om, c1, c0))
+    say("  (j) over F_4: third factor = prod_om (c1^2 + om^2 c0^2 + c0): %s;  C(om^2 sqrt(c0))^2 = om c0 (c1^2 + om^2 c0^2 + c0): %s" % (pr.is_zero, dj.is_zero))
+    # (k) the surviving branch c0 = c1^2
+    sub = {c0: c1**2}
+    Bk = c1**4 + c1**3
+    say("  (k) c0 = c1^2: Delta = c1^4: %s;  N_B = c1^4 (c1^4+c1^3): %s;  N_A = c1^4 (c1^4+c1^3+1): %s;  (X^2+X)^3 = c1^4+c1^3 mod C: %s" % (
+        zero(Delta.subs(sub) - c1**4, c1), zero(NB.subs(sub) - c1**4*Bk, c1), zero(NA.subs(sub) - c1**4*(Bk + 1), c1),
+        zero(sp.rem(P(((X**2 + X)**3 - Bk), X, c1), P(C.subs(sub), X, c1)).as_expr(), X, c1)))
+
+
 def tables(k):
     q = 1 << k
     mod = IRRED[k]
@@ -157,6 +204,7 @@ def census(k):
 if __name__ == "__main__":
     kmax = int(sys.argv[1]) if len(sys.argv) > 1 else 6
     symbolic()
+    resultant_proof()
     say("=== census of irreducible cubic factors with X^2-coefficient 1 ===")
     res = [census(k) for k in range(1, kmax + 1)]
     say("all as expected: %s" % all(res))

@@ -3,6 +3,14 @@
   (b) M6 = (X^2 + (p^2/h^3) X + p/h)(X^4 + (p^2/h^3) X^3 + h^3/p): True;  M6 * Q4 = g_{A,B}: True
   (c) (X^3 + c1 X + c0) divides g_{A,B}, B = c0^3/c1^2, A = c0^4/c1^4 + c0^2/c1 + c1^2: True
   (d) g_{B+1,B} = (X^4 + X^3 + B)((X^2 + X)^3 + B): True
+=== Theorem 7.11: elimination for cubic factors X^3 + X^2 + c1 X + c0 of g_{A,B} (mod 2) ===
+  (e) X^5, X^6, X^10 mod C as in the text: True True True
+  (f) det = Delta: True;  Cramer: Delta*B = N_B: True, Delta*A = N_A: True
+  (g) C(1) = c1 + c0: True;  with c0 = c1^2/(c1+1): (c1+1)^2 Delta = c1^4 (c1^2+c1+1): True;  C(c1) at c0 = 1 equals c1^3 + 1: True
+  (h) E := Delta^2 (B^2 + (c1+1)c0 B + (c0^2+c0) A + c1^2c0^2+c0^3+c0^2+c0) at A = N_A/Delta, B = N_B/Delta equals (c1^2+c0)(c1^4+c1^2c0+c0^3)((c1^2+c0)^2+c0^2(c1^2+c0)+c0^4): True
+  (i) c1^3 C((c0+c1)/c1) = c1^4 + c1^2 c0 + c0^3: True
+  (j) over F_4: third factor = prod_om (c1^2 + om^2 c0^2 + c0): True;  C(om^2 sqrt(c0))^2 = om c0 (c1^2 + om^2 c0^2 + c0): True
+  (k) c0 = c1^2: Delta = c1^4: True;  N_B = c1^4 (c1^4+c1^3): True;  N_A = c1^4 (c1^4+c1^3+1): True;  (X^2+X)^3 = c1^4+c1^3 mod C: True
 === census of irreducible cubic factors with X^2-coefficient 1 ===
 q =   2: I = 1 (expected 1);  pairs ((A,B), irreducible X^3+X^2+c1X+c0 | g_{A,B}): 0 (expected 0)
 q =   4: I = 1 (expected 1);  pairs ((A,B), irreducible X^3+X^2+c1X+c0 | g_{A,B}): 2 (expected 2);  divisions confirmed: True;  all with A = B+1, B a non-cube, one per B: True

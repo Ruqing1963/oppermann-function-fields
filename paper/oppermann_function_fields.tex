@@ -37,7 +37,7 @@ Galois obstructions, exact counts for small degree,\\ and the Oppermann subgroup
 \author{Ruqing Chen}
 \address{GUT Geoservice Inc., Montreal, Canada}
 \email{ruqing@hotmail.com}
-\thanks{Code and data: \url{https://github.com/Ruqing1963/oppermann-function-fields}\newline(archived at DOI 10.5281/zenodo.23353949).}
+\thanks{Code and data: \url{https://github.com/Ruqing1963/oppermann-function-fields}\newline(version 2, archived at DOI 10.5281/zenodo.24211741; version 1: DOI 10.5281/zenodo.23353949).}
 \date{\today}
 \subjclass[2020]{Primary 11T55; Secondary 11T06, 11T24, 11N05, 11Y16}
 \keywords{Oppermann's conjecture, function fields, irreducible polynomials, short intervals, Hayes characters,
@@ -71,7 +71,7 @@ $q=16$, $d\le5$.
 
 Finally, in characteristic $2$ the Oppermann classes form a subgroup $H_d$ of the Hayes group: the kernel of the odd
 power sums, with $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$. Its annihilator yields Artin--Schreier sums. The mean of
-$\Psi$ over $H_d$ drifts by $-2q^2+2q$ at $d=4$ with $k$ odd, by $q^2-q$ at $d=5$ and by $q^3-q$ at $d=7$. The
+$\Psi$ over $H_d$ drifts by $-2q^2+2q$ at $d=4$ with $k$ odd, by $q^2-q$ at $d=5$, by $(-1)^{k+1}q^2(q-1)$ at $d=6$ and by $q^3-q$ at $d=7$. The
 variance is a coherent sum over annihilator cosets, maximal at $d=2$, where $\Var_{H_2}(\Psi)/q^2=q-1$. All
 characters of exact level $3$ of the level-$3$ Hayes group have supersingular $L$-functions: their inverse zeros
 satisfy $\gamma^6\in q^3\{\pm1,\pm i\}$.
@@ -192,9 +192,9 @@ Let $q=2^k$, and let $H_d\subset G_d$ be the set of Oppermann classes of level $
 $G_d/H_d\cong\F_q^{\lfloor d/2\rfloor}$ (Theorem~\ref{thm:group}). The characters of $G_d/H_d$ have Artin--Schreier
 sums as explicit-formula coefficients (Theorem~\ref{thm:AS}).
 \item $\E_{H_d}[\Psi]-q^d=0$ for $d=2,3$, and for $d=4$ with $k$ even. It equals $-2q^2+2q$ for $d=4$ with $k$ odd,
-$q^2-q$ for $d=5$, and $q^3-q$ for $d=7$ (Corollary~\ref{cor:d23}, Theorems~\ref{thm:d45}, \ref{thm:d7}). For
-$d=6$ it equals $(-1)^{k+1}q^2(q-1)$ for $q\le64$ (Proposition~\ref{prop:d6}, which reduces the general case to a
-statement about cubic factors of $X^{10}+AX^6+BX^5+B^2$).
+$q^2-q$ for $d=5$, $(-1)^{k+1}q^2(q-1)$ for $d=6$, and $q^3-q$ for $d=7$ (Corollary~\ref{cor:d23},
+Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{thm:d7}). So the drift is known in closed form for every $q=2^k$ and
+every $d\le7$.
 \item $\Var_{H_2}(\Psi)/q^2=q-1$, whereas $\Var_{G_2}(\Psi)/q^2=1-1/q$. Further, $\Var_{H_3}(\Psi)/q^3=1-1/q$ for $k$
 odd and $3(1-1/q)$ for $k$ even (Theorem~\ref{thm:var23}). For odd $d$ the coset sums of the characters
 $(-1)^{\Tr(ae_2)}$ of $H_d$ vanish, and for $d=4$ they give $\Var_{H_4}(\Psi)/q^4\ge q-1$ when $k$ is even
@@ -1608,14 +1608,12 @@ and for $q/2$ values if $k$ is even; since the $q-2$ elements $V\ne0,1$ are the 
 has three roots for $(q-2)/6$, respectively $(q-4)/6$, values. Hence $I=(q+1)/3$ for $k$ odd and $I=(q-1)/3$ for
 $k$ even.
 
-\begin{proposition}[$d=6$]\label{prop:d6}
-Let $q=2^k$, and let $e_q\ge0$ be the number of pairs $((A,B),C)$ with $A\in K$, $B\in K^\times$ and
-$C=X^3+X^2+c_1X+c_0$ an irreducible cubic over $K$ dividing $g_{A,B}$, other than the pairs with $k$ even, $B$ a
-non-cube, $A=B+1$ and $C$ the factor of $(X^2+X)^3+B$ described in the proof. Then
+\begin{theorem}[$d=6$]\label{prop:d6}
+For every $q=2^k$,
 \[
-\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1)-3q(q-1)\,e_q .
+\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1) .
 \]
-\end{proposition}
+\end{theorem}
 
 \begin{proof}
 Here $1+dk$ is odd, and $w$ has degree $1$, $2$, $3$ or $6$ over $K$. Degree $2$ is excluded by
@@ -1655,30 +1653,69 @@ Let $k$ be even and $B$ a non-cube. Then the three $\beta$ are conjugate in $\F_
 $\Tr_{\F_{q^3}/\F_2}(\beta)=\Tr(\Tr_{\F_{q^3}/K}\beta)=0$, so each $X^2+X+\beta$ splits in $\F_{q^3}$, and the six
 roots form two Frobenius orbits $\{w^{q^i}\}$ and $\{w^{q^i}+1\}$. Their traces $\tau$, $\tau+1$ satisfy
 $\tau^2+\tau=\Tr_{\F_{q^3}/K}(\beta)=0$. So exactly one of the two cubics has $X^2$-coefficient $1$. This gives
-$2(q-1)/3=2I$ pairs with $X^2$-coefficient $1$, and by definition there are $e_q$ others. Altogether
+$2(q-1)/3=2I$ pairs with $X^2$-coefficient $1$. We claim that there are no others, so that
 \[
-n_3=(q-1)I+(q-1)\bigl(2I\,[k\text{ even}]+e_q\bigr).
+n_3=(q-1)I+2(q-1)I\,[k\text{ even}].
 \]
+
+\emph{The cubic factors with $X^2$-coefficient $1$.} Let $C=X^3+X^2+c_1X+c_0$ be irreducible over $K$ (so
+$c_0\ne0$) and suppose $C$ divides $g_{A,B}$ with $B\ne0$; let $w$ be a root of $C$. Reducing by
+$w^3=w^2+c_1w+c_0$,
+\begin{align*}
+w^5&=(c_0+1)w^2+(c_1^2+c_1+c_0)w+(c_1+1)c_0,\\
+w^6&=(c_1^2+c_1+1)w^2+(c_1+c_0)w+(c_0^2+c_0),\\
+w^{10}&=(c_1^4+c_1^2+c_1c_0^2+c_1+1)w^2+(c_0+1)^2(c_1+c_0)w+(c_1^2c_0^2+c_0^3+c_0^2+c_0).
+\end{align*}
+Since $1,w,w^2$ are linearly independent over $K$ and $B^2$ enters only the constant term, the coefficients of $w^2$
+and $w$ in $g_{A,B}(w)=0$ give the linear system
+\[
+\begin{pmatrix}c_1^2+c_1+1&c_0+1\\ c_1+c_0&c_1^2+c_1+c_0\end{pmatrix}\begin{pmatrix}A\\B\end{pmatrix}
+=\begin{pmatrix}c_1^4+c_1^2+c_1c_0^2+c_1+1\\ (c_0+1)^2(c_1+c_0)\end{pmatrix}
+\]
+with determinant $\Delta=c_1^4+c_1^2c_0+c_0^2$, and Cramer's rule gives $\Delta B=N_B$, $\Delta A=N_A$ with
+\begin{align*}
+N_B&=(c_1+c_0)(c_1^2+c_1c_0+c_0)^2,\\
+N_A&=c_1^6+c_1^5+c_1^4+c_0c_1^4+c_0c_1^2+c_0^2(c_1^3+c_1^2+c_1+1)+c_0^3+c_0^4 .
+\end{align*}
+First, $\Delta\ne0$. Otherwise $N_B=0$. If $c_1=c_0$ then $C(1)=c_1+c_0=0$. If $c_1^2+c_1c_0+c_0=0$ then
+$c_1\ne1$, $c_0=c_1^2/(c_1+1)$ and $(c_1+1)^2\Delta=c_1^4(c_1^2+c_1+1)$; as $c_1\ne0$ this forces $c_1^2+c_1+1=0$,
+hence $c_0=c_1^2/(c_1+1)=1$ and $C(c_1)=c_1^3+1=0$. Both contradict the irreducibility of $C$. So
+$(A,B)=(N_A/\Delta,N_B/\Delta)$ is determined by $(c_1,c_0)$. Substituting into the constant term
+$B^2+(c_1+1)c_0B+(c_0^2+c_0)A+c_1^2c_0^2+c_0^3+c_0^2+c_0=0$ and multiplying by $\Delta^2$ gives the identity in
+$\F_2[c_1,c_0]$
+\[
+(c_1^2+c_0)\,\bigl(c_1^4+c_1^2c_0+c_0^3\bigr)\,\bigl((c_1^2+c_0)^2+c_0^2(c_1^2+c_0)+c_0^4\bigr)=0 .
+\]
+The second factor cannot vanish: then $c_1\ne0$ and $c_1^3\,C\bigl((c_0+c_1)/c_1\bigr)=c_1^4+c_1^2c_0+c_0^3=0$, so
+$C$ has a root in $K$. Nor can the third: it is $\prod_\omega(c_1^2+\omega^2c_0^2+c_0)$ over the two primitive cube
+roots of unity $\omega$, so its vanishing requires $\omega\in K$ and $c_1^2+\omega^2c_0^2+c_0=0$ for one of them;
+with $u=\sqrt{c_0}\in K$,
+\[
+C(\omega^2u)^2=(\omega c_0)^3+(\omega c_0)^2+c_1^2\,\omega c_0+c_0^2=\omega c_0\bigl(c_1^2+\omega^2c_0^2+c_0\bigr)=0,
+\]
+and again $C$ has a root in $K$. Hence $c_0=c_1^2$. Then $\Delta=c_1^4$, $B=N_B/\Delta=c_1^4+c_1^3$,
+$A=N_A/\Delta=B+1$, and $(w^2+w)^3=B$, i.e.\ $C$ divides $(X^2+X)^3+B=\prod_{\beta^3=B}(X^2+X+\beta)$. If some
+$\beta$ lies in $K$, this product has no irreducible cubic factor over $K$: for $k$ even it is a product of three
+quadratics over $K$, and for $k$ odd of one quadratic over $K$ and a quartic whose roots lie in $\F_{q^2}$ or
+$\F_{q^4}$. So $B$ is a non-cube, $k$ is even, and $C$ is the cubic found above. This proves the claim.
 
 \emph{Total.} The sum of all nontrivial kernel terms is
 \[
 S=-\kappa(q-1)+(q-1)^2+3(q-1)I-(q-1)^2-3n_3 ,\qquad \kappa=1\ (k\text{ odd}),\ 3\ (k\text{ even}),
 \]
-which is $-(q-1)-3(q-1)e_q$ for $k$ odd and $-(q-1)(2q+1)-3(q-1)e_q$ for $k$ even. By Lemma~\ref{lem:dual67},
-$N_6=q^6+q^4(q^5-1+S)$ and $\E_{H_6}[\Psi]-q^6=q^3-q+qS$.
+which is $-(q-1)$ for $k$ odd and $-3(q-1)-6(q-1)I=-(q-1)(2q+1)$ for $k$ even. By Lemma~\ref{lem:dual67},
+$N_6=q^6+q^4(q^5-1+S)$ and $\E_{H_6}[\Psi]-q^6=q^3-q+qS=(-1)^{k+1}q^2(q-1)$.
 \end{proof}
 
-\emph{Numerical evidence for $e_q=0$.} The census of all irreducible cubics $X^3+X^2+c_1X+c_0$ dividing some
-$g_{A,B}$ gives $e_q=0$ for $q=2,4,\dots,64$: there are none for $k$ odd, and for $k$ even exactly the $2(q-1)/3$
-of the proof (\texttt{verify\_d67\_factors.py}, which also checks the polynomial identities used above
-symbolically). Independently, the formula of Lemma~\ref{lem:dual67} was evaluated term by term for $d=6$,
-$q\le16$ and $d=7$, $q\le8$ (\texttt{verify\_mean\_d67.py}); the kernel terms occur only in the degrees and with the
-multiplicities found above, and $N_d$ agrees with the Hayes FFT for $q\le8$. So
-\[
-\E_{H_6}[\Psi]-q^6=(-1)^{k+1}q^2(q-1)\qquad\text{for }q\le64,
-\]
-that is $4$, $-48$, $448$, $-3840$, $31744$, $-258048$, and we expect $e_q=0$ for all $q$. In this range the drift depends on $k$ only through its parity. The drifts for
-$d\le7$ are thus $0$, $0$, $0$ or $-2q(q-1)$, $q(q-1)$, $\pm q^2(q-1)$ and $q(q^2-1)$.
+\emph{Numerical checks.} The polynomial identities of the two proofs, including the expansions of $w^5$, $w^6$,
+$w^{10}$, the determinant, $N_A$, $N_B$ and the factorisation of the eliminant, are verified symbolically
+(\texttt{verify\_d67\_factors.py}). The same script lists all irreducible cubics $X^3+X^2+c_1X+c_0$ dividing some
+$g_{A,B}$ for $q=2,4,\dots,64$: there are none for $k$ odd, and for $k$ even exactly the $2(q-1)/3$ of the proof.
+Independently, the formula of Lemma~\ref{lem:dual67} was evaluated term by term for $d=6$, $q\le16$ and $d=7$,
+$q\le8$ (\texttt{verify\_mean\_d67.py}); the kernel terms occur only in the degrees and with the multiplicities found
+above, and $N_d$ agrees with the Hayes FFT for $q\le8$. For $q=2,\dots,64$ the drift at $d=6$ is $4$, $-48$, $448$,
+$-3840$, $31744$, $-258048$. It depends on $k$ only through its parity. The drifts for
+$d\le7$ are thus $0$, $0$, $0$ or $-2q(q-1)$, $q(q-1)$, $(-1)^{k+1}q^2(q-1)$ and $q(q^2-1)$.
 
 \section{Questions}
 \begin{enumerate}
@@ -1696,9 +1733,8 @@ and their point counts involve cubic exponential sums in five variables, for whi
 In characteristic $2$ the tower $\F_q\subset\F_{q^3}\subset\F_{q^6}$ linearises both conditions.
 \item Outside the characteristic-$2$ cases above, is there a constant $c>0$ with $\min_x\pi(x)\ge c\,q^d/2d$ for all
 large $d$?
-\item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge8$, and prove $e_q=0$ in
-Proposition~\ref{prop:d6}, which would give the drift $(-1)^{k+1}q^2(q-1)$ at $d=6$ for all $q$ (it holds for
-$q\le64$; $d=7$ is Theorem~\ref{thm:d7}). Explain the even/odd dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in
+\item In characteristic $2$, evaluate the mean drift $\E_{H_d}[\Psi]-q^d$ for $d\ge8$; for $d\le7$ it is known for
+every $q$ (Corollary~\ref{cor:d23}, Theorems~\ref{thm:d45}, \ref{prop:d6}, \ref{thm:d7}). Explain the even/odd dichotomy of $\Var_{H_d}(\Psi)/q^d$ observed in
 Table~\ref{tab:var} beyond Proposition~\ref{prop:lambda_a}: which cosets carry the variance for even $d\ge6$?
 \item In characteristic $2$, all characters of exact level $2$ and $3$ of $G_3$ have $L$-functions with
 $\gamma^6\in q^3\{\pm1,\pm i\}$ (Proposition~\ref{prop:rigid}, Theorem~\ref{thm:level3}). Is there an analogous
@@ -1724,7 +1760,7 @@ All scripts are in \texttt{code/} and their outputs in \texttt{data/} of
 Proposition~\ref{prop:level3}; \texttt{verify\_level3\_theorem.py}: Theorem~\ref{thm:level3}.
 \item \texttt{verify\_level2\_cosets.py}: Proposition~\ref{prop:lambda_a}.
 \item \texttt{verify\_mean\_d67.py}, \texttt{verify\_d67\_factors.py}: Lemma~\ref{lem:dual67},
-Theorem~\ref{thm:d7}, Proposition~\ref{prop:d6}.
+Theorems~\ref{thm:d7}, \ref{prop:d6}.
 \item \texttt{subgroup\_lib.py}, \texttt{verify\_subgroup\_mean.py}: Theorems~\ref{thm:group}, \ref{thm:AS},
 \ref{thm:d45}, Corollary~\ref{cor:d23}.
 \item \texttt{subgroup\_variance\_census.py}, \texttt{verify\_variance23.py}: Theorem~\ref{thm:var23},

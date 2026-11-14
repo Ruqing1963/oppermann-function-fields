@@ -2,7 +2,9 @@
 
 **Galois obstructions, exact counts for small degree, and the Oppermann subgroup in characteristic 2**
 
-Ruqing Chen. DOI: [10.5281/zenodo.23353949](https://doi.org/10.5281/zenodo.23353949)
+Ruqing Chen. Version 2 (November 2026), DOI: [10.5281/zenodo.24211741](https://doi.org/10.5281/zenodo.24211741) (version 1: 10.5281/zenodo.23353949).
+
+**New in version 2:** level-3 L-functions in characteristic 2 (Theorem 7.7), coset sums on H_d (Proposition 7.8), and the mean drift on H_d for d = 6 and d = 7 for every q = 2^k (Theorems 7.10, 7.11), so the drift is known in closed form for all d ≤ 7.
 
 Paper: `paper/oppermann_function_fields.tex` / `.pdf` (29 pages).
 
@@ -36,7 +38,7 @@ each of size q^d. For q = 2 these are the two halves, the analogue of (n², n²+
 
 **The Oppermann subgroup in characteristic 2 (§2.1, §7)**
 - **Structure:** H_d = ker(P ↦ S₁, S₃, …), so G_d/H_d ≅ F_q^{⌊d/2⌋}. The annihilator's explicit-formula coefficients are Artin–Schreier sums.
-- **Mean drift:** E_H[Ψ] − q^d is 0 for d = 2, 3 and for d = 4 with k even. It is −2q² + 2q for d = 4 with k odd, q² − q for d = 5, and q³ − q for d = 7 (all q). For d = 6 it is (−1)^(k+1) q²(q − 1) for q ≤ 64; the general case is reduced to a statement about irreducible cubic factors of X¹⁰ + AX⁶ + BX⁵ + B² (Prop 7.11).
+- **Mean drift:** E_H[Ψ] − q^d is 0 for d = 2, 3 and for d = 4 with k even. It is −2q² + 2q for d = 4 with k odd, q² − q for d = 5, (−1)^(k+1) q²(q − 1) for d = 6 and q³ − q for d = 7, for every q = 2^k (Thms 7.10, 7.11). The d = 6 case rests on an elimination showing that the only irreducible cubics X³ + X² + c₁X + c₀ dividing X¹⁰ + AX⁶ + BX⁵ + B² are those with c₀ = c₁², A = B + 1, B = c₁⁴ + c₁³ a non-cube (k even).
 - **Variance:** it is a coherent sum over annihilator cosets.
   - d = 2: Var_H/q² = q − 1, against Var_G/q² = 1 − 1/q.
   - d = 3: Var_H/q³ = 1 − 1/q (k odd) or 3(1 − 1/q) (k even).
@@ -60,7 +62,7 @@ each of size q^d. For q = 2 these are the two halves, the analogue of (n², n²+
 | `verify_level3_cosets.py` | `level3_cosets.txt` | Prop 7.6 (level-3 coset sums; γ⁶ = q³ on the non-cube cosets) |
 | `verify_level3_theorem.py` | `level3_theorem.txt` | Thm 7.7: every character of exact level 3 of G_3 (all q²(q−1) of them, q = 2, 4, 8, 16) |
 | `verify_level2_cosets.py` | `level2_cosets.txt` | Prop 7.8 (coset sums of the characters (−1)^Tr(a·e_2)) |
-| `verify_mean_d67.py`, `verify_d67_factors.py` | `verify_mean_d67.txt`, `verify_d67_factors.txt` | Lemma 7.9, Thm 7.10 (d = 7), Prop 7.11 (d = 6) |
+| `verify_mean_d67.py`, `verify_d67_factors.py` | `verify_mean_d67.txt`, `verify_d67_factors.txt` | Lemma 7.9, Thm 7.10 (d = 7), Thm 7.11 (d = 6; all polynomial identities of the elimination, and the census of cubic factors for q ≤ 64) |
 | `subgroup_lib.py`, `verify_subgroup_mean.py` | `verify_subgroup_mean.txt` | Thms 2.4, 2.5, 7.3 |
 | `subgroup_variance_census.py`, `verify_variance23.py` | `subgroup_variance.{txt,json}`, `verify_variance23.txt` | Thm 7.5 |
 | `make_figure.py`, `make_figure2.py`, `make_tables.py` | `figures/oppermann_min_ratio.pdf`, `figures/oppermann_char2_rigidity.pdf`, `paper/census_tables.tex` | Figs 1, 2 |
